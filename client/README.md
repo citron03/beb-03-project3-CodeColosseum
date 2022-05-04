@@ -8,3 +8,8 @@
 * styled-components ^5.3.5
 * react-query ^3.38.1
 * redux ^4.2.0
+* react-ace ^10.1.0
+
+### 🍓 작성 규칙
+* styled-components는  S-dot 네이밍 기법을 사용한다.
+* index.js를 사용하여 폴더를 export, 깔끔하게 import를 관리한다.
