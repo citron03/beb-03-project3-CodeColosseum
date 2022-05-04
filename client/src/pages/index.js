@@ -1,7 +1,8 @@
 import Home from "./page/Home";
 import Mypage from "./page/Mypage";
-import TestList from "./page/TestList";
+import MissionList from "./page/MissionList";
 import CodeEdit from "./page/CodeEdit";
+import RegisterMission from './page/RegisterMission';
 
-export { Home, Mypage, TestList, CodeEdit };
+export { Home, Mypage, MissionList, CodeEdit, RegisterMission };
 

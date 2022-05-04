@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { Home, Mypage, TestList, CodeEdit } from './pages';
+import { Home, Mypage, MissionList, CodeEdit, RegisterMission } from './pages';
 
 function App() {
   return (
@@ -10,8 +10,10 @@ function App() {
       <Routes>
             <Route exact path="/" element={<Home/>} />
             <Route path="/mypage" element={<Mypage/>} />
-            <Route path="/tests" element={<TestList/>} />
+            <Route path="/missions" element={<MissionList/>} />
             <Route path="/edit" element={<CodeEdit/>} />
+            <Route path="/edit" element={<CodeEdit/>} />
+            <Route path="/register" element={<RegisterMission/>} />
       </Routes>
       <Footer/>
     </BrowserRouter>

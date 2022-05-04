@@ -25,4 +25,16 @@ S.LinkDiv = styled.div`
     display: flex;
 `
 
+S.Button = styled.button`
+    
+`
+
+S.P = styled.p`
+    
+`
+
+S.AccountDiv = styled.div`
+    margin: 15px;
+`
+
 export default S;
