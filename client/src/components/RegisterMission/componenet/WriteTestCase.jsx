@@ -10,12 +10,17 @@ const WriteTestCase = ( {handleAddTestCase} ) => {
     const [input, setInput] = useState("");
     const [output, setOutut] = useState("");
 
-    // 테스트 케이스 최소 5개 50개
+    const submitTestCase = () => {
+        handleAddTestCase(parseArgument(input), parseArgument(output));
+        setInput("");
+        setOutut("");
+    }
+
     return (
         <S.WriteTestCase>
-            <S.TextArea placeholder="input" defaultValue={input} onChange={(e) => setInput(e.target.value)}/>
-            <S.TextArea placeholder="output" defaultValue={output} onChange={(e) => setOutut(e.target.value)}/>
-            <S.Button type="submit" onClick={() => handleAddTestCase(parseArgument(input), parseArgument(output))}>테스트 케이스 등록</S.Button> 
+            <S.TextArea placeholder="input" onChange={(e) => setInput(e.target.value)} value={input}/>
+            <S.TextArea placeholder="output" onChange={(e) => setOutut(e.target.value)} value={output}/>
+            <S.Button type="submit" onClick={submitTestCase}>테스트 케이스 등록</S.Button> 
         </S.WriteTestCase>
     );
 }

@@ -14,4 +14,8 @@ S.Section = styled.section`
     width: 100%;
 `
 
+S.Button = styled.button`
+    
+`
+
 export default S;

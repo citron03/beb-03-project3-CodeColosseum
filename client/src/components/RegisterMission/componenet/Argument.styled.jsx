@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.Arguments = styled.div`
+S.Argument = styled.div`
     
 `
 
-S.Button = styled.button`
+S.Select = styled.select`
     
 `
 
-S.P = styled.p`
+S.Option = styled.option`
     
 `
 
