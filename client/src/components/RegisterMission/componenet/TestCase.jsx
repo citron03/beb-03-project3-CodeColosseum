@@ -1,10 +1,11 @@
 import S from "./TestCase.styled";
 
 const TestCase = ({data}) => {
-    // console.log(data);
+    console.log(data[0]);
     return (
         <S.TestCase>
-            테스트 케이스
+            <S.Span>input : {JSON.stringify(data[0].input)}</S.Span>
+            <S.Span>output : {JSON.stringify(data[0].output)}</S.Span>
         </S.TestCase>
     );
 }

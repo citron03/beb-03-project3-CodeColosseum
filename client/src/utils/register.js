@@ -11,10 +11,10 @@ export const useRegister = () => {
         setRegisterData(Object.assign({...registerData}, {"code" : e}));
     }
 
-    const handleAddTestCase = (args, output) => {
+    const handleAddTestCase = (input, output) => {
         // 함수 인자과 아웃풋
         const AddedTestCase = [[...registerData.testcases, {
-            args, output
+            input, output
         }]];
         setRegisterData(Object.assign({...registerData}, { "testcases": AddedTestCase }));
     }

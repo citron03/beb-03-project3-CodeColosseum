@@ -27,7 +27,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "no-eval": ["error", {"allowIndirect": true}]
+    }
   },
   "browserslist": {
     "production": [

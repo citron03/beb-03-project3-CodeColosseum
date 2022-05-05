@@ -9,12 +9,12 @@ const RegisterMission = () => {
     console.log(registerData);
     return (
     <S.RegisterMission>
-        <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg}/>
+        <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount}/>
         <S.Section>
             <Explanation handleExplanation={handleExplanation}/>
             <FunctionArea handleCode={handleCode}/>
         </S.Section>
-        <TestCases testcases={registerData.testcases} argCount={argCount} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase}/>
+        <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase}/>
     </S.RegisterMission>
     );
 }
