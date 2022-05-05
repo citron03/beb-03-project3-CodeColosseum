@@ -18,4 +18,8 @@ S.Span = styled.span`
     font-size: 18px;
 `
 
+S.Button = styled.button`
+    padding: 15px;
+`
+
 export default S;

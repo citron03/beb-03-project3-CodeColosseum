@@ -6,7 +6,7 @@ import { useRegister } from '../../utils/register';
 const RegisterMission = () => {
     const [argCount, handleAddArg, handleRemoveArg] = useArguments();
     const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase] = useRegister();
-    console.log(registerData);
+    // console.log(registerData);
     return (
     <S.RegisterMission>
         <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount}/>

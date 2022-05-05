@@ -1,11 +1,12 @@
 import S from "./TestCase.styled";
 
-const TestCase = ({data}) => {
-    console.log(data[0]);
+const TestCase = ({data, handleRemoveTestCase, index}) => {
+
     return (
         <S.TestCase>
-            <S.Span>input : {JSON.stringify(data[0].input)}</S.Span>
-            <S.Span>output : {JSON.stringify(data[0].output)}</S.Span>
+            <S.Span>input : {JSON.stringify(data.input)}</S.Span>
+            <S.Span>output : {JSON.stringify(data.output)}</S.Span>
+            <S.Button onClick={() => handleRemoveTestCase(index)}>X</S.Button>
         </S.TestCase>
     );
 }

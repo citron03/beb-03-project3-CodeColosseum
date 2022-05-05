@@ -11,17 +11,17 @@ export const useRegister = () => {
         setRegisterData(Object.assign({...registerData}, {"code" : e}));
     }
 
-    const handleAddTestCase = (input, output) => {
+    const handleAddTestCase = (input = null, output = null) => {
         // 함수 인자과 아웃풋
-        const AddedTestCase = [[...registerData.testcases, {
+        const AddedTestCase = [...registerData.testcases, {
             input, output
-        }]];
+        }];
         setRegisterData(Object.assign({...registerData}, { "testcases": AddedTestCase }));
     }
 
     const handleRemoveTestCase = (idx) => {
-        const RemovedTestCase = [...registerData.testcases.splice(idx, 1)];
-        setRegisterData(Object.assign({...registerData}, { "testcases": RemovedTestCase }));
+        registerData.testcases.splice(idx, 1);
+        setRegisterData(Object.assign({...registerData}, { "testcases": registerData.testcases }));
     }
 
     return [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase];

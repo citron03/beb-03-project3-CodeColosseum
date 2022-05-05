@@ -7,7 +7,7 @@ const TestCases = ({testcases, handleAddTestCase, handleRemoveTestCase}) => {
     return (
         <S.TestCases>
             {testcases.length > 0 ? testcases.map((el, idx) => {
-                return <TestCase key={idx} data={el} handleRemoveTestCase={handleRemoveTestCase}/>
+                return <TestCase key={idx} data={el} handleRemoveTestCase={handleRemoveTestCase} index={idx}/>
             }) : null}
             <WriteTestCase handleAddTestCase={handleAddTestCase} />
         </S.TestCases>
