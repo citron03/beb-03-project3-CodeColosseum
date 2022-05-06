@@ -28,7 +28,7 @@ S.SpanDiv = styled.div`
 `
 
 S.Image = styled.img`
-    width: 150px;
+    width: 130px;
     height: auto;
     margin: 20px;
     cursor: pointer;

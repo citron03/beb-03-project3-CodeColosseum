@@ -1,5 +1,7 @@
 import S from "./WriteTestCase.styled";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../../../redux/action";
 
 const parseArgument = (input) => {
     try {
@@ -15,6 +17,7 @@ const parseArgument = (input) => {
 const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
+    const dispatch = useDispatch();
 
     const submitTestCase = () => {
         const arrInput = parseArgument(input);
@@ -23,11 +26,11 @@ const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
             return;
         }
         if(arrOutput.length === 0){
-            alert("output이 필요합니다!");
+            dispatch(showNotification("output이 필요합니다!"));
             return;
         }
         if(arrInput.length !== argTypes.length){
-            alert("필요한 인자의 개수가 일치하지 않습니다.");
+            dispatch(showNotification("필요한 인자의 개수가 일치하지 않습니다."));
             return;
         }
         let i = 0;
@@ -35,17 +38,17 @@ const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
             for(i = 0; i < argTypes.length; i++){
                 if(argTypes[i] === 'array'){
                     if(!Array.isArray(arrInput[i])){
-                        alert(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`);
+                        dispatch(showNotification(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`));
                         break;
                     }
                 } else if(argTypes[i] === 'object'){
                     if(Array.isArray(arrInput[i])){
-                        alert(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`);
+                        dispatch(showNotification(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`));
                         break;
                     }
                 } else {
                     if(argTypes[i] !== typeof arrInput[i]){
-                        alert(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`);
+                        dispatch(showNotification(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`));
                         break;
                     }
                 }

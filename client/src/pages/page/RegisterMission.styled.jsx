@@ -12,6 +12,7 @@ S.RegisterMission = styled.div`
 S.Section = styled.section`
     display: flex;
     width: 100%;
+    justify-content: center;
 `
 
 S.Button = styled.button`

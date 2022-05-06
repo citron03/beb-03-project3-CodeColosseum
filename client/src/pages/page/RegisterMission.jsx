@@ -3,28 +3,31 @@ import S from './RegisterMission.styled';
 import { useArguments } from '../../utils/arguments';
 import { useRegister } from '../../utils/register';
 import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { showNotification } from '../../redux/action';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
     const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister();
+    const dispatch = useDispatch();
 
     const submitMission = useCallback(() => {
         const completeData = {...registerData, argTypes};
         if(!completeData.title) {
-            alert("제목을 입력하세요!");
+            dispatch(showNotification("제목을 입력하세요!"));
             return;
         } else if(!completeData.explanation) {
-            alert("문제에는 설명이 필요합니다!")
+            dispatch(showNotification("문제에는 설명이 필요합니다!"));
             return;
         } else if(!completeData.code) {
-            alert("이 문제의 레퍼런스 코드를 입력해주세요!");
+            dispatch(showNotification("이 문제의 레퍼런스 코드를 입력해주세요!"));
             return;
         } else if(completeData.testcases.length < 5){
-            alert("최소 5개 이상의 테스트 케이스가 필요합니다!");
+            dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
             return;
         }
         console.log(completeData);
-    }, [registerData, argTypes]);
+    }, [registerData, argTypes, dispatch]);
 
     return (
     <S.RegisterMission>

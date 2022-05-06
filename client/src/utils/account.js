@@ -1,4 +1,4 @@
-import {useEffect, useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 
 const getAccount = async (setAccount) => {
     if (window.klaytn !== 'undefined') {
@@ -17,10 +17,6 @@ const getAccount = async (setAccount) => {
 export const useAccount = () => {
 
     const [account, setAccount] = useState("");
-
-    useEffect(() => {
-        getAccount(setAccount);
-    }, []);
 
     const handleLogout = useCallback(() => {
         setAccount("");

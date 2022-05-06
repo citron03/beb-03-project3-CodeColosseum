@@ -7,6 +7,8 @@
 * react-router-dom ^6.3.0
 * styled-components ^5.3.5
 * react-query ^3.38.1
+* axios ^0.27.2
+* react-redux ^8.0.1
 * redux ^4.2.0
 * caver-js ^1.8.1
 * react-ace ^10.1.0
