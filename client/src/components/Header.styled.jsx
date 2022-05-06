@@ -4,7 +4,7 @@ const S = {};
 
 S.Header = styled.div`
     border-bottom: 1px solid black;
-    background-color: #e0d8d8;
+    background-color: white;
     display: flex;
     justify-content: space-between;
 `
@@ -12,17 +12,32 @@ S.Header = styled.div`
 S.Image = styled.img`
     width: 150px;
     height: auto;
-    margin: 10px;
+    margin: 20px;
+    cursor: pointer;
+    &:hover {
+        transform: translate(-1px, -1px);
+    }
+    &:active {
+        transform: translate(0.5px, 0.5px);
+    }
 `
 
 S.Div = styled.div`
-    background-color: white;
-    width: 150px;
+    width: 250px;
     font-size: 30px;
+    text-align: center;
 `
 
 S.LinkDiv = styled.div`
     display: flex;
+    align-items: center;
+    a {
+        text-decoration: none;
+        color: black;
+        &:hover {
+            color: #f0b81c;
+        }
+    }
 `
 
 S.Button = styled.button`

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { defautCode } from "../assets/constants";
 
 export const useRegister = () => {
-    const [registerData, setRegisterData] = useState({"testcases": []}); 
+    const [registerData, setRegisterData] = useState({"testcases": [], "title" : "", "explanation": "", "code": defautCode}); 
 
     const handleExplanation = (e) => {
         setRegisterData(Object.assign({...registerData}, {"explanation" : e.target.value}));
@@ -24,5 +25,10 @@ export const useRegister = () => {
         setRegisterData(Object.assign({...registerData}, { "testcases": registerData.testcases }));
     }
 
-    return [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase];
+    const handleTitle = (e) => {
+        const ChangedTitle = {"title" : e.target.value};
+        setRegisterData(Object.assign({...registerData}, ChangedTitle));
+    }
+
+    return [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle];
 }

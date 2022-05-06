@@ -1,14 +1,16 @@
-import peanutImg from './../assets/peanuts-gf84b10809_640.png'
+import colosseumImg from './../assets/colosseum-gf6c24e2e2_1280.png'
 import S from './Header.styled';
 import { Link } from 'react-router-dom';
 import { useAccount } from '../utils/account';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [account, handleLogin, handleLogout] = useAccount();
+    const navigate = useNavigate();
 
     return (
     <S.Header>
-        <S.Image src={peanutImg} alt="Header image" />
+        <S.Image src={colosseumImg} alt="Header image" onClick={() => navigate('/')}/>
         <S.LinkDiv>
             <Link to='/'>
                 <S.Div>Home</S.Div>

@@ -14,3 +14,5 @@
 ### 🍓 작성 규칙
 * styled-components는  S-dot 네이밍 기법을 사용한다.
 * index.js를 사용하여 폴더를 export, 깔끔하게 import를 관리한다.
+
+#### 웹사이트에 사용된 이미지들의 출처는 https://pixabay.com/ko/ 입니다.

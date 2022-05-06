@@ -18,4 +18,9 @@ S.Button = styled.button`
     
 `
 
+S.Input = styled.input`
+    width: 60%;
+    margin: 15px;
+`
+
 export default S;
