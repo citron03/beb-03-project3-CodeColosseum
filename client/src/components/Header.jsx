@@ -10,7 +10,13 @@ const Header = () => {
 
     return (
     <S.Header>
-        <S.Image src={colosseumImg} alt="Header image" onClick={() => navigate('/')}/>
+        <S.Title>
+            <S.Image src={colosseumImg} alt="Header image" onClick={() => navigate('/')}/>
+            <S.SpanDiv onClick={() => navigate('/')}>
+                <S.Span>Code</S.Span>
+                <S.Span>Colosseum</S.Span>
+            </S.SpanDiv>
+        </S.Title>
         <S.LinkDiv>
             <Link to='/'>
                 <S.Div>Home</S.Div>

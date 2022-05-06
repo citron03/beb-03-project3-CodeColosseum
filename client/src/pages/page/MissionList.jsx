@@ -1,5 +1,12 @@
+import S from "./MissionList.styled";
+import { Missions } from "./../../components/MissionList";
+
 const MissionList = () => {
-    return (<p>문제 리스트</p>);
+    return (
+        <S.MissionList>
+            <Missions/>        
+        </S.MissionList>
+    );
 }
 
 export default MissionList;

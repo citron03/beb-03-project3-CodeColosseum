@@ -9,6 +9,24 @@ S.Header = styled.div`
     justify-content: space-between;
 `
 
+S.Title = styled.div`
+    display: flex;
+`
+
+S.Span = styled.span`
+    font-size: 25px;    
+`
+
+S.SpanDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &:hover {
+        color: #f0b81c;
+        cursor: pointer;
+    }
+`
+
 S.Image = styled.img`
     width: 150px;
     height: auto;

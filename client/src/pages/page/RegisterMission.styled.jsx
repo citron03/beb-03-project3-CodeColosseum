@@ -21,6 +21,7 @@ S.Button = styled.button`
 S.Input = styled.input`
     width: 60%;
     margin: 15px;
+    font-size: 30px;
 `
 
 export default S;

@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
-    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle] = useRegister();
+    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister();
 
     const submitMission = useCallback(() => {
         const completeData = {...registerData, argTypes};
@@ -29,12 +29,12 @@ const RegisterMission = () => {
     return (
     <S.RegisterMission>
         <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
-        <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes}/>
+        <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
         <S.Section>
             <Explanation handleExplanation={handleExplanation}/>
             <FunctionArea handleCode={handleCode}/>
         </S.Section>
-        <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes}/>
+        <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
         <S.Button onClick={submitMission}>문제 등록하기</S.Button>
     </S.RegisterMission>
     );

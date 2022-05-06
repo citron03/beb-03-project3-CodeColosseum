@@ -19,7 +19,6 @@ const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
     const submitTestCase = () => {
         const arrInput = parseArgument(input);
         const arrOutput = parseArgument(output);
-        console.log(arrOutput);
         if(!arrOutput || !arrInput){
             return;
         }

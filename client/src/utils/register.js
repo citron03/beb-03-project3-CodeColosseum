@@ -15,9 +15,14 @@ export const useRegister = () => {
     const handleAddTestCase = (input = null, output = null) => {
         // 함수 인자과 아웃풋
         const AddedTestCase = [...registerData.testcases, {
-            input, output
+            input, output, "hide": false,
         }];
         setRegisterData(Object.assign({...registerData}, { "testcases": AddedTestCase }));
+    }
+
+    const handleTestCaseHide = (e, index) => {
+        registerData.testcases[index].hide = e.target.checked;
+        setRegisterData({...registerData});
     }
 
     const handleRemoveTestCase = (idx) => {
@@ -30,5 +35,9 @@ export const useRegister = () => {
         setRegisterData(Object.assign({...registerData}, ChangedTitle));
     }
 
-    return [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle];
+    const handleEmptyTestcase = () => {
+        setRegisterData(Object.assign({...registerData}, { "testcases": [] }));
+    }
+
+    return [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase];
 }

@@ -22,4 +22,12 @@ S.Button = styled.button`
     padding: 15px;
 `
 
+S.Checkbox = styled.input`
+    
+`
+
+S.Label = styled.label`
+    
+`
+
 export default S;
