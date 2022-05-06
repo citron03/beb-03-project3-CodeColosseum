@@ -3,23 +3,12 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
-import { useEffect, useState } from "react";
 
 const ace = require('ace-builds/src-noconflict/ace');
 ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.4.3/src-noconflict/");
 ace.config.setModuleUrl('ace/mode/javascript_worker', "https://cdn.jsdelivr.net/npm/ace-builds@1.4.3/src-noconflict/worker-javascript.js");
 
-const Editor = () => {
-
-    const [code, setCode] = useState("");
-
-    const handleCode = (event) => {
-        setCode(event);
-    }
-
-    useEffect(() => {
-        console.log(code);
-    }, [code])
+const Editor = ({handleCode, defautCode = null}) => {
 
     return (
         <AceEditor
@@ -33,7 +22,8 @@ const Editor = () => {
             showPrintMargin
             showGutter
             highlightActiveLine
-            value={code}
+            style={{width: "100%"}}
+            defaultValue={defautCode}
         />
     );
 }

@@ -1,4 +1,5 @@
-import {Editor, TestText} from "./../../components/CodeEdit";
+import { TestText } from "./../../components/CodeEdit";
+import Editor from "../../components/Editor";
 import S from "./CodeEdit.styled";
 
 const CodeEdit = () => {
