@@ -8,7 +8,7 @@ const parseArgument = (input) => {
     }
     catch {
         alert("ERROR! \n문자열을 '로 감싸주세요.");
-        return [];
+        return '';
     }
 }
 
@@ -17,11 +17,16 @@ const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
     const [output, setOutput] = useState("");
 
     const submitTestCase = () => {
-        if(!output){
+        const arrInput = parseArgument(input);
+        const arrOutput = parseArgument(output);
+        console.log(arrOutput);
+        if(!arrOutput || !arrInput){
+            return;
+        }
+        if(arrOutput.length === 0){
             alert("output이 필요합니다!");
             return;
         }
-        const arrInput = parseArgument(input);
         if(arrInput.length !== argTypes.length){
             alert("필요한 인자의 개수가 일치하지 않습니다.");
             return;
@@ -48,7 +53,7 @@ const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
             }
         }
         if(i === argTypes.length){
-            handleAddTestCase(parseArgument(input), parseArgument(output));
+            handleAddTestCase(arrInput, arrOutput);
             setInput("");
             setOutput("");
         }
