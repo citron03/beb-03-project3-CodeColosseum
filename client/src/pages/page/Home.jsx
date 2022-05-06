@@ -1,5 +1,12 @@
+import S from "./Home.styled";
+import { Carousel } from "../../components/Home";
+
 const Home = () => {
-    return (<p>홈 페이지</p>);
+    return (
+        <S.Home>
+            <Carousel/>
+        </S.Home>
+    );
 }
 
 export default Home;
