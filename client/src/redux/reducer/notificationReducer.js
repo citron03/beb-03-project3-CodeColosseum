@@ -1,5 +1,4 @@
-import {combineReducers} from 'redux';
-import { SHOW_NOTIFICATION, REMOVE_NOTIFICATION } from './action';
+import { SHOW_NOTIFICATION, REMOVE_NOTIFICATION } from "../action";
 
 const initialNotification = {
     isVisible: false,
@@ -17,7 +16,4 @@ const notificationReducer = (state = initialNotification, action) => {
     }
 }
 
-
-const reducer = combineReducers({notificationReducer});
-
-export default reducer;
+export default notificationReducer;

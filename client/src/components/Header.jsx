@@ -1,12 +1,15 @@
 import colosseumImg from './../assets/colosseum-gf6c24e2e2_1280.png'
 import S from './Header.styled';
 import { Link } from 'react-router-dom';
-import { useAccount } from '../utils/account';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAccount } from '../redux/reducer/accountSlice';
+import { logout } from '../redux/reducer/accountSlice';
 
 const Header = () => {
-    const [account, handleLogin, handleLogout] = useAccount();
     const navigate = useNavigate();
+    const account = useSelector(state => state.account);
+    const dispatch = useDispatch();
 
     return (
     <S.Header>
@@ -32,8 +35,8 @@ const Header = () => {
             </Link>
         </S.LinkDiv>
         <S.AccountDiv>
-            {account ? <S.P>로그인한 계정 : {account}</S.P> : <S.P>로그인이 필요합니다.</S.P>}
-            {account ? <S.Button onClick={handleLogout}>로그아웃</S.Button> : <S.Button onClick={handleLogin}>로그인</S.Button>}
+            {account.account ? <S.P>로그인한 계정 : {account.nickname}</S.P> : <S.P>로그인이 필요합니다.</S.P>}
+            {account.account ? <S.Button onClick={() => dispatch(logout())}>로그아웃</S.Button> : <S.Button onClick={() => dispatch(fetchAccount())}>로그인</S.Button>}
         </S.AccountDiv>
     </S.Header>);
 }

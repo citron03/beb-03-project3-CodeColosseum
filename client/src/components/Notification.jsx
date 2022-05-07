@@ -5,7 +5,6 @@ import { removeNotification } from "../redux/action";
 const Notification = () => {
     const state = useSelector(state => state.notificationReducer);
     const dispatch = useDispatch();
-    console.log(state);
 
     return (
         <S.Notification isVisible={state.isVisible} onClick={() => dispatch(removeNotification())}>
