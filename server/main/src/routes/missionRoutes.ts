@@ -10,7 +10,7 @@ const { missionController } = controller;
 
 // 미션 리스트 조회
 // GET /mission/list/
-missionRouter.get("/list/", missionController.getMissionList.get);
+missionRouter.get("/list/", missionController.missionList.get);
 
 // 개별 미션 상세 조회
 // GET /mission/:mission_id
