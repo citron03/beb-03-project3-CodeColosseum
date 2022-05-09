@@ -1,3 +1,3 @@
-import getMissionList from './getMissionList';
+import missionList from './missionList';
 
-export = { getMissionList };
+export = { missionList };
