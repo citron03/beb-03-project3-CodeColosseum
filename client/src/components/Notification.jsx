@@ -9,7 +9,7 @@ const Notification = () => {
     return (
         <S.Notification isVisible={state.isVisible} onClick={() => dispatch(removeNotification())}>
             <S.Title>🍴 notification 🍴</S.Title>
-            <S.P>🍎 {state.text}</S.P>
+            <S.P>{state.text}</S.P>
         </S.Notification>
     );
 }

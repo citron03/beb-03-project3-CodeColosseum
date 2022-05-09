@@ -19,15 +19,15 @@ const MissionDetail = () => {
     const dummy = dummydata.filter(el => el.id === id)[0];
 
     const submitAnswer = async () => {
-        const url = `http://localhost:4000/mission/challenge`;
+        const url = `/mission/challenge`;
         const payload = {
             "account" : state.account,
             "missionId" : "mission1",
             "code" : code,
         }
-        return axios.post(url, payload)
-            .then(el => console.log(el))
-            .catch(err => console.log(err));
+        axios.post(url, payload)
+                .then(el => setGrading(el.data))
+                .catch(err => console.log(err));
     }
 
     const { mutate, isLoading, isError, error, isSuccess } = useMutation(submitAnswer);
@@ -50,7 +50,7 @@ const MissionDetail = () => {
                             <Editor handleCode={setCode} defautCode={defautCode}/>
                         </S.FunctionDiv>
                     </S.EditorDiv>
-                    <Scoring grading={grading}/>
+                    <Scoring grading={grading} id={id}/>
                 </> 
                 : <Login/>}
         </S.MissionDetail>

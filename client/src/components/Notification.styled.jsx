@@ -27,7 +27,7 @@ S.Notification = styled.div`
 `
 
 S.P = styled.p`
-    padding: 40px 15px 0 15px;
+    padding: 30px 15px 0 15px;
 `
 
 S.Title = styled.p`

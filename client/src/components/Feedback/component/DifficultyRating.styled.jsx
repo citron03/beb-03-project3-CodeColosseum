@@ -2,16 +2,14 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.Feedback = styled.div`
+S.DifficultyRating = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-`;
+`
 
-S.Div = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
+S.H3 = styled.h3`
+    
+`
 
 export default S;
