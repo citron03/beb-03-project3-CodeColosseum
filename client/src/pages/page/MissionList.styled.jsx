@@ -2,12 +2,8 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.Arguments = styled.div`
-    
-`
-
-S.P = styled.p`
-    
+S.MissionList = styled.div`
+    display: flex;
 `
 
 export default S;

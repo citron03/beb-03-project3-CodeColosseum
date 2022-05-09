@@ -9,8 +9,26 @@ S.Header = styled.div`
     justify-content: space-between;
 `
 
+S.Title = styled.div`
+    display: flex;
+`
+
+S.Span = styled.span`
+    font-size: 25px;    
+`
+
+S.SpanDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &:hover {
+        color: #f0b81c;
+        cursor: pointer;
+    }
+`
+
 S.Image = styled.img`
-    width: 150px;
+    width: 130px;
     height: auto;
     margin: 20px;
     cursor: pointer;
@@ -38,10 +56,6 @@ S.LinkDiv = styled.div`
             color: #f0b81c;
         }
     }
-`
-
-S.Button = styled.button`
-    
 `
 
 S.P = styled.p`

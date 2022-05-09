@@ -12,15 +12,13 @@ S.RegisterMission = styled.div`
 S.Section = styled.section`
     display: flex;
     width: 100%;
-`
-
-S.Button = styled.button`
-    
+    justify-content: center;
 `
 
 S.Input = styled.input`
     width: 60%;
     margin: 15px;
+    font-size: 30px;
 `
 
 export default S;

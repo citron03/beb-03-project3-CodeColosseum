@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.WriteTestCase = styled.div`
-    width: 100%;
+S.Missions = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
 `
 
-S.TextArea = styled.textarea`
+S.P = styled.p`
     
 `
 
