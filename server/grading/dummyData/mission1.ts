@@ -23,7 +23,6 @@ export const code1 = `function solution(stuff, limit) {
     return count;
   }
 
-  exports.solution = solution;
 `;
 
 export const testCase1 = [
