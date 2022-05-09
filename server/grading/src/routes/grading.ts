@@ -6,20 +6,17 @@ import express from "express";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const { mission } = req.body;
+  console.log("채점 요청 받음");
+  const { mission, code } = req.body;
 
   try {
-    let code;
     let testCase;
 
     if (mission === "mission1") {
-      code = code1;
       testCase = testCase1;
     } else if (mission === "mission2") {
-      code = code2;
       testCase = testCase2;
     } else {
-      code = code3;
       testCase = testCase3;
     }
 
