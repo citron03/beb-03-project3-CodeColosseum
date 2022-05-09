@@ -26,8 +26,8 @@ const MissionDetail = () => {
             "code" : code,
         }
         return axios.post(url, payload)
-            .then(el => console.log(el))
-            .catch(err => console.log(err));
+                        .then(el => setGrading(el.data))
+                        .catch(err => console.log(err));
     }
 
     const { mutate, isLoading, isError, error, isSuccess } = useMutation(submitAnswer);
