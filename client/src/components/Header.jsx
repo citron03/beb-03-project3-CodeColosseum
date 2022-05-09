@@ -22,9 +22,6 @@ const Header = () => {
             </S.SpanDiv>
         </S.Title>
         <S.LinkDiv>
-            <Link to='/'>
-                <S.Div>Home</S.Div>
-            </Link>
             <Link to='/missions'>
                 <S.Div>Missions</S.Div>
             </Link>
