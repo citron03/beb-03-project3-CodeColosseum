@@ -44,7 +44,7 @@ const getSolution = async (
   const fs = await import("fs");
   const timeStamp = +new Date();
   const fileName = `${timeStamp}.js`;
-  fs.writeFileSync(fileName, code);
+  fs.writeFileSync(fileName, `${code} exports.solution = solution;`);
   const getJsFile = await require(`../../${fileName}`);
 
   let falseCount = 0;
