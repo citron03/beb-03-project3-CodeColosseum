@@ -3,20 +3,10 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
 import Notification from "./components/Notification";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchAccount } from "./redux/reducer/accountSlice";
+import { useLogin } from "./utils/login";
 
 function App() {
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const isLogin = JSON.parse(localStorage.getItem("isLogin"));
-    if(isLogin){
-      dispatch(fetchAccount());
-    }
-  }, [dispatch]);
-
+  useLogin();
   return (
     <BrowserRouter>
         <Header/>
