@@ -29,7 +29,12 @@
       "react-app/jest"
     ],
     "rules": {
-      "no-eval": ["error", {"allowIndirect": true}]
+      "no-eval": [
+        "error",
+        {
+          "allowIndirect": true
+        }
+      ]
     }
   },
   "browserslist": {
