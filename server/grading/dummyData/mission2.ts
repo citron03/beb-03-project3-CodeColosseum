@@ -19,7 +19,6 @@ export const code2 = `function solution(board, operation) {
     }
     return score;
   }
-  exports.solution = solution;
   `;
 
 export const testCase2 = [

@@ -30,7 +30,6 @@ export const code3 = `function solution(cards) {
     return true;
   }
 
-  exports.solution = solution;
   `;
 
 export const testCase3 = [

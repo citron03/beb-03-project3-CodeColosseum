@@ -4,13 +4,15 @@ import C from '../../components/CommonStyled';
 import { useArguments } from '../../utils/arguments';
 import { useRegister } from '../../utils/register';
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from '../../redux/action';
+import Login from "./../../components/Login";
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
     const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister();
     const dispatch = useDispatch();
+    const state = useSelector(state => state.account);
 
     const submitMission = useCallback(() => {
         const completeData = {...registerData, argTypes};
@@ -32,14 +34,19 @@ const RegisterMission = () => {
 
     return (
     <S.RegisterMission>
-        <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
-        <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
-        <S.Section>
-            <Explanation handleExplanation={handleExplanation}/>
-            <FunctionArea handleCode={handleCode}/>
-        </S.Section>
-        <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
-        <C.Button onClick={submitMission}>문제 등록하기</C.Button>
+        {state.account ?
+            <>
+                <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
+                <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
+                <S.Section>
+                    <Explanation handleExplanation={handleExplanation}/>
+                    <FunctionArea handleCode={handleCode}/>
+                </S.Section>
+                <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
+                <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
+            </> 
+            : <Login/>
+        }
     </S.RegisterMission>
     );
 }
