@@ -1,5 +1,6 @@
 import { Arguments, FunctionArea, TestCases, Explanation } from './../../components/RegisterMission';
 import S from './RegisterMission.styled';
+import C from '../../components/CommonStyled';
 import { useArguments } from '../../utils/arguments';
 import { useRegister } from '../../utils/register';
 import { useCallback } from 'react';
@@ -38,7 +39,7 @@ const RegisterMission = () => {
             <FunctionArea handleCode={handleCode}/>
         </S.Section>
         <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
-        <S.Button onClick={submitMission}>문제 등록하기</S.Button>
+        <C.Button onClick={submitMission}>문제 등록하기</C.Button>
     </S.RegisterMission>
     );
 }

@@ -15,10 +15,6 @@ S.Section = styled.section`
     justify-content: center;
 `
 
-S.Button = styled.button`
-    
-`
-
 S.Input = styled.input`
     width: 60%;
     margin: 15px;

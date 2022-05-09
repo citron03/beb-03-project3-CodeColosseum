@@ -58,10 +58,6 @@ S.LinkDiv = styled.div`
     }
 `
 
-S.Button = styled.button`
-    
-`
-
 S.P = styled.p`
     
 `

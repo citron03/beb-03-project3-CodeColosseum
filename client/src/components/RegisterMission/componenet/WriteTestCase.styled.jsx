@@ -12,8 +12,4 @@ S.TextArea = styled.textarea`
     
 `
 
-S.Button = styled.button`
-    
-`
-
 export default S;

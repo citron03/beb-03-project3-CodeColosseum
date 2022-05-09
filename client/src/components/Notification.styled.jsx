@@ -4,7 +4,7 @@ const S = {};
 
 S.Notification = styled.div`
     display: ${({isVisible}) => isVisible ? "block" : "none"};
-    background-color: cornsilk;
+    background-color: #fdfcf4;
     position: fixed;
     top: 50%;
     left: 50%;

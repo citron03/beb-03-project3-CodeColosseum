@@ -23,13 +23,13 @@ S.SupportDiv = styled.div`
     align-items: center;
 `
 
-S.Button = styled.button`
-    border-radius: 150px;
-    background-color: white;
-    padding: 20px;
-    width: 120px;
-    font-size: 20px;
-`
+// S.Button = styled.button`
+//     border-radius: 150px;
+//     background-color: white;
+//     padding: 20px;
+//     width: 120px;
+//     font-size: 20px;
+// `
 
 S.P = styled.p`
 

@@ -25,6 +25,7 @@ const accountSlice = createSlice({
   reducers: {
     logout: (state, action) => {
         state.account = "";
+        state.nickname = "";
     },
     changeNickName: (state, action) => {
         state.nickname = action.payload;
