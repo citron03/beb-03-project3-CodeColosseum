@@ -25,9 +25,9 @@ const MissionDetail = () => {
             "missionId" : "mission1",
             "code" : code,
         }
-        return axios.post(url, payload)
-                        .then(el => setGrading(el.data))
-                        .catch(err => console.log(err));
+        axios.post(url, payload)
+                .then(el => setGrading(el.data))
+                .catch(err => console.log(err));
     }
 
     const { mutate, isLoading, isError, error, isSuccess } = useMutation(submitAnswer);
@@ -50,7 +50,7 @@ const MissionDetail = () => {
                             <Editor handleCode={setCode} defautCode={defautCode}/>
                         </S.FunctionDiv>
                     </S.EditorDiv>
-                    <Scoring grading={grading}/>
+                    <Scoring grading={grading} id={id}/>
                 </> 
                 : <Login/>}
         </S.MissionDetail>
