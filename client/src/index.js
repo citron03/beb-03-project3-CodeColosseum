@@ -6,8 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import reducer from './redux/reducer/reducer';
 import { Provider } from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const store = configureStore({reducer})
+axios.defaults.baseURL = "http://localhost:4000";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

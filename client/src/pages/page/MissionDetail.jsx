@@ -19,7 +19,7 @@ const MissionDetail = () => {
     const dummy = dummydata.filter(el => el.id === id)[0];
 
     const submitAnswer = async () => {
-        const url = `http://localhost:4000/mission/challenge`;
+        const url = `/mission/challenge`;
         const payload = {
             "account" : state.account,
             "missionId" : "mission1",
