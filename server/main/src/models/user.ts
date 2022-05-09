@@ -2,8 +2,9 @@ import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    nickName: { type: String, required: true }, // 유니크 속성 안줄것임. 저장할때 중복여부 확인할것임.
     account: { type: String, required: true, unique: true }, // 거의 id 처럼 쓰이는 필드
+    nickName: { type: String }, // 유니크 속성 안줄것임. 저장할때 중복여부 확인할것임.
+    image: { type: String },
     // rating: { type: Number }, // 상대적으로 문제를 얼마나 잘 푸는가
     // tagRating: { type: Array }, // 상대적인 태그별로 문제를 얼마나 잘 푸는가 [...{tag_id, rating}]
     // levelVoteRatio: { type: Number }, // 상대적인 문제 난이도 투표 성향
