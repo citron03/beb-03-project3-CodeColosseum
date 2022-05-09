@@ -9,7 +9,8 @@ S.WriteTestCase = styled.div`
 `
 
 S.TextArea = styled.textarea`
-    
+    margin: 20px;
+    font-size: 1.1rem;
 `
 
 export default S;

@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail } from './pages';
+import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
 import Notification from "./components/Notification";
+import { useLogin } from "./utils/login";
 
 function App() {
+  useLogin();
   return (
     <BrowserRouter>
         <Header/>
@@ -13,6 +15,7 @@ function App() {
               <Route path="/mypage" element={<Mypage/>} />
               <Route path="/missions" element={<MissionList/>} />
               <Route path="/mission/:id" element={<MissionDetail/>} />
+              <Route path="/feedback/:id" element={<Feedback/>} />
               <Route path="/edit" element={<CodeEdit/>} />
               <Route path="/register" element={<RegisterMission/>} />
         </Routes>
