@@ -56,7 +56,7 @@ const WriteTestCase = ( {handleAddTestCase, argTypes} ) => {
             }
         }
         if(i === argTypes.length){
-            handleAddTestCase(arrInput, arrOutput);
+            handleAddTestCase(arrInput, arrOutput[0]);
             setInput("");
             setOutput("");
         }
