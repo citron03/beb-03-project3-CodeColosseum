@@ -19,14 +19,22 @@ S.Notification = styled.div`
     &:hover {
         background-color: #eee8ce;
     }
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 `
 
 S.P = styled.p`
     padding: 30px 15px 0 15px;
 `
 
-S.Button = styled.button`
-    
+S.Title = styled.p`
+    background-color: black;
+    margin-top: 0;
+    color: white;
+    width: 100%;
 `
 
 export default S;

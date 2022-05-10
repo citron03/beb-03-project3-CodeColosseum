@@ -6,6 +6,7 @@ export const fetchAccount = createAsyncThunk("account/getAddress", async () => {
             const accounts = await window
                 .klaytn
                 .enable()
+            localStorage.setItem("isLogin", JSON.stringify(true));
             return accounts[0];
         }
     } else {
@@ -23,9 +24,10 @@ const accountSlice = createSlice({
       error: ""
   },
   reducers: {
-    logout: (state, action) => {
+    logout: (state) => {
         state.account = "";
         state.nickname = "";
+        localStorage.setItem("isLogin", JSON.stringify(false));
     },
     changeNickName: (state, action) => {
         state.nickname = action.payload;

@@ -9,6 +9,10 @@ S.Scoring = styled.div`
     text-align: center;
 `
 
+S.H2 = styled.h2`
+    
+`
+
 S.P = styled.p`
     
 `

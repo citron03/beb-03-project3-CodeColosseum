@@ -1,3 +1,5 @@
-import missionList from './missionList';
+import missionList from "./missionList";
+import challenge from "./challenge";
+import mission from "./mission";
 
-export = { missionList };
+export = { missionList, challenge, mission };
