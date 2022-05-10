@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const ChallengeSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true }, // 제출자
+    challenger: { type: Schema.Types.ObjectId, ref: "User", required: true }, // 제출자
     mission: { type: Schema.Types.ObjectId, ref: "Mission", required: true }, // 문제
     answerCode: { type: String, required: true }, // 코드
     passedCases: { type: [Boolean], required: true }, // [true, false, true, ...] 테스트케이스 정답여부

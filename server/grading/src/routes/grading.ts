@@ -9,11 +9,8 @@ router.post("/", async (req, res) => {
   try {
     const result = await getSolution(missionId, code, testCases);
 
-    if (result.falseCount === 0) {
-      res.status(200).send({ message: "complete" });
-    } else {
-      res.status(200).send({ message: "fail", failCount: result.falseCount, passedCases: result.passedCases });
-    }
+    res.status(200).send({ message: "OK", data : {failCount: result.falseCount, passedCases: result.passedCases} });
+    
   } catch (err) {
     console.log(err);
     res.status(400).send("error");
@@ -23,20 +20,20 @@ router.post("/", async (req, res) => {
 const getSolution = async (
   mission: string,
   code: string,
-  testCases: { input: any; output: any }[]
+  testCases: { inputs: any; output: any }[]
 ) => {
   const fs = await import("fs");
   const timeStamp = +new Date();
   const fileName = `${timeStamp}.js`;
   fs.writeFileSync(fileName, `${code} exports.solution = solution;`);
-  const getJsFile = await require(`../../${fileName}`);
+  const getJsFile = await require(`../../../${fileName}`);
 
   let passedCases : Boolean[] = []
   let falseCount = 0;
-  for (let testCase of testCases) {
+  for (let i = 0; i < testCases.length; i++) {
     if (
-      JSON.stringify(getJsFile.solution(...testCase.input)) !==
-      JSON.stringify(testCase.output)
+      JSON.stringify(getJsFile.solution(...testCases[i].inputs)) !==
+      JSON.stringify(testCases[i].output)
     ) {
       falseCount += 1;
       passedCases.push(false);
