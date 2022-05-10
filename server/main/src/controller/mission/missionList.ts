@@ -8,6 +8,7 @@ const get = async (req: any, res: any) => {
       allMission.map(async (mission) => {
         const user = await User.findOne({ id: mission.creator });
         return {
+          missionId: mission.id,
           title: mission.title,
           creator: user.nickName,
         };
