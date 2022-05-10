@@ -1,22 +1,22 @@
 import S from "./Missions.styled";
 import Mission from "./Mission";
-import { dummydata } from "../../../assets/dummydata";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Missions = () => {
 
+    const [missionsArr, setMissionsArr] = useState([]);
+
     useEffect(() => {
-        console.log("@@");
         axios.get("/mission/list")
-            .then(el => console.log(el.data))
+            .then(el => setMissionsArr(el.data.missionList))
             .catch(err => console.log(err));
     }, []);
 
     return (
         <S.Missions>
-            {dummydata.length > 0 ? 
-                dummydata.map((el) => <Mission key={el.id} data={el}/>) 
+            {missionsArr.length > 0 ? 
+                missionsArr.map((el) => <Mission key={el.missionId} data={el}/>) 
                 : <S.P>문제가 없습니다.</S.P>}
         </S.Missions>
     );

@@ -19,7 +19,7 @@ const Editor = ({handleCode, defautCode = null, setSyntaxError}) => {
             setTimeout(() => {
                 const editor = ace.edit(document.getElementById('edit_code'));
                 const errArr = editor.getSession().getAnnotations();
-                setSyntaxError([...errArr]);
+                setSyntaxError(errArr);
             }, 1000);
         })
 
