@@ -5,10 +5,12 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node build/index.js",
     "bs": "npm run build && npm run start",
+    "debug": "nodemon --inspect-brk build/index.js",
     "seedAll": "node build/seed/user.js && node build/seed/mission.js",
-    "seedUser": "node build/seed/user.js"
+    "seedUser": "node build/seed/user.js",
+    "seedMission": "node build/seed/mission.js"
   },
   "author": "",
   "license": "ISC",
