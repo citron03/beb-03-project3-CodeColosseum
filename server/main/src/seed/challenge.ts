@@ -26,18 +26,19 @@ async function seedDB() {
                 .then(async () => {
                     console.log("challenges dropped!!");
                     
-                    // seed 개발 과정에서 콜렉션이 비어있으면 발생하는 오류를 제거하기위한 초기화 더미 도큐먼트 하나 생성
-                    const challenger = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
-                    const mission = await utils.func.getRandomId(missionsCollection); // 랜덤한 미션 _id 가져오기
+                    // // seed 개발 과정에서 콜렉션이 비어있으면 발생하는 오류를 제거하기위한 초기화 더미 도큐먼트 하나 생성
+                    // const challenger = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
+                    // const mission = await utils.func.getRandomId(missionsCollection); // 랜덤한 미션 _id 가져오기
                     
-                    await challengesCollection.insertOne({
-                    challenger,
-                    mission,
-                    answerCode: `초기화 성공`,
-                    passedCases: []
-                    })
+                    // await challengesCollection.insertOne({
+                    // challenger,
+                    // mission,
+                    // answerCode: `초기화 성공`,
+                    // isPassed: true,
+                    // passedCases: []
+                    // })
                 })
-                .then(() => console.log("Seeded init dummy!!"))
+                // .then(() => console.log("Seeded init dummy!!"))
 
         // 더미 리스트 만들기
             let challengesData = [];
@@ -55,6 +56,8 @@ async function seedDB() {
                 );
 
                 // grading 서버에서 채점해오기
+                let isPassed
+                let PassedCasesRate
                 let passedCases
                 if (mission) {
                     const testCases = mission.testCases;
@@ -62,10 +65,15 @@ async function seedDB() {
                         code: duummyChallenges[i].answerCode,
                         testCases
                     }
-                    const { data } = await axios.post("http://localhost:3003/grading", body);
+                    const { data } = await axios.post("http://localhost:3003/grading", body); // grading 서버에서 채점결과 가져옴
+                    // 채점 결과를 바탕으로 isPassed, passedCasesRate, passedCases 정의
+                    isPassed = data.data.failCount === 0? true : false;
+                    PassedCasesRate = `${testCases.length-data.data.failCount} / ${testCases.length}`;
                     passedCases = data.data.passedCases;
                 } else {
                     passedCases = undefined;
+                    PassedCasesRate = undefined;
+                    isPassed = undefined;
                 }
 
                 // 채점 결과로 challenge 만들기
@@ -73,7 +81,9 @@ async function seedDB() {
                     challenger,
                     mission: mission? mission._id : undefined,
                     answerCode: duummyChallenges[i].answerCode,
-                    passedCases: passedCases,
+                    isPassed,
+                    PassedCasesRate,
+                    passedCases,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }

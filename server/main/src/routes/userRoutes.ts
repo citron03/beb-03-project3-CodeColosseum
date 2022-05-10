@@ -8,16 +8,17 @@ const { userController } = controller;
 // GET /user/:account
 userRouter.get("/:account", userController.user.get);
 
+// 유저 정보 수정 (하나의 정보만 수정하는 요청)
+// PATCH /user/:account
+userRouter.patch("/:account", userController.user.patch);
+
 // 유저 생성
 // POST /user/
 userRouter.post("/", userController.user.post);
 
 // 마이페이지 정보 조회
-// GET /user/mypage/:account
-// userRouter.get("/mypage/:account", userController.mypage.get);
+// GET /user/mypage/:user_id
+userRouter.get("/mypage/:user_id", userController.mypage.get);
 
-// 유저 정보 수정
-// PATCH /user/
-// userRouter.patch("/", userController.user.patch);
 
 export = userRouter;
