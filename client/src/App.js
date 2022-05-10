@@ -17,7 +17,7 @@ function App() {
           <Header/>
           <Routes>
                 <Route exact path="/" element={<Home/>} />
-                <Route path="/mypage" element={<Mypage/>} />
+                <Route path="/mypage/*" element={<Mypage/>} />
                 <Route path="/missions" element={<MissionList/>} />
                 <Route path="/mission/:id" element={<MissionDetail/>} />
                 <Route path="/feedback/:id" element={<Feedback/>} />

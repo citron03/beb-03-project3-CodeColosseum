@@ -36,8 +36,6 @@ const MissionDetail = () => {
 
     const { mutate } = useMutation(submitAnswer);
 
-    // console.log(`isLoading: ${isLoading}, isError: ${isError}, error: ${error}, isSuccess: ${isSuccess}`);
-
     const handleSubmit = () => {
         dispatch(onLoading("채점중입니다"));
         setTimeout(() => {

@@ -65,6 +65,7 @@ S.P = styled.p`
 S.AccountDiv = styled.div`
     margin: 30px;
     text-align: center;
+    display: flex;
 `
 
 export default S;

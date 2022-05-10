@@ -16,9 +16,23 @@ S.Section = styled.section`
 `
 
 S.Input = styled.input`
-    width: 60%;
+    width: 40%;
     margin: 15px;
     font-size: 30px;
+`
+
+S.Label = styled.label`
+    font-size: 2.3rem;
+    padding: 10px;
+`
+
+S.Title = styled.div`
+    width: 100%;
+`
+
+S.Div = styled.div`
+    width: 100%;
+    display: block;
 `
 
 export default S;

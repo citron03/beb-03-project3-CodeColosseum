@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
-    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister();
+    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ const RegisterMission = () => {
             dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
             return;
         }
-        dispatch(onLoading("채점중입니다"));
+        dispatch(onLoading("문제 등록 중..."));
         setTimeout(() => {
             if(syntaxError.length === 0){
                 mutate(completeData);
@@ -72,8 +72,11 @@ const RegisterMission = () => {
     return (
     <S.RegisterMission>
         {state.account ?
-            <>
-                <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
+            <S.Div>
+                <S.Title>
+                    <S.Label>Title</S.Label>
+                    <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
+                </S.Title>
                 <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
                 <S.Section>
                     <Explanation handleExplanation={handleExplanation}/>
@@ -81,7 +84,7 @@ const RegisterMission = () => {
                 </S.Section>
                 <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
                 <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
-            </> 
+            </S.Div> 
             : <Login/>
         }
     </S.RegisterMission>
