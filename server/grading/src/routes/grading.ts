@@ -4,10 +4,10 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   console.log("채점 요청 받음");
-  const { missionId, code, testCases } = req.body;
+  const { code, testCases } = req.body;
 
   try {
-    const result = await getSolution(missionId, code, testCases);
+    const result = await getSolution(code, testCases);
 
     res.status(200).send({ message: "OK", data : {failCount: result.falseCount, passedCases: result.passedCases} });
     
@@ -18,7 +18,6 @@ router.post("/", async (req, res) => {
 });
 
 const getSolution = async (
-  mission: string,
   code: string,
   testCases: { inputs: any; output: any }[]
 ) => {

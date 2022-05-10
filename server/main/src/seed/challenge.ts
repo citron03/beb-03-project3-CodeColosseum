@@ -59,7 +59,6 @@ async function seedDB() {
                 if (mission) {
                     const testCases = mission.testCases;
                     const body = {
-                        mission_id: mission,
                         code: duummyChallenges[i].answerCode,
                         testCases
                     }
