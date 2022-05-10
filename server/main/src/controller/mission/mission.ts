@@ -35,6 +35,23 @@ const post = async (req: any, res: any) => {
   }
 };
 
-const get = async (req: any, res: any) => {};
+const get = async (req: any, res: any) => {
+  const missionId = req.params.mission_id;
+
+  try {
+    const mission = await Mission.findOne({ id: missionId });
+    const user = await User.findOne({ id: mission.creator });
+    const body = {
+      title: mission.title,
+      creator: user.nickName,
+      explanation: mission.paragraph,
+      testcase: mission.test.testcase,
+    };
+    res.status(200).send(body);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: "문제를 불러오는데 실패했습니다." });
+  }
+};
 
 export = { post, get };
