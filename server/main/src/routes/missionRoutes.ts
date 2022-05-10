@@ -14,10 +14,10 @@ missionRouter.get("/list/", missionController.missionList.get);
 
 // 개별 미션 상세 조회
 // GET /mission/:mission_id
-// missionRouter.get("/:mission_id", missionController.mission.get);
+missionRouter.get("/:mission_id", missionController.mission.get);
 
 // 미션 생성
 // POST /mission/
-// missionRouter.post("/", missionController.mission.post);
+missionRouter.post("/", missionController.mission.post);
 
 export = missionRouter;
