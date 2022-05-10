@@ -22,6 +22,7 @@ S.Div = styled.div`
     }
     background-color: ${({focus}) => focus ? "#fadd92" : "white"};
     font-size: ${({focus}) => focus ? "1.4rem" : "1.3rem"};
+    font-weight: 500;
 
 `
 
