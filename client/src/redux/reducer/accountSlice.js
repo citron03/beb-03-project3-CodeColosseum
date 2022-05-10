@@ -24,7 +24,7 @@ const accountSlice = createSlice({
       error: ""
   },
   reducers: {
-    logout: (state, action) => {
+    logout: (state) => {
         state.account = "";
         state.nickname = "";
         localStorage.setItem("isLogin", JSON.stringify(false));

@@ -33,8 +33,4 @@ S.Label = styled.label`
     }
 `
 
-S.Div = styled.div`
-    
-`
-
 export default S;

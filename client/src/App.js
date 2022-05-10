@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
 import Notification from "./components/Notification";
 import { useLogin } from "./utils/login";
+import Loading from "./components/Loading";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ function App() {
           </Routes>
           <Footer/>
           <Notification/>
+          <Loading/>
         </QueryClientProvider>
     </BrowserRouter>
   );
