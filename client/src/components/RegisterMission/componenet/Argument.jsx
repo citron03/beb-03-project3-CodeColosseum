@@ -4,6 +4,10 @@ const Argument = ({index, handleArgTypes}) => {
     return (
         <S.Argument>
             {`${index + 1}번째 인자의 타입`}
+            <S.Input type="text" placeholder="type 이름"/>
+            <S.Label>is required</S.Label>
+            <S.Input type="checkbox"/>
+            <S.Label>인자의 type</S.Label>
             <S.Select name="type" onChange={(e) => handleArgTypes(index, e.target.value)}>
                 <S.Option value="string">문자열</S.Option>
                 <S.Option value="number">숫자</S.Option>

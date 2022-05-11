@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import notificationReducer from './notificationReducer';
-import account from './accountSlice';
 import loading from './loadingSlice';
+import signup from './signupSlice';
 
-const reducer = combineReducers({notificationReducer, account, loading});
+const reducer = combineReducers({notificationReducer, loading, signup});
 
 export default reducer;

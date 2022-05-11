@@ -4,8 +4,7 @@ import GlobalStyle from "./GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
-import Notification from "./components/Notification";
-import Loading from "./components/Loading";
+import { Loading, Notification, SignUp } from "./components";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +26,7 @@ function App() {
           <Footer/>
           <Notification/>
           <Loading/>
+          <SignUp/>
         </QueryClientProvider>
         <GlobalStyle/>
     </BrowserRouter>

@@ -7,7 +7,7 @@ const Missions = () => {
 
     const { data } = useQuery(["/mission/list"], () => {
         return axios.get("/mission/list")
-            .then(el => el.data.missionList)
+            .then(el => el.data.data.missionList)
             .catch(err => console.log(err));
     });
     
