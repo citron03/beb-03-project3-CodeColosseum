@@ -4,13 +4,13 @@ import C from '../../components/CommonStyled';
 import { useArguments } from '../../utils/arguments';
 import { useRegister } from '../../utils/register';
 import { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { showNotification } from '../../redux/action';
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { fetchAccount } from '../../redux/reducer/accountSlice';
+import getAddress from "./../../utils/getAddress";
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
@@ -18,36 +18,36 @@ const RegisterMission = () => {
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const state = useSelector(state => state.account);
 
     const postMission = async (completeData) => {
         const url = `/mission`;
-        const payload = {
-            account: state.account,
-            title: completeData.title,
-            explanation: completeData.explanation,
-            code: completeData.code,
-            argTypes: completeData.argTypes,
-            testcase: completeData.testcases,
-            description: "테스트"
+        try {
+            const payload = {
+                account: await getAddress(),
+                title: completeData.title,
+                explanation: completeData.explanation,
+                code: completeData.code,
+                argTypes: completeData.argTypes,
+                testcase: completeData.testcases,
+                description: "테스트"
+            }
+            console.log(payload);
+            axios.post(url, payload)
+                    .then(el => {
+                        console.log(el.data);
+                        dispatch(showNotification("문제가 등록되었습니다."));
+                        navigate("/missions");
+                    })
+                    .catch(err => console.log(err));
+        } catch {
+            dispatch(showNotification("지갑 연결에 문제가 발생했습니다."));
+            return;
         }
-        axios.post(url, payload)
-                .then(el => {
-                    console.log(el.data);
-                    dispatch(showNotification("문제가 등록되었습니다."));
-                    navigate("/missions");
-                })
-                .catch(err => console.log(err));
     }
 
     const { mutate } = useMutation(postMission);
 
     const submitMission = useCallback(() => {
-        if(!state.account) {
-            dispatch(showNotification("지갑 연결이 필요합니다."));
-            dispatch(fetchAccount());
-            return;
-        }
         const completeData = {...registerData, argTypes};
         if(!completeData.title) {
             dispatch(showNotification("제목을 입력하세요!"));
@@ -66,13 +66,12 @@ const RegisterMission = () => {
         setTimeout(() => {
             if(syntaxError.length === 0){
                 mutate(completeData);
-                console.log(completeData);
             } else {
                 dispatch(showNotification("작성한 코드에 에러가 있습니다."));
             }
             dispatch(offLoading());
         }, 1000);
-    }, [registerData, argTypes, dispatch, syntaxError, mutate, state]);
+    }, [registerData, argTypes, dispatch, syntaxError, mutate]);
 
     return (
     <S.RegisterMission>
