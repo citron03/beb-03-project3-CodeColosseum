@@ -26,25 +26,30 @@ const post = async (req: any, res: any) => {
   try {
     const missionInfo = await models.Mission.findOne({ _id: missionId });
     const testCases = missionInfo.testCases;
-    console.log(testCases);
+    //console.log(testCases);
     try {
       const { data } = await axios.post("http://localhost:3003/grading", {
         code,
         testCases,
       });
-      const userInfo = await models.User.findOne({ account });
-      const challenge = {
-        challenger: userInfo._id,
-        mission: missionId,
-        answerCode: code,
-        isPassed: data.data.failCount === 0 ? true : false,
-        PassedCasesRate: `${testCases.length - data.data.failCount} / ${
-          testCases.length
-        }`,
-        passedCases: data.data.passedCases,
-      };
-      await models.Challenge.create(challenge);
-      res.status(200).send({ message: "Grading Complete", data });
+      // console.log(data);
+      if (data.data) {
+        const userInfo = await models.User.findOne({ account });
+        const challenge = {
+          challenger: userInfo._id,
+          mission: missionId,
+          answerCode: code,
+          isPassed: data.data.failCount === 0 ? true : false,
+          PassedCasesRate: `${testCases.length - data.data.failCount} / ${
+            testCases.length
+          }`,
+          passedCases: data.data.passedCases,
+        };
+        await models.Challenge.create(challenge);
+        res.status(200).send({ message: data.message, data: data.data });
+      } else {
+        res.status(200).send({ message: data.message });
+      }
     } catch (err) {
       console.log(err);
       res.status(400).send({ message: "Grading Failed" });
