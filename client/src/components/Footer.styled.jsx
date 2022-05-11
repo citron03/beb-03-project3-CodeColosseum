@@ -7,7 +7,8 @@ S.Footer = styled.div`
     bottom: 0%;
     width: 100%;
     height: 60px;
-    background-color: #f9f4e6;
+    background-color: #2c2a2a;
+    color: white;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -21,7 +22,11 @@ S.Div = styled.div`
 
 S.A = styled.a`
     text-decoration: none;
-    color: black;
+    color: white;
+    &:hover {
+        color: #f0b81c;
+        cursor: pointer;
+    }
 `
 
 export default S;

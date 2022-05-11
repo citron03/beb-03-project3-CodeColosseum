@@ -7,11 +7,12 @@ S.Mission = styled.div`
     flex-direction: column;
     padding: 20px;
     margin: 30px;
-    border: 1px solid #e58e26;
+    border: 1px solid var(--highlight-yellow);
     &:hover {
-        box-shadow: 1px 1.5px black;
+    border: 1px solid gray;
+        box-shadow: 1px 1.5px var(--highlight-yellow);
         transform: translate(1px, 0.5px);
-        background-color: #f5f5f5;
+        background-color: #f5f5f515;
         cursor: pointer;
     }
 `

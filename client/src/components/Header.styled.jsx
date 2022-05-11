@@ -6,7 +6,11 @@ S.Header = styled.div`
     border-bottom: 1px solid black;
     background-color: white;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    padding: 30px;
+    background-color: #2c2a2a;
+    color: white;
+    border-bottom: 1px solid white;
 `
 
 S.Title = styled.div`
@@ -22,7 +26,7 @@ S.SpanDiv = styled.div`
     flex-direction: column;
     justify-content: center;
     &:hover {
-        color: #f0b81c;
+        color: var(--highlight-yellow);
         cursor: pointer;
     }
 `
@@ -51,9 +55,9 @@ S.LinkDiv = styled.div`
     align-items: center;
     a {
         text-decoration: none;
-        color: black;
+        color: white;
         &:hover {
-            color: #f0b81c;
+            color: var(--highlight-yellow);
         }
     }
 `

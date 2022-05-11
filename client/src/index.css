@@ -5,6 +5,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #161515;
+  color: white;
+}
+
+textarea {
+  background-color: black;
+  color: white;
+}
+
+input {
+  background-color: black;
+  color: white;
+}
+
+:root {
+  --highlight-yellow: #f0b81c;
+  --dark-yellow: #a56516;
 }
 
 code {
