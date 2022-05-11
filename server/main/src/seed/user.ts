@@ -27,9 +27,9 @@ async function seedDB() {
                 const image = faker.image.avatar();
                 
                 const user = {
-                    nickName: nickName,
-                    address: account,
-                    image: image,
+                    account,
+                    nickName,
+                    image,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }

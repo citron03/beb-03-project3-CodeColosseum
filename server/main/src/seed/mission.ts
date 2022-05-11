@@ -9,8 +9,6 @@ const { MONGO_URI } = process.env;
 async function seedDB() {
 
     if (MONGO_URI) {
-        console.log(coplitDummyMissions);
-        console.log(MONGO_URI);
         const client = new MongoClient(MONGO_URI, { serverApi: ServerApiVersion.v1 });
 
         try {
@@ -44,6 +42,9 @@ async function seedDB() {
                 }
                 missionsData.push(mission);
             }
+
+            // 추가적으로 다른 더미들 넣을것 있으면 여기 추가해서 넣어도 됩니다~ 형식 맞춰서 missionsData 에 푸시만 잘 해주세요~
+            // 단, 문제 타이블을 중복되지 않게 해주세요. 챌린지 더미들 만들때 임시적으로 미션 타이틀을 키로 쓰고있습니다.
 
         // 삽입
             await missionsCollection.insertMany(missionsData)

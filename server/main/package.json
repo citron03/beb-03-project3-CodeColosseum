@@ -8,9 +8,10 @@
     "dev": "nodemon --exec ts-node build/index.js",
     "bs": "npm run build && npm run start",
     "debug": "nodemon --inspect-brk build/index.js",
-    "seedAll": "node build/seed/user.js && node build/seed/mission.js",
+    "seedAll": "node build/seed/user.js && node build/seed/mission.js && node build/seed/challenge.js",
     "seedUser": "node build/seed/user.js",
-    "seedMission": "node build/seed/mission.js"
+    "seedMission": "node build/seed/mission.js",
+    "seedChallenge": "node build/seed/challenge.js"
   },
   "author": "",
   "license": "ISC",
