@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStyle from "./GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
@@ -27,6 +28,7 @@ function App() {
           <Notification/>
           <Loading/>
         </QueryClientProvider>
+        <GlobalStyle/>
     </BrowserRouter>
   );
 }
