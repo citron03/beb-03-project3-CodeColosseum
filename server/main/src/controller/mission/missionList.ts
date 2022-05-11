@@ -1,12 +1,11 @@
-import Mission from "../../models/mission";
-import User from "../../models/user";
+import models from "../../models";
 
 const get = async (req: any, res: any) => {
   try {
-    const allMission = await Mission.find();
+    const allMission = await models.Mission.find();
     const missionList = await Promise.all(
       allMission.map(async (mission) => {
-        const user = await User.findOne({ id: mission.creator });
+        const user = await models.User.findOne({ _id: mission.creator });
         return {
           missionId: mission.id,
           title: mission.title,
@@ -14,10 +13,10 @@ const get = async (req: any, res: any) => {
         };
       })
     );
-    res.status(200).send({ missionList });
+    res.status(200).send({ message: "Success", data: { missionList } });
   } catch (err) {
     console.log(err);
-    res.status(400).send({ message: "문제를 불러오는데 실패했습니다." });
+    res.status(400).send({ message: "Failed to load" });
   }
 };
 
