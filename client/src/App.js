@@ -1,16 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
+import GlobalStyle from "./GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
-import Notification from "./components/Notification";
-import { useLogin } from "./utils/login";
-import Loading from "./components/Loading";
+import { Loading, Notification, SignUp } from "./components";
 
 const queryClient = new QueryClient();
 
 function App() {
-  useLogin();
+  
   return (
     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
@@ -27,7 +26,9 @@ function App() {
           <Footer/>
           <Notification/>
           <Loading/>
+          <SignUp/>
         </QueryClientProvider>
+        <GlobalStyle/>
     </BrowserRouter>
   );
 }

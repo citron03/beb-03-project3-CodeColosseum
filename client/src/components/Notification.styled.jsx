@@ -24,10 +24,12 @@ S.Notification = styled.div`
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    color: black;
 `
 
-S.P = styled.p`
-    padding: 30px 15px 0 15px;
+S.Pre = styled.pre`
+    padding: auto;
+    white-space: pre-line;
 `
 
 S.Title = styled.p`

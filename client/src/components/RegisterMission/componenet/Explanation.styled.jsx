@@ -9,7 +9,7 @@ S.Explanation = styled.div`
 
 S.TextArea = styled.textarea`
     width: 100%;
-    font-size: 18px;
+    font-size: 20px;
     height: 100%;
     min-width: 400px;
     min-height: 400px;

@@ -10,26 +10,38 @@ const Carousel = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        pauseOnHover: true,
+        lazyLoad: true
     };
     return (
         <S.Carousel>
-            <S.H2>Images</S.H2>
+            <S.H1>News & Event</S.H1>
             <Slider {...settings}>
                 <S.ContentDiv>
-                    <S.H3>맑은 날의 콜로세움</S.H3>
+                    <S.CarouselText>
+                        <S.H2>오늘 N개의 문제가 새로 출제되었습니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img1} alt="img1"/>
                 </S.ContentDiv>
                 <S.ContentDiv>
-                    <S.H3>그냥 콜로세움</S.H3>
+                    <S.CarouselText>
+                        <S.H2>현재 Code Colosseum은 총 N개의 문제를 제공하고 있습니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img2} alt="img2"/>
                 </S.ContentDiv>
                 <S.ContentDiv>
-                    <S.H3>땅콩 마크</S.H3>
+                    <S.CarouselText>
+                        <S.H2>오늘 발행된 토큰의 개수는 N개 입니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img3} alt="img3"/>
                 </S.ContentDiv>
                 <S.ContentDiv>
-                    <S.H3>땅콩 그림</S.H3>
+                    <S.CarouselText>
+                        <S.H2>Code Colosseum 미션의 평균 정답률은 N.N % 입니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img4} alt="img4"/>
                 </S.ContentDiv>
             </Slider>

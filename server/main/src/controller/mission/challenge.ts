@@ -1,5 +1,5 @@
 import axios from "axios";
-import Mission from "../../models/mission";
+import models from "../../models";
 
 const post = async (req: any, res: any) => {
   const { account, missionId, code } = req.body;
@@ -24,25 +24,39 @@ const post = async (req: any, res: any) => {
   // 3. 결과를 받아 클라이언트로 전송
 
   try {
-    const missionInfo = await Mission.findOne({ id: missionId });
-    const testCase = missionInfo.test.testcase;
-    console.log(testCase);
+    const missionInfo = await models.Mission.findOne({ _id: missionId });
+    const testCases = missionInfo.testCases;
+    //console.log(testCases);
     try {
       const { data } = await axios.post("http://localhost:3003/grading", {
-        missionId,
         code,
-        testCase,
+        testCases,
       });
-      res.status(200).send(data);
+      // console.log(data);
+      if (data.data) {
+        const userInfo = await models.User.findOne({ account });
+        const challenge = {
+          challenger: userInfo._id,
+          mission: missionId,
+          answerCode: code,
+          isPassed: data.data.failCount === 0 ? true : false,
+          PassedCasesRate: `${testCases.length - data.data.failCount} / ${
+            testCases.length
+          }`,
+          passedCases: data.data.passedCases,
+        };
+        await models.Challenge.create(challenge);
+        res.status(200).send({ message: data.message, data: data.data });
+      } else {
+        res.status(200).send({ message: data.message });
+      }
     } catch (err) {
       console.log(err);
-      res.status(400).send({ message: "채점 요청 실패" });
+      res.status(400).send({ message: "Grading Failed" });
     }
   } catch (err) {
     console.log(err);
-    res
-      .status(400)
-      .send({ message: "테스트 케이스를 가져오는데 실패했습니다." });
+    res.status(400).send({ message: "Failed to load testcases" });
   }
 };
 

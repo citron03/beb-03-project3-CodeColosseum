@@ -10,7 +10,20 @@ S.Information = styled.div`
 `
 
 S.P = styled.p`
-    
+    font-size: 1.1rem;
+    text-decoration: underline;
+`
+
+S.Div = styled.div`
+    border: 1px solid var(--highlight-yellow);
+    width: fit-content;
+    padding: 15px;
+    margin: 10px;
+`
+
+S.TestCasesDiv = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
 `
 
 S.H1 = styled.h1`
@@ -21,8 +34,9 @@ S.H2 = styled.h2`
     
 `
 
-S.H3 = styled.h3`
-    
+S.Pre = styled.pre`
+    font-size: 1.3rem;
+    white-space: pre-line;
 `
 
 export default S;

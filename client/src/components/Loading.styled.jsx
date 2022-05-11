@@ -4,7 +4,7 @@ const S = {};
 
 S.Loading = styled.div`
     display: ${({isLoading}) => isLoading ? "block" : "none"};
-    background-color: #ecf0f1;
+    background-color: var(--dark-yellow);
     position: fixed;
     top: 50%;
     left: 50%;
@@ -26,7 +26,7 @@ const rotate = keyframes`
 
 S.Div = styled.div`
     text-align: center;
-    color: black;
+    color: white;
     margin-top: 70px;
     font-size: 30px;
     animation: ${rotate} 1s;
