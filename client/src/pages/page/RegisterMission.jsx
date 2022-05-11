@@ -1,16 +1,17 @@
 import { Arguments, FunctionArea, TestCases, Explanation } from './../../components/RegisterMission';
 import S from './RegisterMission.styled';
 import C from '../../components/CommonStyled';
+import axios from 'axios';
 import { useArguments } from '../../utils/arguments';
 import { useRegister } from '../../utils/register';
-import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from '../../redux/action';
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
-import { useMutation } from 'react-query';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import getAddress from "./../../utils/getAddress";
+import { getAccount } from "./../../utils/address";
+import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
@@ -18,18 +19,33 @@ const RegisterMission = () => {
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const state = useSelector(state => state.signup).account;
+    
+    const submitGetAccount = () => {
+        dispatch(showNotification("로그인을 합니다. \n 과정이 끝난 뒤 다시 제출 버튼을 눌러주세요."));
+        getAccount()
+            .then(el => {
+                if(el.data.message === "user not found!"){ // 회원가입 필요
+                    dispatch(showSignUp());
+                }
+                dispatch(setAccount(el.data.data));                    
+            })
+            .catch(err => console.log(err));
+    };
 
-    const postMission = async (completeData) => {
+    const usePostMission = async (completeData) => {
         const url = `/mission`;
+        console.log(completeData.argTypes);
         try {
             const payload = {
-                account: await getAddress(),
+                account: state.account,
                 title: completeData.title,
-                explanation: completeData.explanation,
-                code: completeData.code,
-                argTypes: completeData.argTypes,
+                description: "테스트",
+                paragraph: completeData.explanation,
+                input: [{name: "string", type: "string", required: "boolean", description: "string"}],
+                output: {type: "string", description: "string"},
+                refCode: completeData.code,
                 testcase: completeData.testcases,
-                description: "테스트"
             }
             console.log(payload);
             axios.post(url, payload)
@@ -45,9 +61,9 @@ const RegisterMission = () => {
         }
     }
 
-    const { mutate } = useMutation(postMission);
+    const { mutate } = useMutation(usePostMission);
 
-    const submitMission = useCallback(() => {
+    const submitMission = () => {
         const completeData = {...registerData, argTypes};
         if(!completeData.title) {
             dispatch(showNotification("제목을 입력하세요!"));
@@ -62,16 +78,21 @@ const RegisterMission = () => {
             dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
             return;
         }
-        dispatch(onLoading("문제 등록 중..."));
-        setTimeout(() => {
-            if(syntaxError.length === 0){
-                mutate(completeData);
-            } else {
-                dispatch(showNotification("작성한 코드에 에러가 있습니다."));
-            }
-            dispatch(offLoading());
-        }, 1000);
-    }, [registerData, argTypes, dispatch, syntaxError, mutate]);
+        console.log(state);
+        if(state.account){
+            dispatch(onLoading("문제 등록 중..."));
+            setTimeout(() => {
+                if(syntaxError.length === 0){
+                    mutate(completeData);
+                } else {
+                    dispatch(showNotification("작성한 코드에 에러가 있습니다."));
+                }
+                dispatch(offLoading());
+            }, 1000);
+        } else {
+            submitGetAccount();
+        }
+    };
 
     return (
     <S.RegisterMission>
