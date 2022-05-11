@@ -23,15 +23,21 @@ const Carousel = () => {
                     <img src={img1} alt="img1"/>
                 </S.ContentDiv>
                 <S.ContentDiv>
-                    <S.H2>현재 Code Colosseum은 총 N개의 문제를 제공하고 있습니다.</S.H2>
+                    <S.CarouselText>
+                        <S.H2>현재 Code Colosseum은 총 N개의 문제를 제공하고 있습니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img2} alt="img2"/>
                 </S.ContentDiv>
                 <S.ContentDiv>
-                    <S.H2>오늘 발행된 토큰의 개수는 N개 입니다.</S.H2>
+                    <S.CarouselText>
+                        <S.H2>오늘 발행된 토큰의 개수는 N개 입니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img3} alt="img3"/>
                 </S.ContentDiv>
                 <S.ContentDiv>
-                    <S.H2>Code Colosseum 미션의 평균 정답률은 N.N % 입니다.</S.H2>
+                    <S.CarouselText>
+                        <S.H2>Code Colosseum 미션의 평균 정답률은 N.N % 입니다.</S.H2>
+                    </S.CarouselText>
                     <img src={img4} alt="img4"/>
                 </S.ContentDiv>
             </Slider>
