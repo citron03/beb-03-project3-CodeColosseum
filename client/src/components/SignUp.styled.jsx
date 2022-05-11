@@ -12,6 +12,8 @@ S.SignUp = styled.div`
     width: 350px;
     height: 200px;
     color: black;
+    text-align: center;
+    z-index: 5;
 `
 
 S.H2 = styled.h2`

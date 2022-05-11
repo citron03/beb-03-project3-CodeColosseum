@@ -11,34 +11,36 @@ import { useQuery } from 'react-query';
 
 const Mypage = () => {
 
-    const state = useSelector(state => state.signup.account);
+    const state = useSelector(state => state.signup);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!state.account){
+        if(!state.account?.account){
             getAccount()
                 .then(el => {
                     if(el.data.message === "user not found!"){ // 회원가입 필요
                         dispatch(showSignUp());
-                    }
-                    dispatch(setAccount(el.data.data));                    
+                    }else {
+                        dispatch(setAccount(el.data.data));      
+                    }              
                 })
                 .catch(err => console.log(err));
         }
     }, [dispatch, state])
-    
-    const { data } = useQuery([state._id], async () => {
-        return axios.get(`/user/mypage/${state._id}`)
+
+    const { data } = useQuery([state.account._id], async () => {
+        return axios.get(`/user/mypage/${state.account._id}`)
                 .then(el => el.data)
                 .catch(err => err);
-    }, {enabled: !!state._id});
+    }, {enabled: !!state.account?._id});
+    console.log(data);
 
     return (
         <S.Mypage>
             <MypageNavigation/>
-            {state.account ? 
+            {state?.account ? 
                 <Routes>
-                     <Route exact path="/" element={<AccountInfo data={state}/>}/>
+                     <Route exact path="/" element={<AccountInfo data={state.account}/>}/>
                      <Route path="/solved-missions" element={<SolvedMissions/>}/>
                      <Route path="/my-missions" element={<MyMissions/>}/>
                  </Routes> 
