@@ -1,22 +1,20 @@
 import S from "./Missions.styled";
 import Mission from "./Mission";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 const Missions = () => {
 
-    const [missionsArr, setMissionsArr] = useState([]);
-
-    useEffect(() => {
-        axios.get("/mission/list")
-            .then(el => setMissionsArr(el.data.missionList))
+    const { data } = useQuery(["/mission/list"], () => {
+        return axios.get("/mission/list")
+            .then(el => el.data.missionList)
             .catch(err => console.log(err));
-    }, []);
-
+    });
+    
     return (
         <S.Missions>
-            {missionsArr.length > 0 ? 
-                missionsArr.map((el) => <Mission key={el.missionId} data={el}/>) 
+            {data ? 
+                data.map((el) => <Mission key={el.missionId} data={el}/>) 
                 : <S.P>문제가 없습니다.</S.P>}
         </S.Missions>
     );
