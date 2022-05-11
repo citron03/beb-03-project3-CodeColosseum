@@ -9,8 +9,9 @@ router.post("/", async (req, res) => {
   try {
     const result = await getSolution(code, testCases);
 
-    res.status(200).send({ message: "OK", data : {failCount: result.falseCount, passedCases: result.passedCases} });
-    
+    res.status(200).send({
+      data: { failCount: result.falseCount, passedCases: result.passedCases },
+    });
   } catch (err) {
     console.log(err);
     res.status(400).send("error");
@@ -25,9 +26,9 @@ const getSolution = async (
   const timeStamp = +new Date();
   const fileName = `${timeStamp}.js`;
   fs.writeFileSync(fileName, `${code} exports.solution = solution;`);
-  const getJsFile = await require(`../../../${fileName}`);
+  const getJsFile = await require(`../../${fileName}`);
 
-  let passedCases : Boolean[] = []
+  let passedCases: Boolean[] = [];
   let falseCount = 0;
   for (let i = 0; i < testCases.length; i++) {
     if (
@@ -36,13 +37,12 @@ const getSolution = async (
     ) {
       falseCount += 1;
       passedCases.push(false);
-    }
-    else {
+    } else {
       passedCases.push(true);
     }
   }
   fs.unlinkSync(fileName);
-  return {falseCount, passedCases};
+  return { falseCount, passedCases };
 };
 
 export default router;
