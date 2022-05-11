@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.slick-dots li button::before {
+  color: white!important;
+}
+
+.slick-dots li.slick-active button:before {
+    color: rgb(230, 230, 107)!important;
+}

@@ -25,8 +25,6 @@ S.CarouselText = styled.div`
     position: absolute;
     bottom: 10%;
     left: 15%;
-    background-color: #252424;
-    opacity: 0.1;
     z-index: 5;
 `
 

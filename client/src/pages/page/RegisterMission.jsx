@@ -6,11 +6,11 @@ import { useRegister } from '../../utils/register';
 import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from '../../redux/action';
-import Login from "./../../components/Login";
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { useMutation } from 'react-query';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { fetchAccount } from '../../redux/reducer/accountSlice';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
@@ -43,6 +43,11 @@ const RegisterMission = () => {
     const { mutate } = useMutation(postMission);
 
     const submitMission = useCallback(() => {
+        if(!state.account) {
+            dispatch(showNotification("지갑 연결이 필요합니다."));
+            dispatch(fetchAccount());
+            return;
+        }
         const completeData = {...registerData, argTypes};
         if(!completeData.title) {
             dispatch(showNotification("제목을 입력하세요!"));
@@ -67,26 +72,23 @@ const RegisterMission = () => {
             }
             dispatch(offLoading());
         }, 1000);
-    }, [registerData, argTypes, dispatch, syntaxError, mutate]);
+    }, [registerData, argTypes, dispatch, syntaxError, mutate, state]);
 
     return (
     <S.RegisterMission>
-        {state.account ?
-            <S.Div>
-                <S.Title>
-                    <S.Label>Title</S.Label>
-                    <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
-                </S.Title>
-                <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
-                <S.Section>
-                    <Explanation handleExplanation={handleExplanation}/>
-                    <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
-                </S.Section>
-                <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
-                <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
-            </S.Div> 
-            : <Login/>
-        }
+        <S.Div>
+            <S.Title>
+                <S.Label>Title</S.Label>
+                <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
+            </S.Title>
+            <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
+            <S.Section>
+                <Explanation handleExplanation={handleExplanation}/>
+                <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
+            </S.Section>
+            <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
+            <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
+        </S.Div> 
     </S.RegisterMission>
     );
 }

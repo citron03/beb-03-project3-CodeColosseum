@@ -6,11 +6,11 @@ import Editor from "./../../components/Editor"
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { defautCode } from "./../../assets/constants";
-import Login from "./../../components/Login";
 import axios from 'axios';
 import { useMutation } from "react-query";
 import { showNotification } from "../../redux/action";
 import { onLoading, offLoading } from "../../redux/reducer/loadingSlice";
+import { fetchAccount } from "../../redux/reducer/accountSlice";
 
 const MissionDetail = () => {
     const id = useParams().id;
@@ -42,6 +42,11 @@ const MissionDetail = () => {
     const { mutate } = useMutation(submitAnswer);
 
     const handleSubmit = () => {
+        if(!state.account) {
+            dispatch(showNotification("지갑 연결이 필요합니다."));
+            dispatch(fetchAccount());
+            return;
+        }
         dispatch(onLoading("채점중입니다"));
         setTimeout(() => {
             if(syntaxError.length === 0){
@@ -56,22 +61,18 @@ const MissionDetail = () => {
     return (
         <S.MissionDetail>
             {missionData?.title ? <Information data={missionData}/> : null}
-            {state.account ? 
-                <>
-                    <S.EditorDiv>
-                        <S.SupportDiv>
-                            {/* {missionData.argTypes.length > 0 ? missionData.argTypes.map((el, idx) => 
-                                <S.P key={idx}>{`${idx + 1}번째 인자의 타입은 ${el}입니다.`}</S.P>) 
-                                : <S.P>인자가 필요하지 않습니다.</S.P>} */}
-                            <C.Button onClick={handleSubmit}>제출 !</C.Button>
-                        </S.SupportDiv>
-                        <S.FunctionDiv>
-                            <Editor handleCode={setCode} defautCode={defautCode} setSyntaxError={setSyntaxError}/>
-                        </S.FunctionDiv>
-                    </S.EditorDiv>
-                    <Scoring grading={grading} id={id}/>
-                </> 
-                : <Login/>}
+                <S.EditorDiv>
+                    <S.SupportDiv>
+                        {/* {missionData.argTypes.length > 0 ? missionData.argTypes.map((el, idx) => 
+                            <S.P key={idx}>{`${idx + 1}번째 인자의 타입은 ${el}입니다.`}</S.P>) 
+                            : <S.P>인자가 필요하지 않습니다.</S.P>} */}
+                        <C.Button onClick={handleSubmit}>제출 !</C.Button>
+                    </S.SupportDiv>
+                    <S.FunctionDiv>
+                        <Editor handleCode={setCode} defautCode={defautCode} setSyntaxError={setSyntaxError}/>
+                    </S.FunctionDiv>
+                </S.EditorDiv>
+                <Scoring grading={grading} id={id}/>
         </S.MissionDetail>
     );
 }
