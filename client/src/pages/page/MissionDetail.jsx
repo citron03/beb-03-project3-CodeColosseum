@@ -31,7 +31,7 @@ const MissionDetail = () => {
         const url = `/mission/challenge`;
         const payload = {
             "account" : state.account,
-            "missionId" : "mission1",
+            "missionId" : id,
             "code" : code,
         }
         axios.post(url, payload)
