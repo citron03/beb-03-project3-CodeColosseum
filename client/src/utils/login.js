@@ -15,7 +15,7 @@ const useLogin = () => {
 
     useEffect(() => {
       window.klaytn.on('accountsChanged', () => {
-          console.log("kaikas에서 계정을 변경 탐지");
+          console.log("kaikas에서 계정 변경 탐지");
           dispatch(fetchAccount());
         })
     });

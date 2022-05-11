@@ -1,23 +1,30 @@
 import S from "./Mypage.styled";
 import { AccountInfo, SolvedMissions, MyMissions, MypageNavigation } from "../../components/Mypage";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchAccount } from "../../redux/reducer/accountSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import getAddress from "../../utils/getAddress";
+import Login from "../../components/Login";
 
 const Mypage = () => {
-    const dispatch = useDispatch();
+
+    const [account, setAccount] = useState("");
+
     useEffect(() => {
-        dispatch(fetchAccount());
-    }, [dispatch]);
+        getAddress()
+            .then(el => setAccount(el))
+            .catch(err => console.log(err));
+    }, []);
+
     return (
         <S.Mypage>
             <MypageNavigation/>
-            <Routes>
-                <Route exact path="/" element={<AccountInfo/>}/>
-                <Route path="/solved-missions" element={<SolvedMissions/>}/>
-                <Route path="/my-missions" element={<MyMissions/>}/>
-            </Routes>
+            {account ? 
+                <Routes>
+                     <Route exact path="/" element={<AccountInfo/>}/>
+                     <Route path="/solved-missions" element={<SolvedMissions/>}/>
+                     <Route path="/my-missions" element={<MyMissions/>}/>
+                 </Routes> 
+            : <Login/>}
         </S.Mypage>
     );
 }

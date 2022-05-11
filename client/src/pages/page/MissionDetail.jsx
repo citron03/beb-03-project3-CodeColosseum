@@ -3,37 +3,37 @@ import C from "../../components/CommonStyled";
 import { useParams } from 'react-router-dom'
 import { Information, Scoring } from "./../../components/MissionDetail";
 import Editor from "./../../components/Editor"
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { defautCode } from "./../../assets/constants";
 import axios from 'axios';
 import { useMutation } from "react-query";
 import { showNotification } from "../../redux/action";
 import { onLoading, offLoading } from "../../redux/reducer/loadingSlice";
-import { fetchAccount } from "../../redux/reducer/accountSlice";
+import getAddress from "../../utils/getAddress";
+import { useQuery } from "react-query";
 
 const MissionDetail = () => {
     const id = useParams().id;
     const [code, setCode] = useState(defautCode);
     const [syntaxError, setSyntaxError] = useState([]);
     const [grading, setGrading] = useState({});
-    const [missionData, setMissionData] = useState([]);
-    const state = useSelector(state => state.account);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        axios.get(`/mission/${id}`) 
-            .then(el => setMissionData(el.data))
-            .catch(err => console.log(err));
-    }, [id])
+    const { data } = useQuery(["/mission/detail", id], async () => {
+        return axios.get(`/mission/${id}`) 
+                    .then(el => el.data)
+                    .catch(err => console.log(err));
+    });
 
     const submitAnswer = async () => {
         const url = `/mission/challenge`;
         const payload = {
-            "account" : state.account,
+            "account" : await getAddress(),
             "missionId" : id,
             "code" : code,
         }
+        console.log(payload);
         axios.post(url, payload)
                 .then(el => setGrading(el.data))
                 .catch(err => console.log(err));
@@ -42,11 +42,7 @@ const MissionDetail = () => {
     const { mutate } = useMutation(submitAnswer);
 
     const handleSubmit = () => {
-        if(!state.account) {
-            dispatch(showNotification("지갑 연결이 필요합니다."));
-            dispatch(fetchAccount());
-            return;
-        }
+
         dispatch(onLoading("채점중입니다"));
         setTimeout(() => {
             if(syntaxError.length === 0){
@@ -60,7 +56,7 @@ const MissionDetail = () => {
     
     return (
         <S.MissionDetail>
-            {missionData?.title ? <Information data={missionData}/> : null}
+            {data?.title ? <Information data={data}/> : null}
                 <S.EditorDiv>
                     <S.SupportDiv>
                         {/* {missionData.argTypes.length > 0 ? missionData.argTypes.map((el, idx) => 
