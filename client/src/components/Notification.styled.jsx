@@ -24,6 +24,7 @@ S.Notification = styled.div`
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    color: black;
 `
 
 S.P = styled.p`
