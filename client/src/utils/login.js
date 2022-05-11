@@ -3,13 +3,22 @@ import { useEffect } from "react";
 import { fetchAccount } from "../redux/reducer/accountSlice";
 
 const useLogin = () => {
-    const dispatch = useDispatch();
+    
+  const dispatch = useDispatch();
+
     useEffect(() => {
       const isLogin = JSON.parse(localStorage.getItem("isLogin"));
       if(isLogin){
         dispatch(fetchAccount());
       }
     }, [dispatch]);
+
+    useEffect(() => {
+      window.klaytn.on('accountsChanged', () => {
+          console.log("kaikas에서 계정을 변경 탐지");
+          dispatch(fetchAccount());
+        })
+    });
 }
 
 export { useLogin };

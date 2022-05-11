@@ -4,7 +4,9 @@ import { Carousel } from "../../components/Home";
 const Home = () => {
     return (
         <S.Home>
-            <Carousel/>
+            <S.HeadDiv>
+                <Carousel/>
+            </S.HeadDiv>
         </S.Home>
     );
 }
