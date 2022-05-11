@@ -3,26 +3,35 @@ import styled from 'styled-components';
 const S = {};
 
 S.Carousel = styled.div`
-    width: 800px;
+    width: 1200px;
     height: auto;
 `
 
 S.ContentDiv = styled.div`
     position: relative;
     img {
-        width: 700px;
-        height: auto;
+        width: 1000px;
+        height: 600px;
+        margin: auto;
     }
 `
 
-S.H2 = styled.h2`
+S.H1 = styled.h1`
     text-decoration: underline;
+    color: white;
 `
 
-S.H3 = styled.h3`
+S.CarouselText = styled.div`
     position: absolute;
-    top: 10%;
-    right: 20%;
+    bottom: 10%;
+    left: 15%;
+    background-color: #252424;
+    opacity: 0.1;
+    z-index: 5;
+`
+
+S.H2 = styled.h2`
+    color: white;
 `
 
 export default S;

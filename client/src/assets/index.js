@@ -1,6 +1,6 @@
-import img1 from './colosseum-ge6c99d19f_1280.png';
-import img2 from './colosseum-gf6c24e2e2_1280.png';
-import img3 from './peanut-g672fb6f0d_1280.png';
-import img4 from './peanuts-gf84b10809_640.png';
+import img1 from './cormorant-g44d94ff85_1920.jpg';
+import img2 from './eurasian-pygmy-owl-g9ccd8ce7c_1920.jpg';
+import img3 from './forest-g0051916da_1920.jpg';
+import img4 from './singapore-g796ebde60_1920.jpg';
 
 export {img1, img2, img3, img4}
