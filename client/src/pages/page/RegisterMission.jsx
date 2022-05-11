@@ -42,10 +42,10 @@ const RegisterMission = () => {
                 title: completeData.title,
                 description: "테스트",
                 paragraph: completeData.explanation,
-                input: [{name: "string", type: "string", required: "boolean", description: "string"}],
+                inputs: [{name: "string", type: "string", required: "boolean", description: "string"}],
                 output: {type: "string", description: "string"},
                 refCode: completeData.code,
-                testcase: completeData.testcases,
+                testCases: completeData.testcases,
             }
             console.log(payload);
             axios.post(url, payload)

@@ -1,7 +1,7 @@
 import S from "./MissionDetail.styled";
 import C from "../../components/CommonStyled";
 import { useParams } from 'react-router-dom'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "react-query";
