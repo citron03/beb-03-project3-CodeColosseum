@@ -9,12 +9,10 @@ router.post("/", async (req, res) => {
   try {
     const result = await getSolution(code, testCases);
 
-    res.status(200).send({
-      data: { failCount: result.falseCount, passedCases: result.passedCases },
-    });
+    res.status(200).send(result);
   } catch (err) {
     console.log(err);
-    res.status(400).send("error");
+    res.status(400).send({ message: "Error" });
   }
 });
 
@@ -25,24 +23,39 @@ const getSolution = async (
   const fs = await import("fs");
   const timeStamp = +new Date();
   const fileName = `${timeStamp}.js`;
-  fs.writeFileSync(fileName, `${code} exports.solution = solution;`);
-  const getJsFile = await require(`../../${fileName}`);
+  let getJsFile;
+  try {
+    fs.writeFileSync(fileName, `${code} exports.solution = solution;`);
+    getJsFile = await require(`../../${fileName}`);
+  } catch (err) {
+    console.log(err);
+    fs.unlinkSync(fileName);
+    return { message: "Grading Fail, Code Error" };
+  }
 
   let passedCases: Boolean[] = [];
-  let falseCount = 0;
+  let failCount = 0;
   for (let i = 0; i < testCases.length; i++) {
-    if (
-      JSON.stringify(getJsFile.solution(...testCases[i].inputs)) !==
-      JSON.stringify(testCases[i].output)
-    ) {
-      falseCount += 1;
-      passedCases.push(false);
-    } else {
-      passedCases.push(true);
+    try {
+      const userAnswer = JSON.stringify(
+        getJsFile.solution(...testCases[i].inputs)
+      );
+      const testCaseAnswer = JSON.stringify(testCases[i].output);
+
+      if (userAnswer !== testCaseAnswer) {
+        failCount += 1;
+        passedCases.push(false);
+      } else {
+        passedCases.push(true);
+      }
+    } catch (err) {
+      console.log(err);
+      fs.unlinkSync(fileName);
+      return { message: "Grading Fail, Code Error" };
     }
   }
   fs.unlinkSync(fileName);
-  return { falseCount, passedCases };
+  return { message: "Grading Complete", data: { failCount, passedCases } };
 };
 
 export default router;
