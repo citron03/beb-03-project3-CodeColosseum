@@ -7,6 +7,18 @@ S.RegisterMission = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
+    position: relative;
+    &::after {
+        width: 100%;
+        height: 100%;
+        content: "";
+        background-image: ${({bgImg}) => `url(${bgImg})`};
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0.3;
+    }
 `
 
 S.Section = styled.section`
