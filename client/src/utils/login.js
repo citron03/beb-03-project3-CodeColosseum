@@ -24,7 +24,8 @@ const useCheckLogin = () => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
                     dispatch(showSignUp());
                 }else {
-                    dispatch(setAccount(el.data.data));      
+                    dispatch(setAccount(el.data.data));
+                    // 사라지는 로그인 알림 창
                 }              
             })
             .catch(err => console.log(err));

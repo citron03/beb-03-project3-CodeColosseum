@@ -12,6 +12,7 @@ import { showNotification } from '../../redux/action';
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
+import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
@@ -100,9 +101,9 @@ const RegisterMission = () => {
             submitGetAccount();
         }
     };
-
+    
     return (
-    <S.RegisterMission>
+    <S.RegisterMission bgImg={bgImg}>
         <S.Div>
             <S.Title>
                 <S.Label>Title</S.Label>

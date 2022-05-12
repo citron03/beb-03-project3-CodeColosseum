@@ -4,19 +4,31 @@ const S = {};
 
 S.Argument = styled.div`
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 S.Select = styled.select`
     margin: 10px;
+    height: 40px;
 `
 
 S.Option = styled.option`
 
 `
 
-S.Input = styled.input`
+S.TextArea = styled.textarea`
     margin: 15px;
     font-size: 1.3rem;
+    min-width: 100px;
+    max-width: 250px;
+    min-height: 50px;
+    max-height: 100px;
+`
+
+S.Div = styled.div`
+    
 `
 
 S.Label = styled.label`
