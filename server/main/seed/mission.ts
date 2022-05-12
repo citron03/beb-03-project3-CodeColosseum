@@ -32,6 +32,7 @@ async function seedDB() {
                     description: coplitDummyMissions[i].description,
                     paragraph: coplitDummyMissions[i].paragraph,
                     creator: user_id,
+                    state: 1,
                     inputs: coplitDummyMissions[i].inputs,
                     output: coplitDummyMissions[i].output,
                     refCode: coplitDummyMissions[i].refCode,

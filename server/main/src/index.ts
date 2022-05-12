@@ -34,11 +34,11 @@ if (config.ENV.MONGO_URI) {
 }
 
 
-// routes
 app.get("/", (req, res) => {
   res.send("Code Colosseum Main Server");
 });
 
+// routes
 app.use("/user/", userRouter);
 app.use("/mission/", missionRouter);
 
