@@ -14,13 +14,14 @@ import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
 
 const RegisterMission = () => {
-    const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes] = useArguments();
+    const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
+    const [output, setOutput] = useState({type: "string", description: ""});
     const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const state = useSelector(state => state.signup).account;
-    
+
     const submitGetAccount = () => {
         dispatch(showNotification("로그인을 합니다. \n 과정이 끝난 뒤 다시 제출 버튼을 눌러주세요."));
         getAccount()
@@ -35,15 +36,22 @@ const RegisterMission = () => {
 
     const usePostMission = async (completeData) => {
         const url = `/mission`;
-        console.log(completeData.argTypes);
         try {
+            if(!checkArgs()){
+                dispatch(showNotification("input에 대한 정보를 입력해주세요."));
+                return;
+            }
+            if(output.description.length === 0){
+                dispatch(showNotification("output에 대한 정보를 입력해주세요."));
+                return;
+            }
             const payload = {
                 account: state.account,
                 title: completeData.title,
                 description: "테스트",
                 paragraph: completeData.explanation,
-                inputs: [{name: "string", type: "string", required: "boolean", description: "string"}],
-                output: {type: "string", description: "string"},
+                inputs: argTypes,
+                output,
                 refCode: completeData.code,
                 testCases: completeData.testcases,
             }
@@ -78,7 +86,6 @@ const RegisterMission = () => {
             dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
             return;
         }
-        console.log(state);
         if(state.account){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
@@ -101,12 +108,12 @@ const RegisterMission = () => {
                 <S.Label>Title</S.Label>
                 <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
             </S.Title>
-            <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase}/>
+            <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase} setOutput={setOutput}/>
             <S.Section>
                 <Explanation handleExplanation={handleExplanation}/>
                 <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
             </S.Section>
-            <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide}/>
+            <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide} output={output}/>
             <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
         </S.Div> 
     </S.RegisterMission>
