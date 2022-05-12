@@ -1,7 +1,7 @@
 import S from "./MissionDetail.styled";
 import C from "../../components/CommonStyled";
 import { useParams } from 'react-router-dom'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "react-query";
@@ -14,7 +14,8 @@ import { getAccount } from "../../utils/address";
 import { showSignUp, setAccount } from "../../redux/reducer/signupSlice";
 import Login from "../../components/Login";
 import { useCheckLogin } from "../../utils/login";
-import {makeDefautCode} from "../../assets/constants";
+import { makeDefautCode } from "../../assets/constants";
+import { defautCode } from "../../assets/constants";
 
 const MissionDetail = () => {
     const id = useParams().id;
@@ -22,6 +23,8 @@ const MissionDetail = () => {
     const [grading, setGrading] = useState({});
     const dispatch = useDispatch();
     const state = useSelector(state => state.signup).account;
+    const [argDefautCode, setArgDefautCode] = useState("");
+    const [code, setCode] = useState(defautCode);
     
     useCheckLogin();
     
@@ -30,8 +33,12 @@ const MissionDetail = () => {
         .then(el => el.data.data)
         .catch(err => console.log(err));
     });
-    const defautCode = makeDefautCode(data?.inputs.map(el => el.name) || []);
-    const [code, setCode] = useState(defautCode);
+
+    useEffect(() => {
+        if(data){
+            setArgDefautCode(makeDefautCode(data?.inputs.map(el => el.name)));
+        }
+    }, [data]);
 
     const submitGetAccount = () => {
         dispatch(showNotification("로그인을 합니다. \n 과정이 끝난 뒤 다시 제출 버튼을 눌러주세요."));
@@ -93,7 +100,7 @@ const MissionDetail = () => {
                             <C.Button onClick={handleSubmit}>제출 !</C.Button>
                         </S.SupportDiv>
                         <S.FunctionDiv>
-                            <Editor handleCode={setCode} defautCode={defautCode} setSyntaxError={setSyntaxError}/>
+                            {argDefautCode ? <Editor handleCode={setCode} defautCode={argDefautCode} setSyntaxError={setSyntaxError}/> : null}
                         </S.FunctionDiv>
                     </S.EditorDiv>
                     <Scoring grading={grading} id={id}/>
