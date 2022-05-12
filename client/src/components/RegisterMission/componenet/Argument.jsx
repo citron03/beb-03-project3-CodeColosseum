@@ -9,7 +9,7 @@ const Argument = ({index, handleArgTypes, handleEmptyTestcase}) => {
     return (
         <S.Argument>
             <S.P>{`${index + 1}번째 인자`}</S.P>
-            <S.Input type="text" placeholder="type 이름" onChange={(e) => handleChangeInput({name: e.target.value}, index)}/>
+            <S.Input type="text" placeholder="변수 이름" onChange={(e) => handleChangeInput({name: e.target.value}, index)}/>
             <S.Label>is required</S.Label>
             <S.Input type="checkbox" onChange={(e) => handleChangeInput({required: e.target.checked}, index)}/>
             <S.Label>인자의 type</S.Label>
