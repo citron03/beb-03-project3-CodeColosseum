@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.Argument = styled.div`
-    padding: 20px;
+S.Output = styled.div`
+    
 `
 
 S.Select = styled.select`
@@ -23,8 +23,9 @@ S.Label = styled.label`
 
 `
 
-S.P = styled.p`    
+S.P = styled.p`
     font-size: 1.3rem;
 `
 
 export default S;
+
