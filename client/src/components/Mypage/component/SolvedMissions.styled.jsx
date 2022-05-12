@@ -8,4 +8,12 @@ S.SolvedMissions = styled.div`
     margin: 35px;
 `
 
+S.Div = styled.div`
+    
+`
+
+S.P = styled.p`
+    
+`
+
 export default S;
