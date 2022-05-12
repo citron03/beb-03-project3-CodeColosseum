@@ -1,6 +1,7 @@
 import S from "./MyMissions.styled";
 
-const MyMissions = () => {
+const MyMissions = ({userCreatedMissions}) => {
+    console.log(userCreatedMissions);
     return (
         <S.MyMissions>
             내가 출제한 미션

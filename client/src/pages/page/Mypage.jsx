@@ -15,7 +15,7 @@ const Mypage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!state.account?.account){
+        if(!state?.account?.account){
             getAccount()
                 .then(el => {
                     if(el.data.message === "user not found!"){ // 회원가입 필요
@@ -28,11 +28,11 @@ const Mypage = () => {
         }
     }, [dispatch, state])
 
-    const { data } = useQuery([state.account._id], async () => {
-        return axios.get(`/user/mypage/${state.account._id}`)
+    const { data } = useQuery([state?.account?._id], async () => {
+        return axios.get(`/user/mypage/${state?.account?._id}`)
                 .then(el => el.data)
                 .catch(err => err);
-    }, {enabled: !!state.account?._id});
+    }, {enabled: !!state?.account?._id});
 
     return (
         <S.Mypage>
@@ -40,8 +40,8 @@ const Mypage = () => {
             {state?.account ? 
                 <Routes>
                      <Route exact path="/" element={<AccountInfo data={state.account}/>}/>
-                     <Route path="/solved-missions" element={<SolvedMissions/>}/>
-                     <Route path="/my-missions" element={<MyMissions/>}/>
+                     <Route path="/solved-missions" element={<SolvedMissions userCallenges={data?.data.userCallenges}/>}/>
+                     <Route path="/my-missions" element={<MyMissions userCreatedMissions={data?.data.userCreatedMissions}/>}/>
                  </Routes> 
             : <Login/>}
         </S.Mypage>

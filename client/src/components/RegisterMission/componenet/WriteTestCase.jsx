@@ -40,7 +40,6 @@ const WriteTestCase = ( {handleAddTestCase, argTypes, outputType, testcases} ) =
     const submitTestCase = () => {
         const arrInput = parseArgument(input);
         const arrOutput = parseArgument(output);
-        console.log(testcases, input);
         if(testcases.some(el => el === `[${input}]`)){
             dispatch(showNotification("이미 등록한 inputs의 테스트 케이스입니다!"));
             return;
