@@ -6,7 +6,7 @@ export const useArguments = () => {
 
     const handleAddArg = () => {
         setArgCount(prev => prev + 1);
-        setArgTypes(prev => prev.concat(['string']));
+        setArgTypes(prev => [...prev, {name:"", type:"string", required: false, description: ""}]);
     }
 
     const handleRemoveArg = () => {
@@ -16,11 +16,16 @@ export const useArguments = () => {
         }
     }
 
-    const handleArgTypes = (idx, value) => {
+    const handleArgTypes = (idx, obj) => {
         const newArr = [...argTypes];
-        newArr[idx] = value;
+        newArr[idx] = Object.assign(newArr[idx], obj);
         setArgTypes(newArr);
     }
 
-    return [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes];
+    const checkArgs = () => {
+        const check = argTypes.filter(el => el.name === "" || el.description === "");
+        return check.length === 0;
+    }
+
+    return [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs];
 }

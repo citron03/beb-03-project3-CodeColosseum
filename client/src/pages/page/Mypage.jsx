@@ -33,7 +33,6 @@ const Mypage = () => {
                 .then(el => el.data)
                 .catch(err => err);
     }, {enabled: !!state.account?._id});
-    console.log(data);
 
     return (
         <S.Mypage>
