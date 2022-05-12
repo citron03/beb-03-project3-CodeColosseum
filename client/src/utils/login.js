@@ -1,7 +1,8 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setAccount } from "../redux/reducer/signupSlice";
+import { setAccount, showSignUp } from "../redux/reducer/signupSlice";
 import { getAccountAddress } from "./address";
+import { getAccount } from "./address";
 
 const useLogin = () => {
   const dispatch = useDispatch();
@@ -15,4 +16,19 @@ const useLogin = () => {
     });
 }
 
-export { useLogin };
+const useCheckLogin = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+        getAccount()
+            .then(el => {
+                if(el.data.message === "user not found!"){ // 회원가입 필요
+                    dispatch(showSignUp());
+                }else {
+                    dispatch(setAccount(el.data.data));      
+                }              
+            })
+            .catch(err => console.log(err));
+  }, [dispatch])
+}
+
+export { useLogin, useCheckLogin };

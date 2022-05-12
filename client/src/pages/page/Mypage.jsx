@@ -1,32 +1,17 @@
 import S from "./Mypage.styled";
 import { AccountInfo, SolvedMissions, MyMissions, MypageNavigation } from "../../components/Mypage";
 import { Route, Routes } from "react-router-dom";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { setAccount, showSignUp } from "../../redux/reducer/signupSlice";
-import {getAccount} from "../../utils/address";
+
 import Login from "../../components/Login";
 import { useQuery } from 'react-query';
+import { useCheckLogin } from "../../utils/login";
 
 const Mypage = () => {
 
     const state = useSelector(state => state.signup);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if(!state?.account?.account){
-            getAccount()
-                .then(el => {
-                    if(el.data.message === "user not found!"){ // 회원가입 필요
-                        dispatch(showSignUp());
-                    }else {
-                        dispatch(setAccount(el.data.data));      
-                    }              
-                })
-                .catch(err => console.log(err));
-        }
-    }, [dispatch, state])
+    useCheckLogin();
 
     const { data } = useQuery([state?.account?._id], async () => {
         return axios.get(`/user/mypage/${state?.account?._id}`)
