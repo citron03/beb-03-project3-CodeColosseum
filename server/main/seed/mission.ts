@@ -1,22 +1,21 @@
-import "../config";
+import config from '../src/config';
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import coplitDummyMissions from '../dummy/coplitMissions';
-import utils from '../utils';
-
-const { MONGO_URI } = process.env;
+import coplitDummyMissions from '../src/dummy/coplitMissions';
+import utils from '../src/utils';
 
 async function seedDB() {
 
-    if (MONGO_URI) {
-        const client = new MongoClient(MONGO_URI, { serverApi: ServerApiVersion.v1 });
+    if (config.ENV.MONGO_URI) {
+        const client = new MongoClient(config.ENV.MONGO_URI, { serverApi: ServerApiVersion.v1 });
 
         try {
             await client.connect();
-            console.log("DB connected!!");
+            console.log(`DB ${config.ENV.MONGO_database} connected!!`);
 
-            const missionsCollection = client.db("CoCo").collection("missions");
-            const usersCollection = client.db("CoCo").collection("users");
+
+            const missionsCollection = client.db(config.ENV.MONGO_database).collection("missions");
+            const usersCollection = client.db(config.ENV.MONGO_database).collection("users");
 
         // 삭제
             await missionsCollection.drop()

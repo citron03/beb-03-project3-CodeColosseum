@@ -1,3 +1,5 @@
+import type { Input, Output, Inputs, testCase, testCases } from '../utils/types';
+
 // 코플릿 알고리즘 1짐나르기, 3보드게임, 7블랙잭
 
 interface dummyMission {
