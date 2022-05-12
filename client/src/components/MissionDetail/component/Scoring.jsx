@@ -9,10 +9,13 @@ const Scoring = ({grading, id}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
-
+    console.log(grading);
     useEffect(() => {
         if(grading.message){
-            if(grading?.message === "Grading Complete"){
+            if(grading?.message === "Grading Fail, Code Error"){
+                dispatch(showNotification("코드 에러!"));
+            }
+            else if(grading?.message === "Grading Complete"){
                 dispatch(showNotification("채점 완료!"));
             }
             if(grading?.data?.failCount === 0){

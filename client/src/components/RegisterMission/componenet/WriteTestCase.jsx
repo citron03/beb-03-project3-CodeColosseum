@@ -32,7 +32,7 @@ const checkValidType = (item, type) => {
     return true;
 }
 
-const WriteTestCase = ( {handleAddTestCase, argTypes, outputType} ) => {
+const WriteTestCase = ( {handleAddTestCase, argTypes, outputType, testcases} ) => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const dispatch = useDispatch();
@@ -40,6 +40,11 @@ const WriteTestCase = ( {handleAddTestCase, argTypes, outputType} ) => {
     const submitTestCase = () => {
         const arrInput = parseArgument(input);
         const arrOutput = parseArgument(output);
+        console.log(testcases, input);
+        if(testcases.some(el => el === `[${input}]`)){
+            dispatch(showNotification("이미 등록한 inputs의 테스트 케이스입니다!"));
+            return;
+        }
         if(!arrOutput || !arrInput){
             return;
         }

@@ -16,7 +16,7 @@ import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
     const [output, setOutput] = useState({type: "string", description: ""});
-    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseHide, handleEmptyTestcase] = useRegister(); // 필수정보
+    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseIsExample, handleEmptyTestcase] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -113,7 +113,7 @@ const RegisterMission = () => {
                 <Explanation handleExplanation={handleExplanation}/>
                 <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
             </S.Section>
-            <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseHide={handleTestCaseHide} output={output}/>
+            <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
             <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
         </S.Div> 
     </S.RegisterMission>
