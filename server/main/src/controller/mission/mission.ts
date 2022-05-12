@@ -13,7 +13,7 @@ const post = async (req: any, res: any) => {
   } = req.body;
 
   try {
-    const user = await models.User.findOne({ address: account });
+    const user = await models.User.findOne({ account });
     const userId = user._id;
     const missionSchema = {
       title,
