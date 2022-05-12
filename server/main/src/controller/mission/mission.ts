@@ -53,6 +53,7 @@ const get = async (req: any, res: any) => {
       creator: user.nickName,
       paragraph: mission.paragraph,
       testCases: mission.testCases,
+      inputs: mission.inputs,
     };
     res.status(200).send({ message: "Success", data: missionInfo });
   } catch (err) {
