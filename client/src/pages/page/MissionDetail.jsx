@@ -13,6 +13,8 @@ import { showNotification } from "../../redux/action";
 import { onLoading, offLoading } from "../../redux/reducer/loadingSlice";
 import { getAccount } from "../../utils/address";
 import { showSignUp, setAccount } from "../../redux/reducer/signupSlice";
+import Login from "../../components/Login";
+import { useCheckLogin } from "../../utils/login";
 
 const MissionDetail = () => {
     const id = useParams().id;
@@ -21,7 +23,9 @@ const MissionDetail = () => {
     const [grading, setGrading] = useState({});
     const dispatch = useDispatch();
     const state = useSelector(state => state.signup).account;
-
+    
+    useCheckLogin();
+    
     const { data } = useQuery(["/mission/detail", id], async () => {
         return axios.get(`/mission/${id}`) 
                     .then(el => el.data.data)
@@ -76,21 +80,25 @@ const MissionDetail = () => {
     };
     
     return (
-        <S.MissionDetail>
-            {data?.title ? <Information data={data}/> : null}
-                <S.EditorDiv>
-                    <S.SupportDiv>
-                        {/* {missionData.argTypes.length > 0 ? missionData.argTypes.map((el, idx) => 
-                            <S.P key={idx}>{`${idx + 1}번째 인자의 타입은 ${el}입니다.`}</S.P>) 
-                            : <S.P>인자가 필요하지 않습니다.</S.P>} */}
-                        <C.Button onClick={handleSubmit}>제출 !</C.Button>
-                    </S.SupportDiv>
-                    <S.FunctionDiv>
-                        <Editor handleCode={setCode} defautCode={defautCode} setSyntaxError={setSyntaxError}/>
-                    </S.FunctionDiv>
-                </S.EditorDiv>
-                <Scoring grading={grading} id={id}/>
-        </S.MissionDetail>
+        <>
+            {state?.account ?
+                <S.MissionDetail>
+                {data?.title ? <Information data={data}/> : null}
+                    <S.EditorDiv>
+                        <S.SupportDiv>
+                            {/* {missionData.argTypes.length > 0 ? missionData.argTypes.map((el, idx) => 
+                                <S.P key={idx}>{`${idx + 1}번째 인자의 타입은 ${el}입니다.`}</S.P>) 
+                                : <S.P>인자가 필요하지 않습니다.</S.P>} */}
+                            <C.Button onClick={handleSubmit}>제출 !</C.Button>
+                        </S.SupportDiv>
+                        <S.FunctionDiv>
+                            <Editor handleCode={setCode} defautCode={defautCode} setSyntaxError={setSyntaxError}/>
+                        </S.FunctionDiv>
+                    </S.EditorDiv>
+                    <Scoring grading={grading} id={id}/>
+            </S.MissionDetail> 
+            : <Login/> }
+        </>
     );
 }
 
