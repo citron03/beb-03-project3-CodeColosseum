@@ -24,9 +24,12 @@ const SignUp = () => {
 
     return (
         <S.SignUp isVisible={state.isVisible}>
-            <S.H2>등록이 필요한 서비스입니다</S.H2>
-            <C.Button onClick={AcceptSignUp}>회원 가입</C.Button>
-            <C.Button onClick={() => dispatch(hideSignUp())}>취소</C.Button>
+            <S.H2>등록이 필요한 서비스입니다. 현재 계정으로 서비스에 등록합니다.</S.H2>
+            {/* <C.Button onClick={AcceptSignUp}>회원 가입</C.Button> */}
+            <C.Button onClick={() => {
+                            dispatch(hideSignUp());
+                            AcceptSignUp();
+                        }}>확인</C.Button>
         </S.SignUp>
     );
 }

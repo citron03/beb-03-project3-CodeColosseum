@@ -1,14 +1,21 @@
 import S from "./SolvedMissions.styled";
 
 const SolvedMissions = ({userCallenges}) => {
-    console.log(userCallenges);
+    // console.log(userCallenges);
     // [{_id, mission, isPassed, PassedCasesRate, createdAt, updatedAt}]
     return (
         <S.SolvedMissions>
-            해결한 문제
+            <S.H2>제출 시도</S.H2>
             {userCallenges ? 
                     <S.Div>
-                        {userCallenges.map((el) => <S.P key={el._id}>{el.isPassed}</S.P>)}
+                        {userCallenges.map((el) => 
+                            <S.CallengesDiv key={el._id}>
+                                <S.P>문제 번호 : {el.mission}</S.P>
+                                <S.P>{el.isPassed ? "통과" : "실패"}</S.P>
+                                <S.P>테스트 통과율 : {el.PassedCasesRate}</S.P>
+                                <S.P>제출일 : {el.createdAt}</S.P>
+                            </S.CallengesDiv>
+                            )}
                     </S.Div>
             : null}
         </S.SolvedMissions>

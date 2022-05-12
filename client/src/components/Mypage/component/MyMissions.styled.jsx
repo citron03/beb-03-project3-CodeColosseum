@@ -9,10 +9,17 @@ S.MyMissions = styled.div`
 `
 
 S.Div = styled.div`
-    
+    border: 1px solid var(--highlight-yellow);
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
 `
 
 S.P = styled.p`
+    font-size: 1.1rem;
+`
+
+S.H2 = styled.h2`
     
 `
 

@@ -13,8 +13,8 @@ const Output = ({setOutput, handleEmptyTestcase}) => {
     return (
         <S.Output>
             <S.P>아웃풋</S.P>
-            <S.Input type="text" placeholder="description" onChange={(e) => handleOutputDescription(e)}/>
-            <S.Label>인자의 type</S.Label>
+            <S.TextArea type="text" placeholder="description" onChange={(e) => handleOutputDescription(e)}/>
+            <S.P>인자의 type</S.P>
             <S.Select name="type" onChange={(e) => {
                                 handleOutputType(e);
                                 handleEmptyTestcase();
