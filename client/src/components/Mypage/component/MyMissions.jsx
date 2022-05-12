@@ -6,7 +6,9 @@ const MyMissions = ({userCreatedMissions}) => {
     return (
         <S.MyMissions>
             내가 출제한 미션
-            {userCreatedMissions.map((el) => <S.P key={el._id}>{el.title}</S.P>)}
+            {userCreatedMissions ? 
+                userCreatedMissions.map((el) => <S.P key={el._id}>{el.title}</S.P>)
+            : null}
         </S.MyMissions>
     );
 }

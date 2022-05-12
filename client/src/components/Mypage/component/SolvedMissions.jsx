@@ -6,9 +6,11 @@ const SolvedMissions = ({userCallenges}) => {
     return (
         <S.SolvedMissions>
             해결한 문제
-            <S.Div>
-                {userCallenges.map((el) => <S.P key={el._id}>{el.isPassed}</S.P>)}
-            </S.Div>
+            {userCallenges ? 
+                    <S.Div>
+                        {userCallenges.map((el) => <S.P key={el._id}>{el.isPassed}</S.P>)}
+                    </S.Div>
+            : null}
         </S.SolvedMissions>
     );
 }
