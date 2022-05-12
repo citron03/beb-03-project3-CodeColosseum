@@ -2,6 +2,7 @@ import S from "./SignUp.styled";
 import C from "./CommonStyled";
 import { useDispatch, useSelector } from "react-redux";
 import { hideSignUp } from "../redux/reducer/signupSlice";
+import { getAccountAddress } from "../utils/address";
 import { showNotification } from "../redux/action";
 import axios from "axios";
 
@@ -11,7 +12,9 @@ const SignUp = () => {
 
     const AcceptSignUp = async () => {
         try {
-            const registerUser = await axios.post("/user", {account: state.account});
+            const account = await getAccountAddress();
+            console.log(account);
+            const registerUser = await axios.post("/user", {account});
             console.log(registerUser);
         } catch {
             dispatch(showNotification("회원 가입 에러 발생"));
