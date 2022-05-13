@@ -8,15 +8,6 @@ S.Output = styled.div`
     align-items: center;
 `
 
-S.Select = styled.select`
-    margin: 10px;
-    height: 40px;
-`
-
-S.Option = styled.option`
-
-`
-
 S.TextArea = styled.textarea`
     margin: 15px;
     font-size: 1.3rem;

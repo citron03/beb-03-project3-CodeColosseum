@@ -23,6 +23,7 @@ function App() {
                 <Route path="/feedback/:id" element={<Feedback/>} />
                 <Route path="/edit" element={<CodeEdit/>} />
                 <Route path="/register" element={<RegisterMission/>} />
+                <Route path="/practice" element={<p>연습문제</p>} />
           </Routes>
           <Footer/>
           <Notification/>

@@ -1,4 +1,5 @@
 import S from "./Output.styled";
+import C from "../../CommonStyled";
 
 const Output = ({setOutput, handleEmptyTestcase}) => {
 
@@ -15,16 +16,16 @@ const Output = ({setOutput, handleEmptyTestcase}) => {
             <S.P>아웃풋</S.P>
             <S.TextArea type="text" placeholder="description" onChange={(e) => handleOutputDescription(e)}/>
             <S.P>인자의 type</S.P>
-            <S.Select name="type" onChange={(e) => {
+            <C.Select name="type" onChange={(e) => {
                                 handleOutputType(e);
                                 handleEmptyTestcase();
                             }}>
-                <S.Option value="string">문자열</S.Option>
-                <S.Option value="number">숫자</S.Option>
-                <S.Option value="boolean">부울</S.Option>
-                <S.Option value="object">객체</S.Option>
-                <S.Option value="array">배열</S.Option>
-            </S.Select>
+                <C.Option value="string">문자열</C.Option>
+                <C.Option value="number">숫자</C.Option>
+                <C.Option value="boolean">부울</C.Option>
+                <C.Option value="object">객체</C.Option>
+                <C.Option value="array">배열</C.Option>
+            </C.Select>
         </S.Output>
     );
 }

@@ -13,11 +13,14 @@ import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
 import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
+import Timer from '../../components/RegisterMission/componenet/Timer';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
     const [output, setOutput] = useState({type: "string", description: ""});
-    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseIsExample, handleEmptyTestcase] = useRegister(); // 필수정보
+    const [registerData, handleExplanation, handleCode, handleAddTestCase, 
+            handleRemoveTestCase, handleTitle, handleTestCaseIsExample, 
+            handleEmptyTestcase, handleTime] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -114,6 +117,7 @@ const RegisterMission = () => {
                 <Explanation handleExplanation={handleExplanation}/>
                 <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
             </S.Section>
+            <Timer handleTime={handleTime}/>
             <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
             <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
         </S.Div> 

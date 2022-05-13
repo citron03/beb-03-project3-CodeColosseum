@@ -20,6 +20,9 @@ const Header = () => {
             <Link to='/register'>
                 <S.Div>콜로세움 출제</S.Div>
             </Link>
+            <Link to='/practice'>
+                <S.Div>연습문제</S.Div>
+            </Link>
             <Link to='/mypage'>
                 <S.Div>마이 페이지</S.Div>
             </Link>
