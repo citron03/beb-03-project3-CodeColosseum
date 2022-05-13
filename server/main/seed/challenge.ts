@@ -78,6 +78,7 @@ async function seedDB() {
                 const challenge = {
                     challenger,
                     mission: mission? mission._id : undefined,
+                    kind: 1,
                     answerCode: duummyChallenges[i].answerCode,
                     isPassed,
                     PassedCasesRate,
