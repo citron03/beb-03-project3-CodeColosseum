@@ -26,7 +26,7 @@ const RegisterMission = () => {
     const state = useSelector(state => state.signup).account;
 
     const submitGetAccount = () => {
-        dispatch(showNotification("로그인을 합니다. \n 과정이 끝난 뒤 다시 제출 버튼을 눌러주세요."));
+        dispatch(showNotification("로그인을 합니다.\n과정이 끝난 뒤\n다시 제출 버튼을 눌러주세요."));
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
@@ -66,7 +66,10 @@ const RegisterMission = () => {
                         dispatch(showNotification("문제가 등록되었습니다."));
                         navigate("/missions");
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err);
+                        dispatch(showNotification("문제 등록에 실패하였습니다."));
+                    });
         } catch {
             dispatch(showNotification("지갑 연결에 문제가 발생했습니다."));
             return;
@@ -80,14 +83,14 @@ const RegisterMission = () => {
         if(!completeData.title) {
             dispatch(showNotification("제목을 입력하세요!"));
             return;
-        } else if(!completeData.explanation) {
+        } else if(!completeData.explanation || !completeData.description) {
             dispatch(showNotification("문제에는 설명이 필요합니다!"));
             return;
         } else if(!completeData.code) {
             dispatch(showNotification("이 문제의 레퍼런스 코드를 입력해주세요!"));
             return;
         } else if(completeData.testcases.length < 5){
-            dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
+            dispatch(showNotification(`최소 5개 이상의\n 테스트 케이스가 필요합니다!`));
             return;
         }
         if(state?.account){

@@ -57,7 +57,7 @@ export const payToken = async () => {
    const address = await getAccountAddress();
    const checkNet = await checkNetwork();
    if(!checkNet){
-      alert("네트워크 바오밥으로");
+      alert("네트워크 바오밥으로 설정하세요.");
    } else {
       window.caver.klay
       .sendTransaction({
@@ -72,9 +72,12 @@ export const payToken = async () => {
        })
        .once('receipt', receipt => {
          console.log('receipt', receipt);
+         // 서버에 post 요청을 보낸다. then,
+         // window.location.reload();
        })
        .once('error', error => {
          console.log('error', error);
+         alert("지불에 실패하셨습니다.");
        })
    }
 }

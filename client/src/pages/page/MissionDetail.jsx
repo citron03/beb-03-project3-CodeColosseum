@@ -1,12 +1,11 @@
 import S from "./MissionDetail.styled";
 import C from "../../components/CommonStyled";
+import { Information, Scoring, Payment } from "./../../components/MissionDetail";
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { useMutation } from "react-query";
-import { useQuery } from "react-query";
-import { Information, Scoring } from "./../../components/MissionDetail";
+import { useMutation, useQuery } from "react-query";
 import Editor from "./../../components/Editor"
 import { showNotification } from "../../redux/action";
 import { onLoading, offLoading } from "../../redux/reducer/loadingSlice";
@@ -17,6 +16,7 @@ import { useCheckLogin } from "../../utils/login";
 import { makeDefautCode } from "../../assets/constants";
 import { defautCode } from "../../assets/constants";
 
+// 서버에 요청을 보내 해당 미션이 구매 상태가 아니면, Payment 컴포넌트를 띄운다.
 const MissionDetail = () => {
     const id = useParams().id;
     const [syntaxError, setSyntaxError] = useState([]);
@@ -27,6 +27,7 @@ const MissionDetail = () => {
     const [code, setCode] = useState(defautCode);
     
     useCheckLogin();
+
     const { data } = useQuery(["/mission/detail", id], async () => {
         return axios.get(`/mission/${id}`) 
         .then(el => el.data.data)
@@ -88,7 +89,8 @@ const MissionDetail = () => {
     
     return (
         <>
-            {state?.account ?
+        {false ? <Payment/> : 
+            state?.account ?
                 <S.MissionDetail>
                 {data?.title ? <Information data={data}/> : null}
                     <S.EditorDiv>
