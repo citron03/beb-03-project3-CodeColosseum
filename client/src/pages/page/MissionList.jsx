@@ -6,9 +6,8 @@ import { useQuery } from "react-query";
 const MissionList = ({isColosseum}) => {
     const query = isColosseum ? 1 : 4;
 
-    const { data } = useQuery(["/mission/list", query], async () => {
-        console.log(query);
-        return axios.get("/mission/list")
+    const { data } = useQuery([`/mission/list`, query], async () => {
+        return axios.get(`/mission/list?category=${query}`)
             .then(el => el.data.data.missionList)
             .catch(err => console.log(err));
     }, {enabled: !!query });
