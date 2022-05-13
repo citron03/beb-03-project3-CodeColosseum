@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import type { Output, Inputs, testCases, MissionState, MissionCollosseum, MissionNft } from '../utils/types'; // 필드의 상세한 타입 정의 바로가기
 
-const MissionSchema = new Schema(
+const schema = new Schema(
   {
     title: { type: String, required: true }, // 
     description: { type: String, /* required: true */ }, // 문제 리스팅에 보여줄 간단 설명
@@ -19,6 +19,6 @@ const MissionSchema = new Schema(
   { timestamps: true }
 );
 
-const Mission = model("Mission", MissionSchema);
+const Model = model("Mission", schema);
 
-export = Mission
+export = Model

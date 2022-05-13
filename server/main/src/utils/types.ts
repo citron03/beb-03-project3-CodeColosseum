@@ -25,11 +25,18 @@ interface testCase {
 
 type testCases = testCase[];
 
-type MissionState = 1|2|3|4;
+type MissionState = 0|1|2|3|4; // 0: etc
 
+interface Challenger {
+    account: string,
+    challengeTime: Date,
+}
 interface MissionCollosseum {
     stakedTokens: number,
-    winner?: string,
+    limitSeconds: number, // 1200 ~ 3600
+    winner?: Challenger,
+    losers?: Challenger[],
+    challengings?: Challenger[],
 }
 
 interface MissionNft {
@@ -39,4 +46,11 @@ interface MissionNft {
     tokenId: number,
 }
 
-export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState };
+type ChallengeKind = 0|1|2; // 0: etc
+
+interface TokenPaymentLogItem {
+    collection: number, // 0: etc, 1: challenge
+    id: string,
+}
+
+export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenPaymentLogItem };

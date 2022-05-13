@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const UserSchema = new Schema(
+const schema = new Schema(
   {
     account: { type: String, required: true, unique: true }, // 거의 id 처럼 쓰이는 필드
     nickName: { type: String }, // 유니크 속성 안줄것임. 저장할때 중복여부 확인할것임.
@@ -14,6 +14,6 @@ const UserSchema = new Schema(
   { timestamps: true }
 );
 
-const User = model("User", UserSchema);
+const Model = model("User", schema);
 
-export = User
+export = Model
