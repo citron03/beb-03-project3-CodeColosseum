@@ -1,11 +1,15 @@
 import { Schema, model } from "mongoose";
+import type { Output, Inputs, testCases, MissionState, MissionCollosseum, MissionNft } from '../utils/types'; // 필드의 상세한 타입 정의 바로가기
 
-const MissionSchema = new Schema(
+const schema = new Schema(
   {
     title: { type: String, required: true }, // 
     description: { type: String, /* required: true */ }, // 문제 리스팅에 보여줄 간단 설명
     paragraph: { type: String, required: true }, // 문제 지문
     creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // 크리에이터
+    state : { type: Number, required: true }, // <MissionState> ( 1: 콜로세움진행중, 2: 콜로세움중료, 3: 종료되고 NFT로 만들어짐, 4: 종료되고 NFT로 만들어지고 연습문제로 공개됨 )
+    colosseum: { type: Object }, // <MissionCollosseum>
+    MissionNft: { type: Object }, // <MissionNft>
     inputs: { type: Array, required: true }, // <Inputs>
     output: { type: Object, required: true }, // <Output>
     refCode: { type: String, required: true }, // 
@@ -15,6 +19,6 @@ const MissionSchema = new Schema(
   { timestamps: true }
 );
 
-const Mission = model("Mission", MissionSchema);
+const Model = model("Mission", schema);
 
-export = Mission
+export = Model

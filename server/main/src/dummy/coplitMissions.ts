@@ -1,4 +1,4 @@
-import type { Input, Output, Inputs, testCase, testCases } from '../utils/types';
+import type { Output, Inputs, testCases } from '../utils/types';
 
 // 코플릿 알고리즘 1짐나르기, 3보드게임, 7블랙잭
 
@@ -26,8 +26,8 @@ const missions : dummyMissions = [
         - 옮겨야 할 짐의 개수는 1개 이상 50,000개 이하입니다.
         - 박스의 무게 제한은 항상 짐의 무게 중 최대값보다 크게 주어지므로 짐을 나르지 못하는 경우는 없습니다.`,
         inputs: [
-            {name: 'stuff', type: "array", required: true, description: `Number 타입의 40 이상 240 이하의 자연수를 담은 배열`, ex: [70, 50, 80, 50]}, // 배열의 구체적인 모습까지 타입스크립트처럼 코드에 담는 방법은? (시간남으로면 테스트 해보기)
-            {name: 'limited', type: "number", required: true, description: `Number 타입의 40 이상 240 이하의 자연수`},
+            {name: 'stuff', type: "array", description: `Number 타입의 40 이상 240 이하의 자연수를 담은 배열`, ex: [70, 50, 80, 50]}, // 배열의 구체적인 모습까지 타입스크립트처럼 코드에 담는 방법은? (시간남으로면 테스트 해보기)
+            {name: 'limited', type: "number", description: `Number 타입의 40 이상 240 이하의 자연수`},
         ],
         output: {type: "number", description: `모든 짐을 옮기기 위해 필요한 박스 개수의 최솟값을 숫자로 반환합니다.`},
         refCode: `function movingStuff(stuff, limit) {
@@ -83,10 +83,10 @@ const missions : dummyMissions = [
         주의사항
         - 만약, 말이 보드 밖으로 나갔다면 즉시 OUT 을 반환합니다.`,
         inputs: [
-            {name: 'board', type: "array", required: true,
+            {name: 'board', type: "array",
             description: `- number 타입의 2차원 배열
             - 2 <= board.length <= 1,000`, ex: [ [0, 0, 1], [1, 0, 1], [1, 1, 1] ] },
-            {name: 'operation', type: "string", required: true,
+            {name: 'operation', type: "string",
             description: `- string 타입의 대문자 영어가 쓰여진 문자열
             - 1 <= operation.length <= board.length * 2
             - U, L, D, R 이외의 문자열은 없습니다.`},
@@ -189,7 +189,7 @@ const missions : dummyMissions = [
         - cards 에는 중복된 숫자의 카드는 들어있지 않습니다.
         - 각 카드에 적힌 수는 1이상 1,000이하의 자연수입니다.`,
         inputs: [
-            {name: 'cards', type: "array", required: true,
+            {name: 'cards', type: "array",
             description: `3개 이상 50개 이하의 카드가 숫자로 들어 있는 배열` },
         ],
         output: {type: "number", description: `Number 타입을 리턴해야 합니다.`},
