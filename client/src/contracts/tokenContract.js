@@ -43,3 +43,38 @@ export const getContract = async () => {
       console.log("컨트랙트 에러 발생!!");
    }
 }
+
+export const checkNetwork = async () => {
+   // 8217 - 메인넷
+   // 1001 - 바오밥 테스트넷
+   const networkVersion = await window.klaytn.networkVersion;
+   // const caver = new Caver('https://api.baobab.klaytn.net:8651/');
+
+   return networkVersion === 1001;
+}
+
+export const payToken = async () => {
+   const address = await getAccountAddress();
+   const checkNet = await checkNetwork();
+   if(!checkNet){
+      alert("네트워크 바오밥으로");
+   } else {
+      window.caver.klay
+      .sendTransaction({
+         type: 'VALUE_TRANSFER',
+         from: address,
+         to: '0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2',
+         value: window.caver.utils.toPeb('1', 'KLAY'),
+         gas: 8000000
+       })
+       .once('transactionHash', transactionHash => {
+         console.log('txHash', transactionHash);
+       })
+       .once('receipt', receipt => {
+         console.log('receipt', receipt);
+       })
+       .once('error', error => {
+         console.log('error', error);
+       })
+   }
+}
