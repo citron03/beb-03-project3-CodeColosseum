@@ -1,5 +1,7 @@
-import cav from "./caver";
-import { contractABI, contractAddress } from "./contractData";
+// import cav from "./caver";
+// import { contractABI, contractAddress } from "./contractData";
+import { getAccountAddress } from "../utils/address";
+import { calculationKlay } from "../assets/constants";
 
 /**
  * 1. 컨트랙트 인스턴스 생성
@@ -14,11 +16,30 @@ import { contractABI, contractAddress } from "./contractData";
 // export default tokenContract;
 
 
-const myContract = new caver.klay.Contract(contractABI, contractAddress)
+// const myContract = new caver.klay.Contract(contractABI, contractAddress)
 
-myContract.methods.transfer(to, caver.utils.toPeb(amount, 'KLAY'))
-  .send({from: klaytn.selectedAddress},
-  // function(error, transactionHash) {
-  //   ...
-  // }
-  );
+// myContract.methods.transfer(to, caver.utils.toPeb(amount, 'KLAY'))
+//   .send({from: klaytn.selectedAddress},
+//   // function(error, transactionHash) {
+//   //   ...
+//   // }
+//   );
+
+export const getBalance = async () => {
+   try{
+      const account = await getAccountAddress();
+      const balance = await window.caver.klay.getBalance(account);
+      console.log(Number(balance) / calculationKlay);
+   } catch {
+      console.log("컨트랙트 에러 발생!!");
+   }
+}
+
+export const getContract = async () => {
+   try {
+      const Contract = await window.caver.klay;
+      console.log(Contract)
+   } catch {
+      console.log("컨트랙트 에러 발생!!");
+   }
+}

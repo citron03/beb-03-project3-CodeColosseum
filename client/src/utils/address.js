@@ -15,6 +15,7 @@ const getAccount = async () => {
 }
 
 const getAccountAddress = async () => {
+    // window.klaytn.selectedAddress
     if (window.klaytn !== 'undefined') {
         if (window.klaytn.isKaikas) {
             const accounts = await window
