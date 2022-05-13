@@ -1,4 +1,4 @@
-import Mission from "./component/Mission";
 import Missions from "./component/Missions";
+import ListTitle from "./component/ListTitle";
 
-export { Mission, Missions };
+export { Missions, ListTitle };
