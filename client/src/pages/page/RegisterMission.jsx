@@ -87,7 +87,7 @@ const RegisterMission = () => {
             dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
             return;
         }
-        if(state.account){
+        if(state?.account){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0){
