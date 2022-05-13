@@ -1,4 +1,4 @@
-import { Arguments, FunctionArea, TestCases, Explanation } from './../../components/RegisterMission';
+import { Arguments, FunctionArea, TestCases, Explanation, Timer } from './../../components/RegisterMission';
 import S from './RegisterMission.styled';
 import C from '../../components/CommonStyled';
 import axios from 'axios';
@@ -17,7 +17,9 @@ import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
     const [output, setOutput] = useState({type: "string", description: ""});
-    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseIsExample, handleEmptyTestcase] = useRegister(); // 필수정보
+    const [registerData, handleExplanation, handleCode, handleAddTestCase, 
+            handleRemoveTestCase, handleTitle, handleTestCaseIsExample, 
+            handleEmptyTestcase, handleTime] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -87,7 +89,7 @@ const RegisterMission = () => {
             dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
             return;
         }
-        if(state.account){
+        if(state?.account){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0){
@@ -114,6 +116,7 @@ const RegisterMission = () => {
                 <Explanation handleExplanation={handleExplanation}/>
                 <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
             </S.Section>
+            <Timer handleTime={handleTime}/>
             <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
             <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
         </S.Div> 

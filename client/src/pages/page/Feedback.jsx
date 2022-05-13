@@ -8,6 +8,7 @@ import { useRating } from "../../utils/feedback";
 import {showNotification} from "./../../redux/action";
 import { useDispatch } from "react-redux";
 import { useCheckLogin } from "../../utils/login";
+import { useEffect } from "react";
 
 const Feedback = () => {
     const id = useParams().id;
@@ -16,7 +17,10 @@ const Feedback = () => {
     const [review, difficulty, missionRating, handleReview, handleDifficulty, handleMissionRating] = useRating();
     
     useCheckLogin();
-    console.log(state);
+
+    useEffect(() => {
+        console.log(state);
+    }, [state])
 
     const submitFeedback = () => {
         if(difficulty === 0 || missionRating === 0 || review.length === 0){

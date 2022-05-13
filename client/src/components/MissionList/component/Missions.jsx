@@ -1,21 +1,15 @@
 import S from "./Missions.styled";
 import Mission from "./Mission";
-import axios from "axios";
-import { useQuery } from "react-query";
 
-const Missions = () => {
+const Missions = ({data, isColosseum}) => {
 
-    const { data } = useQuery(["/mission/list"], () => {
-        return axios.get("/mission/list")
-            .then(el => el.data.data.missionList)
-            .catch(err => console.log(err));
-    });
-    
+    const text = isColosseum ? "콜로세움이 비어있습니다..." : "문제가 없습니다.";
+
     return (
         <S.Missions>
             {data ? 
-                data.map((el) => <Mission key={el.missionId} data={el}/>) 
-                : <S.P>문제가 없습니다.</S.P>}
+                data.map((el) => <Mission key={el.missionId} data={el} isColosseum={isColosseum}/>) 
+                : <S.P>{text}</S.P>}
         </S.Missions>
     );
 }

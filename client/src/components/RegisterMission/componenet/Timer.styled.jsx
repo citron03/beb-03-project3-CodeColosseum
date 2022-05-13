@@ -2,9 +2,12 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.MissionList = styled.div`
-    display: flex;
-    flex-direction: column;
+S.Timer = styled.div`
+    
+`
+
+S.P = styled.p`
+    font-size: 1.2rem;
 `
 
 export default S;
