@@ -23,7 +23,7 @@ const post = async (req: any, res: any) => {
   // 1. 레퍼런스 코드와 테스트 케이스로 확인
   try {
     const { data } = await axios.post("http://localhost:3003/grading", {
-      refCode,
+      code: refCode,
       testCases,
     });
     // 1-1. 채점에 성공했고 테스트 케이스가 모두 통과됨.
