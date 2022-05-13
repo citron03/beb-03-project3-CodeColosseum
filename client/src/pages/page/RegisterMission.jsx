@@ -1,4 +1,4 @@
-import { Arguments, FunctionArea, TestCases, Explanation, Timer } from './../../components/RegisterMission';
+import { Arguments, FunctionArea, TestCases, Explanation, Timer, Description } from './../../components/RegisterMission';
 import S from './RegisterMission.styled';
 import C from '../../components/CommonStyled';
 import axios from 'axios';
@@ -19,7 +19,7 @@ const RegisterMission = () => {
     const [output, setOutput] = useState({type: "string", description: ""});
     const [registerData, handleExplanation, handleCode, handleAddTestCase, 
             handleRemoveTestCase, handleTitle, handleTestCaseIsExample, 
-            handleEmptyTestcase, handleTime] = useRegister(); // 필수정보
+            handleEmptyTestcase, handleTime, handleDescription] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -51,12 +51,13 @@ const RegisterMission = () => {
             const payload = {
                 account: state.account,
                 title: completeData.title,
-                description: "테스트",
+                description: registerData.description,
                 paragraph: completeData.explanation,
                 inputs: argTypes,
                 output,
                 refCode: completeData.code,
                 testCases: completeData.testcases,
+                limitSeconds: parseInt(completeData.time * 60),
             }
             console.log(payload);
             axios.post(url, payload)
@@ -116,6 +117,7 @@ const RegisterMission = () => {
                 <Explanation handleExplanation={handleExplanation}/>
                 <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
             </S.Section>
+            <Description handleDescription={handleDescription}/>
             <Timer handleTime={handleTime}/>
             <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
             <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
