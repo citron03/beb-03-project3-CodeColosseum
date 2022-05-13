@@ -1,7 +1,7 @@
 import models from "../../models";
 
 const get = async (req: any, res: any) => {
-  const category = req.query;
+  const { category } = req.query;
   // category가 1이면 콜로세움 문제 리스트, 4면 연습문제 리스트 요청
   // 그 외의 상태에는 접근 불가
 
@@ -10,13 +10,16 @@ const get = async (req: any, res: any) => {
       const missions = await models.Mission.find({
         state: Number(category),
       });
+
       const missionList = await Promise.all(
         missions.map(async (mission) => {
           const user = await models.User.findOne({ _id: mission.creator });
+          const tokenExpectation = mission.colosseum.stakedTokens;
           return {
             missionId: mission.id,
             title: mission.title,
             creator: user.nickName,
+            tokenExpectation: category === 1 ? tokenExpectation * 0.4 : 0,
           };
         })
       );
