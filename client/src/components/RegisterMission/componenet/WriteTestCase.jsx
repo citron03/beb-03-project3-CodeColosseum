@@ -40,7 +40,7 @@ const WriteTestCase = ( {handleAddTestCase, argTypes, outputType, testcases} ) =
     const submitTestCase = () => {
         const arrInput = parseArgument(input);
         const arrOutput = parseArgument(output);
-        const inputDuplicateCheck = JSON.stringify(arrInput)
+        const inputDuplicateCheck = JSON.stringify(arrInput);
 
         if(testcases.some(el => el === inputDuplicateCheck)){
             dispatch(showNotification("이미 등록한 inputs의\n 테스트 케이스입니다!"));
