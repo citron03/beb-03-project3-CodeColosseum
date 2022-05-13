@@ -1,4 +1,4 @@
-import { Arguments, FunctionArea, TestCases, Explanation } from './../../components/RegisterMission';
+import { Arguments, FunctionArea, TestCases, Explanation, Timer } from './../../components/RegisterMission';
 import S from './RegisterMission.styled';
 import C from '../../components/CommonStyled';
 import axios from 'axios';
@@ -13,7 +13,6 @@ import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
 import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
-import Timer from '../../components/RegisterMission/componenet/Timer';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();

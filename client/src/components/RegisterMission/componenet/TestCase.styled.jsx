@@ -3,13 +3,13 @@ import styled from 'styled-components';
 const S = {};
 
 S.TestCase = styled.div`
-    border: 1px solid purple;
+    border: 1px solid var(--dark-yellow);
     margin: 15px;
     padding: 20px;
 `
 
 S.Div = styled.div`
-    
+
 `
 
 S.Span = styled.span`

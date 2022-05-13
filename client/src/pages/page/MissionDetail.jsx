@@ -27,7 +27,6 @@ const MissionDetail = () => {
     const [code, setCode] = useState(defautCode);
     
     useCheckLogin();
-    
     const { data } = useQuery(["/mission/detail", id], async () => {
         return axios.get(`/mission/${id}`) 
         .then(el => el.data.data)
@@ -95,7 +94,10 @@ const MissionDetail = () => {
                     <S.EditorDiv>
                         <S.SupportDiv>
                             {data?.inputs.length > 0 ? data.inputs.map((el, idx) => 
-                                <S.P key={idx}>{`${idx + 1}번째 인자인 ${el.name}의 타입은 ${el.type}입니다.`}</S.P>) 
+                                <S.ArgDiv key={idx}>
+                                    <S.P>{`${idx + 1}번째 인자인 ${el.name}의 타입은 ${el.type}입니다.`}</S.P>
+                                    <S.P>설명: {el.description}</S.P>
+                                </S.ArgDiv>) 
                                 : <S.P>인자가 필요하지 않습니다.</S.P>}
                             <C.Button onClick={handleSubmit}>제출 !</C.Button>
                         </S.SupportDiv>
