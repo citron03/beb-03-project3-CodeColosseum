@@ -1,6 +1,6 @@
 import S from "./MissionDetail.styled";
 import C from "../../components/CommonStyled";
-import { Information, Scoring, Payment } from "./../../components/MissionDetail";
+import { Information, Scoring, Payment, OutputInfo, ArgsInfo } from "./../../components/MissionDetail";
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -39,7 +39,7 @@ const MissionDetail = () => {
             setArgDefautCode(makeDefautCode(data?.inputs.map(el => el.name)));
         }
     }, [data]);
-
+    
     const submitGetAccount = () => {
         dispatch(showNotification("로그인을 합니다. \n 과정이 끝난 뒤 다시 제출 버튼을 눌러주세요."));
         getAccount()
@@ -89,18 +89,16 @@ const MissionDetail = () => {
     
     return (
         <>
-        {true ? <Payment/> : 
+        {false ? <Payment/> : 
             state?.account ?
                 <S.MissionDetail>
                 {data?.title ? <Information data={data}/> : null}
                     <S.EditorDiv>
                         <S.SupportDiv>
                             {data?.inputs.length > 0 ? data.inputs.map((el, idx) => 
-                                <S.ArgDiv key={idx}>
-                                    <S.P>{`${idx + 1}번째 인자인 ${el.name}의 타입은 ${el.type}입니다.`}</S.P>
-                                    <S.P>설명: {el.description}</S.P>
-                                </S.ArgDiv>) 
+                                <ArgsInfo key={idx} index={idx} arg={el}/>) 
                                 : <S.P>인자가 필요하지 않습니다.</S.P>}
+                            <OutputInfo output={data?.output}/>
                             <C.Button onClick={handleSubmit}>제출 !</C.Button>
                         </S.SupportDiv>
                         <S.FunctionDiv>
