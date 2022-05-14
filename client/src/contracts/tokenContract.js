@@ -1,5 +1,5 @@
 // import cav from "./caver";
-// import { contractABI, contractAddress } from "./contractData";
+import { contractABI, contractAddress } from "./contractData";
 import { getAccountAddress } from "../utils/address";
 import { calculationKlay } from "../assets/constants";
 
@@ -59,25 +59,52 @@ export const payToken = async () => {
    if(!checkNet){
       alert("네트워크 바오밥으로 설정하세요.");
    } else {
-      window.caver.klay
-      .sendTransaction({
-         type: 'VALUE_TRANSFER',
-         from: address,
-         to: '0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2',
-         value: window.caver.utils.toPeb('1', 'KLAY'),
-         gas: 8000000
-       })
-       .once('transactionHash', transactionHash => {
-         console.log('txHash', transactionHash);
-       })
-       .once('receipt', receipt => {
-         console.log('receipt', receipt);
-         // 서버에 post 요청을 보낸다. then,
-         // window.location.reload();
-       })
-       .once('error', error => {
-         console.log('error', error);
-         alert("지불에 실패하셨습니다.");
-       })
+         window.caver.klay
+         .sendTransaction({
+            type: 'VALUE_TRANSFER',
+            from: address,
+            to: '0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2',
+            value: window.caver.utils.toPeb('1', 'KLAY'),
+            gas: 8000000
+         })
+         .once('transactionHash', transactionHash => {
+            console.log('txHash', transactionHash);
+         })
+         .once('receipt', receipt => {
+            console.log('receipt', receipt);
+            // 서버에 post 요청을 보낸다. then,
+            // window.location.reload();
+         })
+         .once('error', error => {
+            console.log('error', error);
+            alert("지불에 실패하셨습니다.");
+         })
    }
 }
+
+export const payKIP7 = async () => {
+   const address = await getAccountAddress();
+   const checkNet = await checkNetwork();
+   if(!checkNet){
+      alert("네트워크 바오밥으로 설정하세요.");
+   } else {
+      const to = "0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2"; // 토큰을 보낼 주소
+      const from = address;
+      const amount = 10000000000000000000n; // 10토큰의 지불 필요 (1000000000000000000n -> 1토큰)
+      const contract = new window.caver.klay.Contract(contractABI, contractAddress);
+      try {
+         const transfer = await contract.methods.transfer(to, amount).send({from, gas: 8000000});
+         console.log(transfer);
+      } catch {
+         alert("지불에 실패하였습니다!");
+      }
+   }
+}
+
+      // const kip7 = new window.caver.kct.kip7(contractAddress); // kip-7 토큰 컨트랙트 주소
+      // const transfer = kip7.safeTransfer(to, amount, {from, feeDelegation: true, feePayer: from});
+      // const balance = await kip7.balanceOf(from);
+      // const transfer = await kip7.transfer(to, amount, {from});
+      // kip7.methods.safeTransfer(to, amount).send({from, gas: 8000000})
+      //    .then(el => console.log(el))
+      //    .catch(err => console.log(err));
