@@ -89,7 +89,7 @@ const MissionDetail = () => {
     
     return (
         <>
-        {false ? <Payment/> : 
+        {true ? <Payment/> : 
             state?.account ?
                 <S.MissionDetail>
                 {data?.title ? <Information data={data}/> : null}
