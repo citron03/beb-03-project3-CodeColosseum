@@ -2,6 +2,8 @@
 import { contractABI, contractAddress } from "./contractData";
 import { getAccountAddress } from "../utils/address";
 import { calculationKlay } from "../assets/constants";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../redux/action";
 
 /**
  * 1. 컨트랙트 인스턴스 생성
@@ -82,24 +84,32 @@ export const payToken = async () => {
    }
 }
 
-export const payKIP7 = async () => {
-   const address = await getAccountAddress();
-   const checkNet = await checkNetwork();
-   if(!checkNet){
-      alert("네트워크 바오밥으로 설정하세요.");
-   } else {
-      const to = "0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2"; // 토큰을 보낼 주소
-      const from = address;
-      const amount = 10000000000000000000n; // 10토큰의 지불 필요 (1000000000000000000n -> 1토큰)
-      const contract = new window.caver.klay.Contract(contractABI, contractAddress);
-      try {
-         const transfer = await contract.methods.transfer(to, amount).send({from, gas: 8000000});
-         console.log(transfer);
-      } catch {
-         alert("지불에 실패하였습니다!");
+export const usePayKIP7 = () => {
+
+   const dispatch = useDispatch();
+
+   const payKIP7 = async () => {
+      const address = await getAccountAddress();
+      const checkNet = await checkNetwork();
+      if(!checkNet){
+         dispatch(showNotification("카이카스 지갑의 네트워크를\n 바오밥으로 설정하세요."));
+      } else {
+         const to = "0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2"; // 토큰을 보낼 주소
+         const from = address;
+         const amount = 10000000000000000000n; // 10토큰의 지불 필요 (1000000000000000000n -> 1토큰)
+         const contract = new window.caver.klay.Contract(contractABI, contractAddress);
+         try {
+            const transfer = await contract.methods.transfer(to, amount).send({from, gas: 8000000});
+            console.log(transfer);
+         } catch {
+            dispatch(showNotification("지불에 실패하였습니다!"));
+         }
       }
    }
+
+   return payKIP7;
 }
+
 
       // const kip7 = new window.caver.kct.kip7(contractAddress); // kip-7 토큰 컨트랙트 주소
       // const transfer = kip7.safeTransfer(to, amount, {from, feeDelegation: true, feePayer: from});

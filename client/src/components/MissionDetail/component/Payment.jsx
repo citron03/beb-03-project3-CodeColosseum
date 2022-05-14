@@ -1,8 +1,10 @@
 import S from "./Payment.styled"
 import C from "../../CommonStyled";
-import { payKIP7 } from "../../../contracts/tokenContract";
+import { usePayKIP7 } from "../../../contracts/tokenContract";
 
 const Payment = () => {
+
+    const payKIP7 = usePayKIP7();
 
     return (
         <S.Payment>
