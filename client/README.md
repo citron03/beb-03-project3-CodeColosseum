@@ -11,7 +11,6 @@
 * redux ^4.2.0
 * react-redux ^8.0.1
 * @reduxjs/toolkit ^1.8.1
-* caver-js ^1.8.1
 * react-ace ^10.1.0
 * react-slick ^0.29.0
 * slick-carousel ^1.8.1
