@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../../../redux/action";
 
-const parseArgument = (input) => {
+const parseArgument = (input, dispatch) => {
     try {
         const tmp = window.eval('[' + input  +']');
         return tmp;
     }
     catch {
-        alert("ERROR! \n문자열을 '로 감싸주세요.");
+        dispatch(showNotification(`ERROR! \n문자열을 "로 감싸주세요.`));
         return '';
     }
 }
@@ -38,8 +38,8 @@ const WriteTestCase = ( {handleAddTestCase, argTypes, outputType, testcases} ) =
     const dispatch = useDispatch();
 
     const submitTestCase = () => {
-        const arrInput = parseArgument(input);
-        const arrOutput = parseArgument(output);
+        const arrInput = parseArgument(input, dispatch);
+        const arrOutput = parseArgument(output, dispatch);
         const inputDuplicateCheck = JSON.stringify(arrInput);
 
         if(testcases.some(el => el === inputDuplicateCheck)){
