@@ -171,9 +171,11 @@ const addNewChallenge = async (account: string, mission: string) => {
         const challengers = missionInfo.colosseum.challenge
           ? missionInfo.colosseum.challenge
           : [];
-        const now = Date.now();
+        const now = Date.now() + 9 * 60 * 60 * 1000;
         const startTime = new Date(now);
-        const endTime = new Date(now + missionInfo.colosseum.limitSeconds);
+        const endTime = new Date(
+          now + missionInfo.colosseum.limitSeconds * 1000
+        );
         await models.Mission.updateOne(
           { _id: mission },
           {
@@ -211,7 +213,7 @@ const getMissionInfo = async (missionId: string) => {
         break;
       }
     }
-    console.log(userChallengeInfo);
+    //console.log(userChallengeInfo);
     const missionInfo = {
       title: mission.title,
       creator: user.nickName,
@@ -236,10 +238,12 @@ const checkChallengers = async (account: string, missionId: string) => {
     const user = await models.User.findOne({ account });
 
     let userChallengeInfo;
-    for (let info of mission.colosseum.challengings) {
-      if (info.userId.toString() === user.id.toString()) {
-        userChallengeInfo = info;
-        break;
+    if (mission.colosseum.challengings) {
+      for (let info of mission.colosseum.challengings) {
+        if (info.userId.toString() === user.id.toString()) {
+          userChallengeInfo = info;
+          break;
+        }
       }
     }
     console.log(userChallengeInfo);
@@ -249,6 +253,7 @@ const checkChallengers = async (account: string, missionId: string) => {
       return { result: 2, message: "Not paying tokens" };
     }
   } catch (err) {
+    console.log(err);
     return { result: 3, message: "Failed to load Database" };
   }
 };
