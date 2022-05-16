@@ -13,6 +13,8 @@ S.TextArea = styled.textarea`
     height: 100%;
     min-width: 400px;
     min-height: 400px;
+    max-width: 100%;
+    max-height: 1000px;
 `
 
 export default S;
