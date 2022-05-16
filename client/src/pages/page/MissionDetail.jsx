@@ -21,10 +21,11 @@ const MissionDetail = () => {
     const id = useParams().id;
     const [syntaxError, setSyntaxError] = useState([]);
     const [grading, setGrading] = useState({});
-    const dispatch = useDispatch();
-    const state = useSelector(state => state.signup).account;
     const [argDefautCode, setArgDefautCode] = useState("");
     const [code, setCode] = useState(defautCode);
+    const [isPaid, setIsPaid] = useState(false);
+    const state = useSelector(state => state.signup).account;
+    const dispatch = useDispatch();
     
     useCheckLogin();
 
@@ -90,7 +91,7 @@ const MissionDetail = () => {
     return (
         <>
         {state?.account ?  
-            false ?
+            isPaid ?
                 <S.MissionDetail>
                 {data?.title ? <Information data={data}/> : null}
                     <S.EditorDiv>
@@ -106,7 +107,7 @@ const MissionDetail = () => {
                         </S.FunctionDiv>
                     </S.EditorDiv>
                     <Scoring grading={grading} id={id}/>
-            </S.MissionDetail> : <Payment/>
+            </S.MissionDetail> : <Payment setIsPaid={setIsPaid}/>
             : <Login/> }
         </>
     );

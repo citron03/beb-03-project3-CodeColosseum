@@ -20,8 +20,8 @@ const useLogin = () => {
 const useCheckLogin = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.signup).account;
-  console.log("Check Login!");
   useEffect(() => {
+        console.log("Check Login!");
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
