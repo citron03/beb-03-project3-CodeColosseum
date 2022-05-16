@@ -2,6 +2,7 @@ import { contractABI, contractAddress } from "./contractData";
 import { getAccountAddress } from "../utils/address";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../redux/action";
+import axios from "axios";
 
 export const checkNetwork = async () => {
    // 8217 - 메인넷
@@ -39,7 +40,7 @@ export const payKlay = async () => {
    }
 }
 
-export const usePayKIP7 = (setIsPaid) => {
+export const usePayKIP7 = (setIsPaid, id, setMissionData) => {
 
    const dispatch = useDispatch();
 
@@ -58,7 +59,13 @@ export const usePayKIP7 = (setIsPaid) => {
             if(transfer){
                // post 요청으로 토큰 지불 확인
                console.log(transfer);
-               setIsPaid(true);
+               console.log(id);
+               axios.post(`/mission/colosseum/${id}`, {account: from, txHash: transfer.transactionHash})
+                     .then(el => {
+                        setMissionData(el.data.data);
+                        setIsPaid(true); // 지불 완료
+                     })
+                     .catch(err => console.log(err));
             }
          } catch {
             dispatch(showNotification("지불에 실패하였습니다!"));

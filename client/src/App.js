@@ -20,7 +20,8 @@ function App() {
                 <Route path="/mypage/*" element={<Mypage/>}/>
                 <Route path="/missions" element={<MissionList isColosseum={true}/>}/>
                 <Route path="/practice" element={<MissionList isColosseum={false}/>}/>
-                <Route path="/mission/:id" element={<MissionDetail/>}/>
+                <Route path="/mission/colosseum/:id" element={<MissionDetail isColosseum={true}/>}/>
+                <Route path="/mission/:id" element={<MissionDetail isColosseum={false}/>}/>
                 <Route path="/feedback/:id" element={<Feedback/>}/>
                 <Route path="/edit" element={<CodeEdit/>}/>
                 <Route path="/register" element={<RegisterMission/>}/>
