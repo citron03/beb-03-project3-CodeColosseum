@@ -1,6 +1,6 @@
 import S from "./MissionDetail.styled";
 import C from "../../components/CommonStyled";
-import { Information, Scoring, Payment, OutputInfo, ArgsInfo } from "./../../components/MissionDetail";
+import { Information, Scoring, Payment, OutputInfo, ArgsInfo, TimeLimit } from "./../../components/MissionDetail";
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -109,6 +109,7 @@ const MissionDetail = ({isColosseum}) => {
                 <S.MissionDetail>
                 {missionData?.title ? <Information data={missionData}/> : null}
                     <S.EditorDiv>
+                        {isColosseum ? <TimeLimit startTime={missionData?.startTime} endTime={missionData?.endTime}/> : null}
                         <S.SupportDiv>
                             {missionData?.inputs.length > 0 ? missionData.inputs.map((el, idx) => 
                                 <ArgsInfo key={idx} index={idx} arg={el}/>) 
