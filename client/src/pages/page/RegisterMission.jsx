@@ -12,6 +12,7 @@ import { showNotification } from '../../redux/action';
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
+import { showDisappearingNoti } from '../../redux/reducer/disappearingSlice';
 import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
 
 const RegisterMission = () => {
@@ -31,8 +32,14 @@ const RegisterMission = () => {
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
                     dispatch(showSignUp());
-                }
-                dispatch(setAccount(el.data.data));                    
+                }else {
+                    if(JSON.stringify(state) !== JSON.stringify(el.data.data)){
+                      dispatch(setAccount(el.data.data));
+                      const addressStr = el.data.data.account.slice(0, 4) + 
+                        "..." + el.data.data.account.slice(el.data.data.account.length - 4);
+                      dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
+                    }
+                }                    
             })
             .catch(err => console.log(err));
     };
