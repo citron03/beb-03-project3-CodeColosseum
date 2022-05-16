@@ -4,7 +4,7 @@ import GlobalStyle from "./GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
-import { Loading, Notification, SignUp } from "./components";
+import { Loading, Notification, SignUp, DisappearingNotification } from "./components/Modals";
 import { useLogin } from "./utils/login";
 
 const queryClient = new QueryClient();
@@ -29,6 +29,7 @@ function App() {
           <Notification/>
           <Loading/>
           <SignUp/>
+          <DisappearingNotification/>
         </QueryClientProvider>
         <GlobalStyle/>
     </BrowserRouter>

@@ -2,7 +2,8 @@ import {combineReducers} from 'redux';
 import notificationReducer from './notificationReducer';
 import loading from './loadingSlice';
 import signup from './signupSlice';
+import disappearingNoti from './disappearingSlice';
 
-const reducer = combineReducers({notificationReducer, loading, signup});
+const reducer = combineReducers({notificationReducer, loading, signup, disappearingNoti});
 
 export default reducer;

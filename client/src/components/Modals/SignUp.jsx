@@ -1,9 +1,9 @@
 import S from "./SignUp.styled";
-import C from "./CommonStyled";
+import C from ".././CommonStyled";
 import { useDispatch, useSelector } from "react-redux";
-import { hideSignUp } from "../redux/reducer/signupSlice";
-import { getAccountAddress } from "../utils/address";
-import { showNotification } from "../redux/action";
+import { hideSignUp } from "../../redux/reducer/signupSlice";
+import { getAccountAddress } from "../../utils/address";
+import { showNotification } from "../../redux/action";
 import axios from "axios";
 
 const SignUp = () => {
