@@ -36,7 +36,9 @@ const useCheckLogin = () => {
                 }else {
                     if(JSON.stringify(state) !== JSON.stringify(el.data.data)){
                       dispatch(setAccount(el.data.data));
-                      dispatch(showDisappearingNoti("로그인 되었습니다"));
+                      const addressStr = el.data.data.account.slice(0, 4) + 
+                        "..." + el.data.data.account.slice(el.data.data.account.length - 4);
+                      dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
                     }
                 }              
             })
