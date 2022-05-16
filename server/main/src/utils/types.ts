@@ -29,7 +29,7 @@ type MissionState = 0|1|2|3|4; // 0: etc
 
 interface Challenger {
     account: string,
-    challengeTime: Date,
+    challengedAt: Date,
 }
 interface MissionCollosseum {
     stakedTokens: number,

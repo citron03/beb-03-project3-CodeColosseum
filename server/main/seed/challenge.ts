@@ -54,9 +54,9 @@ async function seedDB() {
                 );
 
                 // grading 서버에서 채점해오기
-                let isPassed
-                let PassedCasesRate
-                let passedCases
+                let isPassed: boolean
+                let PassedCasesRate: string
+                let passedCases: boolean[]
                 if (mission) {
                     const testCases = mission.testCases;
                     const body = {
