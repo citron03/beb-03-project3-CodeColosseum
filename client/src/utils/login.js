@@ -2,14 +2,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setAccount, showSignUp } from "../redux/reducer/signupSlice";
 import { showDisappearingNoti } from "../redux/reducer/disappearingSlice";
+import { showNotification } from "../redux/action";
 import { getAccountAddress } from "./address";
 import { getAccount } from "./address";
 
 const useLogin = () => {
   const dispatch = useDispatch();
+  
   useEffect(() => {
     window.klaytn.on('accountsChanged', () => {
         console.log("kaikas에서 계정 변경 탐지");
+        const path = window.location.pathname;
+        if(path.startsWith("/mission/colosseum")){
+          window.location.href = "/";
+          dispatch(showNotification("콜로세움 문제 도전 중\n 계정을 바꾸면 안됩니다!"));
+        }
         getAccountAddress()
           .then(el => dispatch(setAccount(el)))
           .catch(err => console.log(err));          
