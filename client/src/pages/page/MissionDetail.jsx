@@ -89,8 +89,8 @@ const MissionDetail = () => {
     
     return (
         <>
-        {true ? <Payment/> : 
-            state?.account ?
+        {state?.account ?  
+            false ?
                 <S.MissionDetail>
                 {data?.title ? <Information data={data}/> : null}
                     <S.EditorDiv>
@@ -106,7 +106,7 @@ const MissionDetail = () => {
                         </S.FunctionDiv>
                     </S.EditorDiv>
                     <Scoring grading={grading} id={id}/>
-            </S.MissionDetail> 
+            </S.MissionDetail> : <Payment/>
             : <Login/> }
         </>
     );
