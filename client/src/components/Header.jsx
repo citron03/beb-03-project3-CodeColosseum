@@ -9,19 +9,22 @@ const Header = () => {
     <S.Header>
         <S.Title>
             <S.SpanDiv onClick={() => navigate('/')}>
-                <S.Span>Code</S.Span>
+                <S.Span>Code 🗡️</S.Span>
                 <S.Span>Colosseum</S.Span>
             </S.SpanDiv>
         </S.Title>
         <S.LinkDiv>
             <Link to='/missions'>
-                <S.Div>Missions</S.Div>
+                <S.Div>콜로세움 회랑</S.Div>
             </Link>
             <Link to='/register'>
-                <S.Div>Register Mission</S.Div>
+                <S.Div>콜로세움 출제</S.Div>
+            </Link>
+            <Link to='/practice'>
+                <S.Div>연습문제</S.Div>
             </Link>
             <Link to='/mypage'>
-                <S.Div>Mypage</S.Div>
+                <S.Div>마이 페이지</S.Div>
             </Link>
         </S.LinkDiv>
     </S.Header>);

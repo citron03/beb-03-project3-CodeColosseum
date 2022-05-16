@@ -13,6 +13,7 @@ S.Loading = styled.div`
     height: 200px;
     border-radius: 100px;
     border: 10px solid black;
+    z-index: 6;
 `
 
 const rotate = keyframes`

@@ -7,12 +7,20 @@ import { DifficultyRating, MissionRating, Review } from "./../../components/Feed
 import { useRating } from "../../utils/feedback";
 import {showNotification} from "./../../redux/action";
 import { useDispatch } from "react-redux";
+import { useCheckLogin } from "../../utils/login";
+import { useEffect } from "react";
 
 const Feedback = () => {
     const id = useParams().id;
     const dispatch = useDispatch();
-    const state = useSelector(state => state.account);
+    const state = useSelector(state => state.signup).account;
     const [review, difficulty, missionRating, handleReview, handleDifficulty, handleMissionRating] = useRating();
+    
+    useCheckLogin();
+
+    useEffect(() => {
+        console.log(state);
+    }, [state])
 
     const submitFeedback = () => {
         if(difficulty === 0 || missionRating === 0 || review.length === 0){
@@ -21,10 +29,10 @@ const Feedback = () => {
         }
         console.log(id, review, difficulty, missionRating);
     }
-
+    
     return (
             <S.Feedback>
-                {state.account ? 
+                {state?.account ? 
                     <S.Div>
                         <Review review={review} handleReview={handleReview}/>
                         <DifficultyRating difficulty={difficulty} handleDifficulty={handleDifficulty}/>

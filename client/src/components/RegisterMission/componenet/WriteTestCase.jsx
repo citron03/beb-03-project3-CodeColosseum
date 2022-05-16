@@ -40,9 +40,10 @@ const WriteTestCase = ( {handleAddTestCase, argTypes, outputType, testcases} ) =
     const submitTestCase = () => {
         const arrInput = parseArgument(input);
         const arrOutput = parseArgument(output);
-        console.log(testcases, input);
-        if(testcases.some(el => el === `[${input}]`)){
-            dispatch(showNotification("이미 등록한 inputs의 테스트 케이스입니다!"));
+        const inputDuplicateCheck = JSON.stringify(arrInput);
+
+        if(testcases.some(el => el === inputDuplicateCheck)){
+            dispatch(showNotification("이미 등록한 inputs의\n 테스트 케이스입니다!"));
             return;
         }
         if(!arrOutput || !arrInput){
@@ -53,18 +54,18 @@ const WriteTestCase = ( {handleAddTestCase, argTypes, outputType, testcases} ) =
             return;
         }
         if(!checkValidType(arrOutput[0], outputType.type)){
-            dispatch(showNotification("output의 type이 일치하지 않습니다."));
+            dispatch(showNotification("output의 type이\n 일치하지 않습니다."));
             return;
         }
         if(arrInput.length !== argTypes.length){
-            dispatch(showNotification("필요한 인자의 개수가 일치하지 않습니다."));
+            dispatch(showNotification("필요한 인자의 개수가\n 일치하지 않습니다."));
             return;
         }
         let i = 0;
         if(argTypes.length > 0){
             for(i = 0; i < argTypes.length; i++){
                 if(!checkValidType(arrInput[i], argTypes[i])){
-                    dispatch(showNotification(`${i + 1}번째 인자의 타입이 올바르지 않습니다.`));
+                    dispatch(showNotification(`${i + 1}번째 인자의 타입이\n 올바르지 않습니다.`));
                     break;
                 }
             }

@@ -9,7 +9,7 @@ const Scoring = ({grading, id}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
-    console.log(grading);
+
     useEffect(() => {
         if(grading.message){
             if(grading?.message === "Grading Fail, Code Error"){

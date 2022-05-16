@@ -1,4 +1,4 @@
-import { Arguments, FunctionArea, TestCases, Explanation } from './../../components/RegisterMission';
+import { Arguments, FunctionArea, TestCases, Explanation, Timer, Description } from './../../components/RegisterMission';
 import S from './RegisterMission.styled';
 import C from '../../components/CommonStyled';
 import axios from 'axios';
@@ -12,18 +12,21 @@ import { showNotification } from '../../redux/action';
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
+import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
     const [output, setOutput] = useState({type: "string", description: ""});
-    const [registerData, handleExplanation, handleCode, handleAddTestCase, handleRemoveTestCase, handleTitle, handleTestCaseIsExample, handleEmptyTestcase] = useRegister(); // 필수정보
+    const [registerData, handleExplanation, handleCode, handleAddTestCase, 
+            handleRemoveTestCase, handleTitle, handleTestCaseIsExample, 
+            handleEmptyTestcase, handleTime, handleDescription] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const state = useSelector(state => state.signup).account;
 
     const submitGetAccount = () => {
-        dispatch(showNotification("로그인을 합니다. \n 과정이 끝난 뒤 다시 제출 버튼을 눌러주세요."));
+        dispatch(showNotification("로그인을 합니다.\n과정이 끝난 뒤\n다시 제출 버튼을 눌러주세요."));
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
@@ -48,12 +51,13 @@ const RegisterMission = () => {
             const payload = {
                 account: state.account,
                 title: completeData.title,
-                description: "테스트",
+                description: registerData.description,
                 paragraph: completeData.explanation,
                 inputs: argTypes,
                 output,
                 refCode: completeData.code,
                 testCases: completeData.testcases,
+                limitSeconds: parseInt(completeData.time * 60),
             }
             console.log(payload);
             axios.post(url, payload)
@@ -62,7 +66,10 @@ const RegisterMission = () => {
                         dispatch(showNotification("문제가 등록되었습니다."));
                         navigate("/missions");
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err);
+                        dispatch(showNotification("문제 등록에 실패하였습니다."));
+                    });
         } catch {
             dispatch(showNotification("지갑 연결에 문제가 발생했습니다."));
             return;
@@ -76,17 +83,17 @@ const RegisterMission = () => {
         if(!completeData.title) {
             dispatch(showNotification("제목을 입력하세요!"));
             return;
-        } else if(!completeData.explanation) {
+        } else if(!completeData.explanation || !completeData.description) {
             dispatch(showNotification("문제에는 설명이 필요합니다!"));
             return;
         } else if(!completeData.code) {
             dispatch(showNotification("이 문제의 레퍼런스 코드를 입력해주세요!"));
             return;
         } else if(completeData.testcases.length < 5){
-            dispatch(showNotification(`최소 5개 이상의 테스트 케이스가 필요합니다!`));
+            dispatch(showNotification(`최소 5개 이상의\n 테스트 케이스가 필요합니다!`));
             return;
         }
-        if(state.account){
+        if(state?.account){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0){
@@ -100,9 +107,9 @@ const RegisterMission = () => {
             submitGetAccount();
         }
     };
-
+    
     return (
-    <S.RegisterMission>
+    <S.RegisterMission bgImg={bgImg}>
         <S.Div>
             <S.Title>
                 <S.Label>Title</S.Label>
@@ -113,6 +120,8 @@ const RegisterMission = () => {
                 <Explanation handleExplanation={handleExplanation}/>
                 <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
             </S.Section>
+            <Description handleDescription={handleDescription}/>
+            <Timer handleTime={handleTime}/>
             <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
             <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
         </S.Div> 

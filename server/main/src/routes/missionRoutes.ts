@@ -16,6 +16,10 @@ missionRouter.get("/list/", missionController.missionList.get);
 // GET /mission/:mission_id
 missionRouter.get("/:mission_id", missionController.mission.get);
 
+// 콜로세움 미션 상세 조회(문제 오픈)
+// POST /mission/colosseum/:mission_id
+missionRouter.post("/colosseum/:mission_id", missionController.colosseum.post);
+
 // 미션 생성
 // POST /mission/
 missionRouter.post("/", missionController.mission.post);

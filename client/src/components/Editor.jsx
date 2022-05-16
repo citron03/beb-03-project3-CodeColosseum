@@ -15,13 +15,13 @@ const editorStyle = {
 
 const Editor = ({handleCode, defautCode = null, setSyntaxError}) => {
 
-        useEffect(() => {
-            setTimeout(() => {
-                const editor = ace.edit(document.getElementById('edit_code'));
-                const errArr = editor.getSession().getAnnotations();
-                setSyntaxError(errArr);
-            }, 1000);
-        })
+    useEffect(() => {
+        setTimeout(() => {
+            const editor = ace.edit(document.getElementById('edit_code'));
+            const errArr = editor.getSession().getAnnotations();
+            setSyntaxError(errArr);
+        }, 1000);
+    })
 
     return (
         <AceEditor

@@ -6,7 +6,7 @@ export const useArguments = () => {
 
     const handleAddArg = () => {
         setArgCount(prev => prev + 1);
-        setArgTypes(prev => [...prev, {name:"", type:"string", required: false, description: ""}]);
+        setArgTypes(prev => [...prev, {name:"", type:"string", description: ""}]);
     }
 
     const handleRemoveArg = () => {
