@@ -39,8 +39,19 @@ const MissionDetail = ({isColosseum}) => {
     useEffect(() => {
         if(!isColosseum) {
             setIsPaid(true); // 연습문제는 지불이 필요하지 않다.
+        } else if(state?.account) {
+            console.log(state.account);
+            axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
+                    .then(el => {
+                        console.log(el.data);
+                        if(el.data.message !== "Not paying tokens"){
+                            setMissionData(el.data.data);
+                            setIsPaid(true);
+                        }
+                    })
+                    .catch(err => console.log(err));
         }
-    }, [isColosseum]);
+    }, [isColosseum, id, state]);
 
     useEffect(() => {
         if(data){
