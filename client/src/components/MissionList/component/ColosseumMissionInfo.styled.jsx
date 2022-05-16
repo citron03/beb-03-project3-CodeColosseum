@@ -23,8 +23,8 @@ S.Player = styled.p`
             top: 80%; 
             left: 50%; 
             width: 200px; 
-            height: 100px; 
-            padding-top: 30px; 
+            height: fit-content; 
+            padding: 15px; 
             border: 1px solid white; 
             overflow: hidden;
             white-space: pre-line;
