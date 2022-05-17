@@ -12,6 +12,7 @@ const Scoring = ({grading, id}) => {
 
     useEffect(() => {
         if(grading.message){
+            console.log(grading);
             if(grading?.message === "Grading Fail, Code Error"){
                 dispatch(showNotification("코드 에러!"));
             }
