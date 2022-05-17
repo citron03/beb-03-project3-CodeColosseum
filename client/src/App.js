@@ -6,11 +6,13 @@ import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
 import { Loading, Notification, SignUp, DisappearingNotification } from "./components/Modals";
 import { useLogin } from "./utils/login";
+import { useSelector } from "react-redux";
 
 const queryClient = new QueryClient();
 
 function App() {
   useLogin();
+  const isDarkMode = useSelector(state => state.darkMode).isDarkMode;
   return (
     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
@@ -20,7 +22,8 @@ function App() {
                 <Route path="/mypage/*" element={<Mypage/>}/>
                 <Route path="/missions" element={<MissionList isColosseum={true}/>}/>
                 <Route path="/practice" element={<MissionList isColosseum={false}/>}/>
-                <Route path="/mission/:id" element={<MissionDetail/>}/>
+                <Route path="/mission/colosseum/:id" element={<MissionDetail isColosseum={true}/>}/>
+                <Route path="/mission/:id" element={<MissionDetail isColosseum={false}/>}/>
                 <Route path="/feedback/:id" element={<Feedback/>}/>
                 <Route path="/edit" element={<CodeEdit/>}/>
                 <Route path="/register" element={<RegisterMission/>}/>
@@ -31,7 +34,7 @@ function App() {
           <SignUp/>
           <DisappearingNotification/>
         </QueryClientProvider>
-        <GlobalStyle/>
+        <GlobalStyle isDarkMode={isDarkMode}/>
     </BrowserRouter>
   );
 }

@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import type { ChallengeKind } from '../utils/types'; // 필드의 상세한 타입 정의 바로가기
+import type { ChallengeKind } from "../utils/types"; // 필드의 상세한 타입 정의 바로가기
 
 const schema = new Schema(
   {
@@ -17,4 +17,4 @@ const schema = new Schema(
 
 const Model = model("Challenge", schema);
 
-export = Model
+export = Model;

@@ -1,5 +1,5 @@
 import S from "./MyMissions.styled";
-import { parseDate } from "../../../utils/date";
+import MyMission from "./MyMission";
 
 const MyMissions = ({userCreatedMissions}) => {
     // console.log(userCreatedMissions);
@@ -7,14 +7,12 @@ const MyMissions = ({userCreatedMissions}) => {
     return (
         <S.MyMissions>
             <S.H2>내가 출제한 미션들</S.H2>
-            {userCreatedMissions ? 
-                userCreatedMissions.map((el) => 
-                    <S.Div key={el._id}>
-                        <S.P>제목 : {el.title}</S.P>
-                        <S.P>description : {el.description}</S.P>
-                        <S.P>만든 날짜 : {parseDate(el.createdAt)}</S.P>
-                    </S.Div>)
-            : null}
+            <S.Div>
+                {userCreatedMissions ? 
+                    userCreatedMissions.map((el) => 
+                        <MyMission key={el._id} data={el}/>)
+                : null}
+            </S.Div>
         </S.MyMissions>
     );
 }
