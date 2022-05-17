@@ -4,6 +4,7 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 import duummyChallenges from '../src/dummy/challenges';
 import utils from '../src/utils';
 import axios from 'axios';
+import { Challenger } from '../src/utils/types';
 
 async function seedDB() {
 
@@ -24,19 +25,19 @@ async function seedDB() {
                 .then(async () => {
                     console.log("challenges dropped!!");
                     
-                    // // seed 개발 과정에서 콜렉션이 비어있으면 발생하는 오류를 제거하기위한 초기화 더미 도큐먼트 하나 생성
-                    // const challenger = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
-                    // const mission = await utils.func.getRandomId(missionsCollection); // 랜덤한 미션 _id 가져오기
+                    // seed 개발 과정에서 콜렉션이 비어있으면 발생하는 오류를 제거하기위한 초기화 더미 도큐먼트 하나 생성
+                    const challenger = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
+                    const mission = await utils.func.getRandomId(missionsCollection); // 랜덤한 미션 _id 가져오기
                     
-                    // await challengesCollection.insertOne({
-                    // challenger,
-                    // mission,
-                    // answerCode: `초기화 성공`,
-                    // isPassed: true,
-                    // passedCases: []
-                    // })
+                    await challengesCollection.insertOne({
+                    challenger,
+                    mission,
+                    answerCode: `초기화 성공`,
+                    isPassed: true,
+                    passedCases: []
+                    })
                 })
-                // .then(() => console.log("Seeded init dummy!!"))
+                .then(() => console.log("Seeded init dummy!!"))
 
         // 더미 리스트 만들기
             let challengesData = [];
@@ -54,9 +55,11 @@ async function seedDB() {
                 );
 
                 // grading 서버에서 채점해오기
-                let isPassed: boolean
-                let PassedCasesRate: string
-                let passedCases: boolean[]
+                let isPassed: boolean|undefined
+                let PassedCasesRate: string|undefined
+                let passedCases: boolean[]|undefined
+                const recordTime = 1500 // 편의상 1500초 라고 가정하기
+
                 if (mission) {
                     const testCases = mission.testCases;
                     const body = {
@@ -64,10 +67,37 @@ async function seedDB() {
                         testCases
                     }
                     const { data } = await axios.post("http://localhost:3003/grading", body); // grading 서버에서 채점결과 가져옴
-                    // 채점 결과를 바탕으로 isPassed, passedCasesRate, passedCases 정의
+                    // 채점 결과를 바탕으로 isPassed, passedCasesRate, passedCases 정의하기
                     isPassed = data.data.failCount === 0? true : false;
                     PassedCasesRate = `${testCases.length-data.data.failCount} / ${testCases.length}`;
                     passedCases = data.data.passedCases;
+                    
+                    // mission.colosseum 업데이트하기
+                    let colosseum = mission.colosseum;
+                    
+                    const challengerDoc = await usersCollection.findOne({_id: challenger});
+                    let colosseumChallenger: Challenger
+                    if (challengerDoc) {
+                        colosseumChallenger = {account: challengerDoc.account ,challengedAt: new Date()}
+                    }
+                    else {
+                        colosseumChallenger = {account: "user not found(seed bug)", challengedAt: new Date()}
+                    }
+                    
+                    colosseum.challengings = [];
+                    colosseum.challengings.push(colosseumChallenger);
+
+                    if (isPassed && mission.colosseum.limitSeconds>=recordTime) { // 콜로세움 성공인경우
+                        colosseum.winner = colosseumChallenger // 위너에 추가
+                        await missionsCollection.updateOne({_id: mission._id}, {$set: {state:2,colosseum}}); // 상태도 수정
+                    }
+                    else { // 성공이 아닌경우
+                        colosseum.losers = [];
+                        colosseum.losers.push(colosseumChallenger); // 루저에 추가
+                        colosseum.stakedTokens += 10; // 토큰 스테이크
+                        await missionsCollection.updateOne({_id: mission._id}, {$set: {colosseum}});
+                    }
+
                 } else {
                     passedCases = undefined;
                     PassedCasesRate = undefined;
@@ -83,6 +113,7 @@ async function seedDB() {
                     isPassed,
                     PassedCasesRate,
                     passedCases,
+                    recordTime,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }
