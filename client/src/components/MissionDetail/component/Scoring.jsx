@@ -11,6 +11,16 @@ const Scoring = ({grading, id}) => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
+        if(grading?.data?.reward) {
+            // 내가 답을 맞춤
+            dispatch(showNotification(`정답입니다!\n${grading.data.reward}개의 토큰을 획득하였습니다.`));
+        }
+        if(grading?.data?.isClosed){
+            // 다른 사람이 정답 맞춤
+            navigate("/");
+            dispatch(showNotification("아쉽네요!\n다른 사람이 먼저 정답을 맞췄습니다."));
+            return;
+        }
         if(grading.message){
             console.log(grading);
             if(grading?.message === "Grading Fail, Code Error"){
@@ -25,7 +35,7 @@ const Scoring = ({grading, id}) => {
                 setMessage(`아쉽네요!`);
             }
         }
-    }, [grading, dispatch])
+    }, [grading, dispatch, navigate])
     
     return (
         <S.Scoring>
