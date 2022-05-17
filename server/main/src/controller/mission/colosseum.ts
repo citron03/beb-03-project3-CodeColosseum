@@ -158,6 +158,7 @@ const addNewChallenge = async (account: string, mission: string) => {
   try {
     const userInfo = await models.User.findOne({ account });
     const userId = userInfo._id;
+    const nickName = userInfo.nickName;
     const challengeSchema = {
       challenger: userId,
       mission,
@@ -181,7 +182,10 @@ const addNewChallenge = async (account: string, mission: string) => {
           {
             colosseum: {
               ...missionInfo.colosseum,
-              challengings: [...challengers, { userId, startTime, endTime }],
+              challengings: [
+                ...challengers,
+                { userId, nickName, startTime, endTime },
+              ],
             },
           }
         );
