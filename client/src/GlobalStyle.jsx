@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
         --highlight-yellow: #f0b81c;
         --dark-yellow: #a56516;
         --background-theme-gray: ${({isDarkMode}) => isDarkMode ? "#2c2a2a" : "white"};
+        --background-theme-modal: ${({isDarkMode}) => isDarkMode ? "#222f3e" : "white"};
         --background-theme: ${({isDarkMode}) => isDarkMode ? "black" : "white"};
         --font-theme: ${({isDarkMode}) => isDarkMode ? "white" : "black"};
     }

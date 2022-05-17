@@ -23,7 +23,7 @@ S.Div = styled.div`
 
 S.TestCasesDiv = styled.div`
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 `
 
 S.H1 = styled.h1`

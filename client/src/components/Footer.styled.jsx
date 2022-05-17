@@ -12,7 +12,7 @@ S.Footer = styled.div`
     display: flex;
     flex-direction: column;
     border-top: 1px solid black;
-    padding-top: 15px;
+    padding-top: 5px;
 `
 
 S.Div = styled.div`
