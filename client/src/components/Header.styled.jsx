@@ -8,9 +8,9 @@ S.Header = styled.div`
     display: flex;
     justify-content: space-evenly;
     padding: 30px;
-    background-color: #2c2a2a;
-    color: white;
-    border-bottom: 1px solid white;
+    background-color: var(--background-theme-gray);
+    color: var(--font-theme);
+    border-bottom: 1px solid var(--dark-yellow);
 `
 
 S.Title = styled.div`
@@ -55,7 +55,7 @@ S.LinkDiv = styled.div`
     align-items: center;
     a {
         text-decoration: none;
-        color: white;
+    color: var(--font-theme);
         &:hover {
             color: var(--highlight-yellow);
         }

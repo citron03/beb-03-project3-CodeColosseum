@@ -14,7 +14,6 @@ S.HeadDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #111111;
 `
 
 export default S;

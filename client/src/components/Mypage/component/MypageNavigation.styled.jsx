@@ -8,11 +8,11 @@ S.MypageNavigation = styled.div`
     display: flex;
     justify-content: center;
     margin: 20px;
-    border: 2px solid black;
+    border: 2px solid var(--font-theme);
 `
 
 S.Div = styled.div`
-    border: 1px solid white;
+    border: 1px solid var(--font-theme);
     flex: 1 1 0;
     text-align: center;
     padding: 15px;
@@ -20,7 +20,7 @@ S.Div = styled.div`
     &:hover {
         background-color: #e58e26;
     }
-    background-color: ${({focus}) => focus ? "var(--dark-yellow)" : "black"};
+    background-color: ${({focus}) => focus ? "var(--dark-yellow)" : "var(--background-theme)"};
     font-size: ${({focus}) => focus ? "1.4rem" : "1.3rem"};
     font-weight: 500;
 
