@@ -3,15 +3,13 @@ import S from "./ColosseumMissionInfo.styled";
 const getChallengers = (data) => {
     if(data.length === 0) {
         return "도전 중인 사람이 없습니다.";
-    } else {
-        return `${data.length}명이 현재 도전중입니다.`
     }
-    // const challengers = data.map(el => el.userId.slice(el.userId.length - 4));
-    // if(challengers.length > 10){
-    //     return challengers.slice(challengers.length - 10).join(", ") + `등 ${challengers.length}명이 도전 중...`;
-    // } else {
-    //     return challengers.join(", ") + "가 도전 중...";
-    // }
+    const challengers = data.map(el => el.nickName);
+    if(challengers.length > 10){
+        return challengers.slice(challengers.length - 10).join(", ") + `등 ${challengers.length}명이 도전 중...`;
+    } else {
+        return challengers.join(", ") + " 님이 도전 중...";
+    }
 }
 
 const ColosseumMissionInfo = ({data}) => {
