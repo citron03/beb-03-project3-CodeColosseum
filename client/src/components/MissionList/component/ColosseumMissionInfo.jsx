@@ -13,7 +13,7 @@ const ColosseumMissionInfo = ({data}) => {
         <S.ColosseumMissionInfo>
             <S.P>예상되는 토큰 획득량: {data.tokenExpectation}</S.P>
             <S.Player data={getChallengers(data.challengerList)}>이 문제를 푸는 사람들</S.Player>
-            <S.P>시간제한 : 20분</S.P>
+            <S.P>시간제한 : {parseInt(data.limitSeconds / 60)}분</S.P>
         </S.ColosseumMissionInfo>
     );
 }
