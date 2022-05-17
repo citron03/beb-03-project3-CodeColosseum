@@ -23,6 +23,7 @@ const get = async (req: any, res: any) => {
             challengerList: mission.colosseum.challengings
               ? mission.colosseum.challengings
               : [],
+            limitSeconds: mission.colosseum.limitSeconds,
           };
         })
       );
