@@ -7,8 +7,8 @@ S.Footer = styled.div`
     bottom: 0%;
     width: 100%;
     height: fit-content;
-    background-color: #2c2a2a;
-    color: white;
+    background-color: var(--background-theme-gray);
+    color: var(--font-theme);
     display: flex;
     flex-direction: column;
     border-top: 1px solid black;
@@ -30,9 +30,16 @@ S.P = styled.p`
 
 S.A = styled.a`
     text-decoration: none;
-    color: white;
+    color: var(--font-theme);
     &:hover {
-        color: #f0b81c;
+        color: var(--highlight-yellow);
+        cursor: pointer;
+    }
+`
+
+S.Span = styled.span`
+    &:hover {
+        color: var(--highlight-yellow);
         cursor: pointer;
     }
 `

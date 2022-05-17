@@ -6,11 +6,13 @@ import Header from "./components/Header";
 import { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback } from './pages';
 import { Loading, Notification, SignUp, DisappearingNotification } from "./components/Modals";
 import { useLogin } from "./utils/login";
+import { useSelector } from "react-redux";
 
 const queryClient = new QueryClient();
 
 function App() {
   useLogin();
+  const isDarkMode = useSelector(state => state.darkMode).isDarkMode;
   return (
     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
@@ -32,7 +34,7 @@ function App() {
           <SignUp/>
           <DisappearingNotification/>
         </QueryClientProvider>
-        <GlobalStyle/>
+        <GlobalStyle isDarkMode={isDarkMode}/>
     </BrowserRouter>
   );
 }

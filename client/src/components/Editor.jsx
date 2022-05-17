@@ -2,8 +2,10 @@ import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/theme-solarized_light";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ace = require('ace-builds/src-noconflict/ace');
 ace.config.set("basePath", "https://cdn.jsdelivr.net/npm/ace-builds@1.4.3/src-noconflict/");
@@ -14,6 +16,7 @@ const editorStyle = {
 }
 
 const Editor = ({handleCode, defautCode = null, setSyntaxError}) => {
+    const isDarkMode = useSelector(state => state.darkMode).isDarkMode;
 
     useEffect(() => {
         setTimeout(() => {
@@ -26,7 +29,7 @@ const Editor = ({handleCode, defautCode = null, setSyntaxError}) => {
     return (
         <AceEditor
             mode="javascript"
-            theme="monokai"
+            theme={isDarkMode ? "monokai" : "solarized_light"}
             onChange={e => handleCode(e)}
             placeholder={`코드를 작성하세요`}
             name="edit_code"
