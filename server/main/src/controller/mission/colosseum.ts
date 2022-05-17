@@ -53,7 +53,7 @@ const post = async (req: any, res: any) => {
     console.log("challenge 데이터 생성 완료");
 
     console.log("문제 데이터 전송");
-    const gmResult = await getMissionInfo(missionId);
+    const gmResult = await getMissionInfo(missionId, account);
     if (gmResult.result) {
       return res
         .status(200)
@@ -66,7 +66,7 @@ const post = async (req: any, res: any) => {
     const checkResult = await checkChallengers(account, missionId);
     if (checkResult.result === 1) {
       // 이미 도전 중인 사람
-      const gmResult = await getMissionInfo(missionId);
+      const gmResult = await getMissionInfo(missionId, account);
       if (gmResult.result === false) {
         return res.status(400).send({ message: gmResult.message });
       }
@@ -158,6 +158,7 @@ const addNewChallenge = async (account: string, mission: string) => {
   try {
     const userInfo = await models.User.findOne({ account });
     const userId = userInfo._id;
+    const nickName = userInfo.nickName;
     const challengeSchema = {
       challenger: userId,
       mission,
@@ -168,10 +169,10 @@ const addNewChallenge = async (account: string, mission: string) => {
 
       try {
         const missionInfo = await models.Mission.findOne({ _id: mission });
-        const challengers = missionInfo.colosseum.challenge
-          ? missionInfo.colosseum.challenge
+        const challengers = missionInfo.colosseum.challengings
+          ? missionInfo.colosseum.challengings
           : [];
-        const now = Date.now() + 9 * 60 * 60 * 1000;
+        const now = Date.now();
         const startTime = new Date(now);
         const endTime = new Date(
           now + missionInfo.colosseum.limitSeconds * 1000
@@ -181,7 +182,10 @@ const addNewChallenge = async (account: string, mission: string) => {
           {
             colosseum: {
               ...missionInfo.colosseum,
-              challengings: [...challengers, { userId, startTime, endTime }],
+              challengings: [
+                ...challengers,
+                { userId, nickName, startTime, endTime },
+              ],
             },
           }
         );
@@ -201,19 +205,20 @@ const addNewChallenge = async (account: string, mission: string) => {
   }
 };
 
-const getMissionInfo = async (missionId: string) => {
+const getMissionInfo = async (missionId: string, account: string) => {
   try {
     const mission = await models.Mission.findOne({ _id: missionId });
-    const user = await models.User.findOne({ _id: mission.creator });
+    const user = await models.User.findOne({ account });
 
     let userChallengeInfo;
     for (let info of mission.colosseum.challengings) {
-      if (info.userId.toString() === user._id.toString()) {
+      //console.log(info.userId.toString(), user.id.toString());
+      if (info.userId.toString() === user.id.toString()) {
         userChallengeInfo = info;
         break;
       }
     }
-    //console.log(userChallengeInfo);
+    console.log(userChallengeInfo);
     const missionInfo = {
       title: mission.title,
       creator: user.nickName,
