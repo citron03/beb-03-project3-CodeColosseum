@@ -20,6 +20,7 @@ S.Div = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    border-bottom: 1px solid var(--dark-yellow);
 `
 
 S.P = styled.p`

@@ -10,7 +10,7 @@ S.Header = styled.div`
     padding: 30px;
     background-color: #2c2a2a;
     color: white;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid var(--dark-yellow);
 `
 
 S.Title = styled.div`
