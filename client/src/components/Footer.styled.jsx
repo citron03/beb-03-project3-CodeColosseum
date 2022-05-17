@@ -6,18 +6,25 @@ S.Footer = styled.div`
     position: relative;
     bottom: 0%;
     width: 100%;
-    height: 60px;
+    height: fit-content;
     background-color: #2c2a2a;
     color: white;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
     border-top: 1px solid black;
-    margin-top: 40px;
+    padding-top: 15px;
 `
 
 S.Div = styled.div`
-    
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+`
+
+S.P = styled.p`
+    text-align: center;
+    margin: 12px;
 `
 
 S.A = styled.a`
