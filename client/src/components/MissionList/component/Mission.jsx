@@ -9,9 +9,9 @@ const Mission = ({data, isColosseum}) => {
     return (
         <S.Mission onClick={() => navigate(url)}>
             <S.H3>{data.title}</S.H3>
-            <S.P>평점 : ⚔️ ⚔️ ⚔️ ⚔️ ⚔️</S.P>
+            {/* <S.P>평점 : ⚔️ ⚔️ ⚔️ ⚔️ ⚔️</S.P> */}
             <S.P>출제자 : {data.creator}</S.P>
-            {isColosseum ? <ColosseumMissionInfo/> : null}
+            {isColosseum ? <ColosseumMissionInfo data={data}/> : null}
         </S.Mission>
     );
 }
