@@ -14,6 +14,7 @@ const Scoring = ({grading, id}) => {
         if(grading?.data?.reward) {
             // 내가 답을 맞춤
             dispatch(showNotification(`정답입니다!\n${grading.data.reward}개의 토큰을 획득하였습니다.`));
+            return;
         }
         if(grading?.data?.isClosed){
             // 다른 사람이 정답 맞춤
