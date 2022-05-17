@@ -10,8 +10,7 @@ const schema = new Schema(
     isPassed: { type: Boolean }, // 정답 여부
     PassedCasesRate: { type: String }, // 케이스 통과 비율 ( 통과케이스 수 / 전체케이스 수 )
     passedCases: { type: [Boolean] }, // [true, false, true, ...] 테스트케이스 정답여부
-    clearTime: { type: Number }, // 제출시간
-    // kind: { type: String, required: true }, // 제출 종목 (콜로세움, 연습 등)
+    recordTime: { type: Number }, // 제출시간(초)
   },
   { timestamps: true }
 );
