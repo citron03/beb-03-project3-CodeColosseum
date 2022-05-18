@@ -5,7 +5,7 @@ import ColosseumMissionInfo from "./ColosseumMissionInfo";
 const Mission = ({data, isColosseum}) => {
     const navigate = useNavigate();
     const url = isColosseum ? `/mission/colosseum/${data.missionId}` : `/mission/${data.missionId}`;
-    
+    console.log(data);
     return (
         <S.Mission onClick={() => navigate(url)}>
             <S.H3>{data.title}</S.H3>
