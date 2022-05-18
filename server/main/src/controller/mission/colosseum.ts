@@ -200,12 +200,11 @@ const addNewChallenge = async (account: string, mission: string) => {
 const getMissionInfo = async (missionId: string, account: string) => {
   try {
     const mission = await models.Mission.findOne({ _id: missionId });
-    const user = await models.User.findOne({ account });
+    const user = await models.User.findOne({ _id: mission.creator });
 
     let challengedAt;
     for (let info of mission.colosseum.challengings) {
-      //console.log(info.userId.toString(), user.id.toString());
-      if (info.userId.toString() === user.id.toString()) {
+      if (info.account === account) {
         challengedAt = info.challengedAt;
         break;
       }
@@ -230,12 +229,11 @@ const getMissionInfo = async (missionId: string, account: string) => {
 const checkChallengers = async (account: string, missionId: string) => {
   try {
     const mission = await models.Mission.findOne({ _id: missionId });
-    const user = await models.User.findOne({ account });
 
     let userChallengeInfo;
     if (mission.colosseum.challengings) {
       for (let info of mission.colosseum.challengings) {
-        if (info.userId.toString() === user.id.toString()) {
+        if (info.account === account) {
           userChallengeInfo = info;
           break;
         }
