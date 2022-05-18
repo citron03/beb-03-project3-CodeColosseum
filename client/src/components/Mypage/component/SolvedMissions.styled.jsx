@@ -20,4 +20,8 @@ S.H2 = styled.h2`
     
 `
 
+S.P = styled.p`
+
+`
+
 export default S;
