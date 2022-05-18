@@ -158,7 +158,6 @@ const addNewChallenge = async (account: string, mission: string) => {
   try {
     const userInfo = await models.User.findOne({ account });
     const userId = userInfo._id;
-    const nickName = userInfo.nickName;
     const challengeSchema = {
       challenger: userId,
       mission,
@@ -172,20 +171,13 @@ const addNewChallenge = async (account: string, mission: string) => {
         const challengers = missionInfo.colosseum.challengings
           ? missionInfo.colosseum.challengings
           : [];
-        const now = Date.now();
-        const startTime = new Date(now);
-        const endTime = new Date(
-          now + missionInfo.colosseum.limitSeconds * 1000
-        );
+        const challengedAt = new Date();
         await models.Mission.updateOne(
           { _id: mission },
           {
             colosseum: {
               ...missionInfo.colosseum,
-              challengings: [
-                ...challengers,
-                { userId, nickName, startTime, endTime },
-              ],
+              challengings: [...challengers, { account, challengedAt }],
             },
           }
         );
@@ -210,15 +202,14 @@ const getMissionInfo = async (missionId: string, account: string) => {
     const mission = await models.Mission.findOne({ _id: missionId });
     const user = await models.User.findOne({ account });
 
-    let userChallengeInfo;
+    let challengedAt;
     for (let info of mission.colosseum.challengings) {
       //console.log(info.userId.toString(), user.id.toString());
       if (info.userId.toString() === user.id.toString()) {
-        userChallengeInfo = info;
+        challengedAt = info.challengedAt;
         break;
       }
     }
-    console.log(userChallengeInfo);
     const missionInfo = {
       title: mission.title,
       creator: user.nickName,
@@ -226,8 +217,7 @@ const getMissionInfo = async (missionId: string, account: string) => {
       testCases: mission.testCases,
       inputs: mission.inputs,
       output: mission.output,
-      startTime: userChallengeInfo.startTime,
-      endTime: userChallengeInfo.endTime,
+      challengedAt,
     };
 
     return { result: true, message: "Success", missionInfo };
@@ -251,7 +241,7 @@ const checkChallengers = async (account: string, missionId: string) => {
         }
       }
     }
-    console.log(userChallengeInfo);
+    //console.log(userChallengeInfo);
     if (userChallengeInfo) {
       return { result: 1, message: "Already being challenged" };
     } else {
