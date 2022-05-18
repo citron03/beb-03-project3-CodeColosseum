@@ -216,7 +216,9 @@ const getMissionInfo = async (missionId: string, account: string) => {
       testCases: mission.testCases,
       inputs: mission.inputs,
       output: mission.output,
-      challengedAt,
+      endTime: new Date(
+        challengedAt.getTime() + mission.colosseum.limitSeconds * 1000
+      ),
     };
 
     return { result: true, message: "Success", missionInfo };
