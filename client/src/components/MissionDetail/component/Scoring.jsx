@@ -27,8 +27,10 @@ const Scoring = ({grading, id}) => {
             if(grading?.message === "Grading Fail, Code Error"){
                 dispatch(showNotification("코드 에러!"));
             }
-            else if(grading?.message === "Grading Complete"){
-                dispatch(showNotification("채점 완료!"));
+            else if(grading?.message === "Grading Complete, try again!"){
+                dispatch(showNotification("채점 완료!\n 하지만 아쉽게도 틀렸습니다."));
+            } else {
+                dispatch(showNotification("채점 완료!\n 모든 테스트를 통과하셨습니다!"));
             }
             if(grading?.data?.failCount === 0){
                 setMessage("축하합니다!");
