@@ -9,4 +9,10 @@ S.TestCases = styled.div`
     align-items: center;
 `
 
+S.TestCasesList = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+`
+
 export default S;
