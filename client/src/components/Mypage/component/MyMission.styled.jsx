@@ -13,5 +13,9 @@ S.P = styled.p`
     font-size: 1.1rem;
 `
 
+S.ButtonDiv = styled.div`
+    
+`
+
 
 export default S;
