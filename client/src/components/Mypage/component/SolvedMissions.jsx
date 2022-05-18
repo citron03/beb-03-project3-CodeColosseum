@@ -5,7 +5,7 @@ const SolvedMissions = ({userCallenges}) => {
     return (
         <S.SolvedMissions>
             <S.H2>제출 시도</S.H2>
-            {userCallenges ? 
+            {!!userCallenges && userCallenges.length > 0 ? 
                     <S.Div>
                         {userCallenges.map((el) => 
                             <Callenge key={el._id} data={el}/>)}
