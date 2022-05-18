@@ -22,19 +22,23 @@ const post = async (req: any, res: any) => {
           // 푼 사람은 winner로 나머지 사람들은 losers로 이동
           // challenge도 업데이트
           // 정답 여부, 받게 되는 보상
-          const winner = userInfo.id;
+          const winner = missionInfo.colosseum.challengings.filter(
+            (challenger: any) => {
+              return challenger.account === account;
+            }
+          );
           const losers = missionInfo.colosseum.challengings.filter(
             (challenger: any) => {
-              return challenger.userId.toString() !== winner.toString();
+              return challenger.account !== account;
             }
           );
 
           try {
-            const now = Date.now();
-            const clearTime = new Date(now);
+            const clearTime = Date.now();
+            const recordTime = clearTime - winner[0].challengedAt.getTime();
             try {
               await models.Challenge.updateOne(
-                { challenger: winner, mission: missionId },
+                { challenger: winner[0].account, mission: missionId },
                 {
                   answerCode: code,
                   isPassed: true,
@@ -42,7 +46,7 @@ const post = async (req: any, res: any) => {
                     missionInfo.testCases.length - gradingResult.data.failCount
                   } / ${missionInfo.testCases.length}`,
                   passedCases: gradingResult.data.passedCases,
-                  clearTime,
+                  recordTime,
                 }
               );
             } catch (err) {
@@ -56,7 +60,7 @@ const post = async (req: any, res: any) => {
                 colosseum: {
                   stakedTokens: missionInfo.colosseum.stakedTokens,
                   limitSeconds: missionInfo.colosseum.limitSeconds,
-                  winner,
+                  winner: winner[0],
                   losers,
                 },
               }
@@ -94,8 +98,13 @@ const post = async (req: any, res: any) => {
       if (gradingResult.data) {
         // 채점에 성공 (정답 여부 상관 없이)
         // 누군가 이미 성공해서 종료되었다고 알림
-        const now = Date.now();
-        const clearTime = new Date(now);
+        const clearTime = Date.now();
+        const challengeInfo = missionInfo.colosseum.challengings.filter(
+          (challenger: any) => {
+            return challenger.account === account;
+          }
+        );
+        const recordTime = clearTime - challengeInfo[0].challengedAt.getTime();
         try {
           await models.Challenge.updateOne(
             { challenger: userInfo.id, mission: missionId },
@@ -106,7 +115,7 @@ const post = async (req: any, res: any) => {
                 missionInfo.testCases.length - gradingResult.data.failCount
               } / ${missionInfo.testCases.length}`,
               passedCases: gradingResult.data.passedCases,
-              clearTime,
+              recordTime,
             }
           );
         } catch (err) {
