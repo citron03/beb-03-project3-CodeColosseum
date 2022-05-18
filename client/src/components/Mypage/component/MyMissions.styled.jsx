@@ -12,11 +12,15 @@ S.Div = styled.div`
     padding: 10px;
     margin: 10px;
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
 `
 
 S.H2 = styled.h2`
+    
+`
+
+S.P = styled.p`
     
 `
 
