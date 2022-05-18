@@ -6,9 +6,9 @@ const getChallengers = (data) => {
     }
     const challengers = data.map(el => el.nickName);
     if(challengers.length > 10){
-        return challengers.slice(challengers.length - 10).join(", ") + `등 ${challengers.length}명이 도전...`;
+        return challengers.slice(challengers.length - 10).join(", ") + `등 ${challengers.length}명이 도전 중...`;
     } else {
-        return challengers.join(", ") + " 님이 도전...";
+        return challengers.join(", ") + " 님이 도전 중...";
     }
 }
 
