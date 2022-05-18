@@ -112,7 +112,7 @@ const MissionDetail = ({isColosseum}) => {
             submitGetAccount();
         }
     };
-    
+
     return (
         <>
         {state?.account ?  
@@ -120,7 +120,7 @@ const MissionDetail = ({isColosseum}) => {
                 <S.MissionDetail>
                 {missionData?.title ? <Information data={missionData}/> : null}
                     <S.EditorDiv>
-                        {isColosseum ? <TimeLimit startTime={missionData?.startTime} endTime={missionData?.endTime}/> : null}
+                        {isColosseum ? <TimeLimit endTime={missionData?.endTime}/> : null}
                         <S.SupportDiv>
                             {missionData?.inputs.length > 0 ? missionData.inputs.map((el, idx) => 
                                 <ArgsInfo key={idx} index={idx} arg={el}/>) 
