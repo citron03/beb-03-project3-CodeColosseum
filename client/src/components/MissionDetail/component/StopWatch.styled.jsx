@@ -10,7 +10,7 @@ S.StopWatch = styled.div`
 `
 
 S.H2 = styled.h2`
-    
+    color: ${({isStop}) => isStop ? "var(--warning-light)" : "var(--font-theme)"};    
 `
 
 S.P = styled.p`
