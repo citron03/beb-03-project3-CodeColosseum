@@ -13,18 +13,22 @@ const StopWatch = ({endTime}) => {
     useEffect(() => {
         const now = new Date();
         const end = new Date(endTime);
-        // console.log(parseInt((end.getTime() - now.getTime()) / (1000*60)) + "분");
         const left = parseInt((end.getTime() - now.getTime()) / (1000));
-        setSeconds(left);
-    }, [endTime]);
+        if(left < 0) {
+            dispatch(showNotification("이미 도전에 실패한 문제입니다."));
+            navigator("/");
+        } else {
+            setSeconds(left);
+        }
+    }, [endTime, dispatch, navigator]);
 
     useEffect(() => {
         const countdown = setInterval(() => {
             if (seconds > 0) {
               setSeconds(prev => prev - 1);
             } else {
-                navigator("/");
                 dispatch(showNotification("Time Over!"));
+                navigator("/");
                 // 타임 오버 post?
             }
           }, 1000);

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const S = {};
 
 S.TimeLimit = styled.div`
-    border: 2px solid red;
+    border: 2px solid var(--warning);
     width: fit-content;
     height: fit-content;
     padding: 10px;
@@ -12,8 +12,12 @@ S.TimeLimit = styled.div`
     font-size: 1.5rem;
 `
 
-S.P = styled.p`
+S.H2 = styled.h2`
     
+`
+
+S.P = styled.p`
+    font-size: 1rem;
 `
 
 export default S;

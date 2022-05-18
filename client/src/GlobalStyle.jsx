@@ -34,6 +34,8 @@ const GlobalStyle = createGlobalStyle`
         --background-theme-modal: ${({isDarkMode}) => isDarkMode ? "#222f3e" : "white"};
         --background-theme: ${({isDarkMode}) => isDarkMode ? "black" : "white"};
         --font-theme: ${({isDarkMode}) => isDarkMode ? "white" : "black"};
+        --warning: #d63031;
+        --warning-light: #ff7675;
     }
 
     code {

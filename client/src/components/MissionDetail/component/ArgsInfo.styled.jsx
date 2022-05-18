@@ -7,6 +7,7 @@ S.ArgInfo = styled.div`
     max-width: 500px;
     border: 1px solid var(--dark-yellow);
     white-space: pre-line;
+    margin: 10px;
 `
 
 S.P = styled.p`
