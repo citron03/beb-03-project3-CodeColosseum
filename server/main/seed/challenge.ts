@@ -58,6 +58,7 @@ async function seedDB() {
                 let isPassed: boolean|undefined
                 let PassedCasesRate: string|undefined
                 let passedCases: boolean[]|undefined
+                let endTime: Date|undefined
                 const recordTime = 1500 // 편의상 1500초 라고 가정하기
 
                 if (mission) {
@@ -98,10 +99,15 @@ async function seedDB() {
                         await missionsCollection.updateOne({_id: mission._id}, {$set: {colosseum}});
                     }
 
+                    // endTime 만들기
+                    endTime = new Date()
+                    endTime.setSeconds(endTime.getSeconds() + colosseum.limitSeconds)
+
                 } else {
                     passedCases = undefined;
                     PassedCasesRate = undefined;
                     isPassed = undefined;
+                    endTime = undefined;
                 }
 
                 // 채점 결과로 challenge 만들기
@@ -109,6 +115,7 @@ async function seedDB() {
                     challenger,
                     mission: mission? mission._id : undefined,
                     kind: 1,
+                    endTime,
                     answerCode: duummyChallenges[i].answerCode,
                     isPassed,
                     PassedCasesRate,
