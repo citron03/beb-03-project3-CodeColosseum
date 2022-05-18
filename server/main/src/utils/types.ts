@@ -29,7 +29,7 @@ type MissionState = 0|1|2|3|4; // 0: etc
 
 interface Challenger {
     account: string,
-    challengeTime: Date,
+    challengedAt: Date,
 }
 interface MissionCollosseum {
     stakedTokens: number,
@@ -53,4 +53,4 @@ interface TokenPaymentLogItem {
     id: string,
 }
 
-export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenPaymentLogItem };
+export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenPaymentLogItem, Challenger };

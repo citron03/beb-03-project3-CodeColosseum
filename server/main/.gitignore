@@ -152,3 +152,6 @@ dist
 # 
 package-lock.json
 build/
+
+#
+kastest.js

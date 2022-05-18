@@ -3,6 +3,7 @@ import config from '../src/config';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import coplitDummyMissions from '../src/dummy/coplitMissions';
 import utils from '../src/utils';
+import { MissionCollosseum } from '../src/utils/types';
 
 async function seedDB() {
 
@@ -27,12 +28,27 @@ async function seedDB() {
             for (let i = 0; i < coplitDummyMissions.length; i++) {
                 const user_id = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
                 
+                // colosseum 객체 만들기
+                let colosseum: MissionCollosseum
+                if (i/2 === 0) {
+                    colosseum = {
+                        stakedTokens: 0,
+                        limitSeconds: 1200,
+                    };
+                } else {
+                    colosseum = {
+                        stakedTokens: 0,
+                        limitSeconds: 1800,
+                    };
+                };
+
                 const mission = {
                     title: coplitDummyMissions[i].title,
                     description: coplitDummyMissions[i].description,
                     paragraph: coplitDummyMissions[i].paragraph,
                     creator: user_id,
                     state: 1,
+                    colosseum,
                     inputs: coplitDummyMissions[i].inputs,
                     output: coplitDummyMissions[i].output,
                     refCode: coplitDummyMissions[i].refCode,
