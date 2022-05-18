@@ -6,25 +6,40 @@ S.Footer = styled.div`
     position: relative;
     bottom: 0%;
     width: 100%;
-    height: 60px;
-    background-color: #2c2a2a;
-    color: white;
+    height: fit-content;
+    background-color: var(--background-theme-gray);
+    color: var(--font-theme);
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
     border-top: 1px solid black;
-    margin-top: 40px;
+    padding-top: 5px;
 `
 
 S.Div = styled.div`
-    
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: 1px solid var(--dark-yellow);
+`
+
+S.P = styled.p`
+    text-align: center;
+    margin: 12px;
 `
 
 S.A = styled.a`
     text-decoration: none;
-    color: white;
+    color: var(--font-theme);
     &:hover {
-        color: #f0b81c;
+        color: var(--highlight-yellow);
+        cursor: pointer;
+    }
+`
+
+S.Span = styled.span`
+    &:hover {
+        color: var(--highlight-yellow);
         cursor: pointer;
     }
 `

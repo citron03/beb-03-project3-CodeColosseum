@@ -15,7 +15,7 @@ const Output = ({setOutput, handleEmptyTestcase}) => {
         <S.Output>
             <S.P>아웃풋</S.P>
             <S.TextArea type="text" placeholder="description" onChange={(e) => handleOutputDescription(e)}/>
-            <S.P>인자의 type</S.P>
+            <S.P>아웃풋의 type</S.P>
             <C.Select name="type" onChange={(e) => {
                                 handleOutputType(e);
                                 handleEmptyTestcase();

@@ -4,7 +4,7 @@ const S = {};
 
 S.DisappearingNotification = styled.div`
     display: ${({isVisible}) => isVisible ? "block" : "none"};
-    background-color: #222f3e;
+    background-color: var(--background-theme-modal);
     position: fixed;
     top: 5px;
     right: 5px;

@@ -1,20 +1,17 @@
 import S from "./MyMissions.styled";
-import { parseDate } from "../../../utils/date";
+import MyMission from "./MyMission";
 
 const MyMissions = ({userCreatedMissions}) => {
-    // console.log(userCreatedMissions);
-    // [{_id, title, description, createdAt, updatedAt}]
+    
     return (
         <S.MyMissions>
             <S.H2>내가 출제한 미션들</S.H2>
-            {userCreatedMissions ? 
-                userCreatedMissions.map((el) => 
-                    <S.Div key={el._id}>
-                        <S.P>제목 : {el.title}</S.P>
-                        <S.P>description : {el.description}</S.P>
-                        <S.P>만든 날짜 : {parseDate(el.createdAt)}</S.P>
-                    </S.Div>)
-            : null}
+            <S.Div>
+                {!!userCreatedMissions && userCreatedMissions.length > 0 ? 
+                    userCreatedMissions.map((el) => 
+                        <MyMission key={el._id} data={el}/>)
+                : <S.P>출제한 문제가 없습니다.</S.P>}
+            </S.Div>
         </S.MyMissions>
     );
 }

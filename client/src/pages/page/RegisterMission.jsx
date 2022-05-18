@@ -12,7 +12,9 @@ import { showNotification } from '../../redux/action';
 import { onLoading, offLoading } from '../../redux/reducer/loadingSlice';
 import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
+import { showDisappearingNoti } from '../../redux/reducer/disappearingSlice';
 import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
+import checkUnlocked from '../../utils/checkUnlocked';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
@@ -31,23 +33,29 @@ const RegisterMission = () => {
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
                     dispatch(showSignUp());
-                }
-                dispatch(setAccount(el.data.data));                    
+                } else {
+                    if(JSON.stringify(state) !== JSON.stringify(el.data.data)){
+                      dispatch(setAccount(el.data.data));
+                      const addressStr = el.data.data.account.slice(0, 4) + 
+                        "..." + el.data.data.account.slice(el.data.data.account.length - 4);
+                      dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
+                    }
+                }                    
             })
             .catch(err => console.log(err));
     };
 
     const usePostMission = async (completeData) => {
         const url = `/mission`;
+        if(!checkArgs()){
+            dispatch(showNotification("input에 대한 정보를 입력해주세요."));
+            return;
+        }
+        if(output.description.length === 0){
+            dispatch(showNotification("output에 대한 정보를 입력해주세요."));
+            return;
+        }
         try {
-            if(!checkArgs()){
-                dispatch(showNotification("input에 대한 정보를 입력해주세요."));
-                return;
-            }
-            if(output.description.length === 0){
-                dispatch(showNotification("output에 대한 정보를 입력해주세요."));
-                return;
-            }
             const payload = {
                 account: state.account,
                 title: completeData.title,
@@ -78,7 +86,7 @@ const RegisterMission = () => {
 
     const { mutate } = useMutation(usePostMission);
 
-    const submitMission = () => {
+    const submitMission = async () => {
         const completeData = {...registerData, argTypes};
         if(!completeData.title) {
             dispatch(showNotification("제목을 입력하세요!"));
@@ -93,10 +101,12 @@ const RegisterMission = () => {
             dispatch(showNotification(`최소 5개 이상의\n 테스트 케이스가 필요합니다!`));
             return;
         }
-        if(state?.account){
+
+        const isUnLock = await checkUnlocked(); // 지갑 연결 확인
+        if(state?.account && isUnLock){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
-                if(syntaxError.length === 0){
+                if(syntaxError.length === 0) {
                     mutate(completeData);
                 } else {
                     dispatch(showNotification("작성한 코드에 에러가 있습니다."));
@@ -109,23 +119,23 @@ const RegisterMission = () => {
     };
     
     return (
-    <S.RegisterMission bgImg={bgImg}>
-        <S.Div>
-            <S.Title>
-                <S.Label>Title</S.Label>
-                <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
-            </S.Title>
-            <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase} setOutput={setOutput}/>
-            <S.Section>
-                <Explanation handleExplanation={handleExplanation}/>
-                <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
-            </S.Section>
-            <Description handleDescription={handleDescription}/>
-            <Timer handleTime={handleTime}/>
-            <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
-            <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
-        </S.Div> 
-    </S.RegisterMission>
+        <S.RegisterMission bgImg={bgImg}>
+            <S.Div>
+                <S.Title>
+                    <S.Label>Title</S.Label>
+                    <S.Input placeholder='문제 이름을 입력하세요' onChange={handleTitle}/>
+                </S.Title>
+                <Arguments handleAddArg={handleAddArg} handleRemoveArg={handleRemoveArg} argCount={argCount} argTypes={argTypes} handleArgTypes={handleArgTypes} handleEmptyTestcase={handleEmptyTestcase} setOutput={setOutput}/>
+                <S.Section>
+                    <Explanation handleExplanation={handleExplanation}/>
+                    <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
+                </S.Section>
+                <Description handleDescription={handleDescription}/>
+                <Timer handleTime={handleTime}/>
+                <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
+                <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
+            </S.Div> 
+        </S.RegisterMission>
     );
 }
 
