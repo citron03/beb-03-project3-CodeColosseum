@@ -36,9 +36,12 @@ const post = async (req: any, res: any) => {
           try {
             const clearTime = Date.now();
             const recordTime = clearTime - winner[0].challengedAt.getTime();
+            const userInfo = await models.User.findOne({
+              account: winner[0].account,
+            });
             try {
               await models.Challenge.updateOne(
-                { challenger: winner[0].account, mission: missionId },
+                { challenger: userInfo.id, mission: missionId },
                 {
                   answerCode: code,
                   isPassed: true,
