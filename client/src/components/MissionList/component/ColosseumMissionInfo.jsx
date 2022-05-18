@@ -4,7 +4,7 @@ const getChallengers = (data) => {
     if(data.length === 0) {
         return "도전 중인 사람이 없습니다.";
     }
-    const challengers = data.map(el => el.nickName);
+    const challengers = data.map(el => el.account.slice(el.account.length - 4));
     if(challengers.length > 10){
         return challengers.slice(challengers.length - 10).join(", ") + `등 ${challengers.length}명이 도전 중...`;
     } else {
