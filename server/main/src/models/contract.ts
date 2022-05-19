@@ -1,2 +1,14 @@
-// 우리가 사용할 컨트랙트들의 data 가진 콜렉션 모델
-// 여기서 모델로 구현하지 않을 가능성이 클것같지만 일단 파일 만들어둠
+import { Schema, model } from "mongoose";
+
+const schema = new Schema(
+  {
+    symbol: { type: String },
+    address: { type: String, required: true, unique: true },
+    colosseum: { type: String },
+  },
+  { timestamps: true }
+);
+
+const Model = model("Contract", schema);
+
+export = Model
