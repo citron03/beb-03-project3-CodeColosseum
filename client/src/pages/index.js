@@ -5,6 +5,7 @@ import CodeEdit from "./page/CodeEdit";
 import RegisterMission from './page/RegisterMission';
 import MissionDetail from "./page/MissionDetail";
 import Feedback from "./page/Feedback";
+import About from "./page/About";
 
-export { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback };
+export { Home, Mypage, MissionList, CodeEdit, RegisterMission, MissionDetail, Feedback, About };
 
