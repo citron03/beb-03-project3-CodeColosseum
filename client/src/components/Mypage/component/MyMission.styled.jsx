@@ -7,6 +7,7 @@ S.MyMission = styled.div`
     text-align: center;
     margin: 10px;
     padding: 10px;
+    height: fit-content;
 `
 
 S.P = styled.p`

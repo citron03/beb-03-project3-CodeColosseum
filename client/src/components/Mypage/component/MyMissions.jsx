@@ -9,7 +9,7 @@ const MyMissions = ({userCreatedMissions}) => {
 
     useEffect(() => {
         console.log(selector);
-    }, [selector])
+    }, [selector]);
 
     return (
         <S.MyMissions>
