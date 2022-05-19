@@ -1,8 +1,8 @@
 import S from "./Introduce.styled";
 
-const Introduce = () => {
+const Introduce = ({introduceRef}) => {
     return (
-        <S.Introduce>
+        <S.Introduce ref={introduceRef}>
             <S.H1>Code Colosseum은 Online Judgment 사이트입니다.</S.H1>
             <S.Div>
                 <S.TextDiv>
