@@ -4,24 +4,45 @@ import controller from "../controller";
 const missionRouter = Router();
 const { missionController } = controller;
 
-// 미션 풀이 제출
-// POST /mission/chllenge/
-missionRouter.post("/challenge", missionController.challenge.post);
+// 미션 리스트 요청
+// GET /mission/list
+missionRouter.get("/list", missionController.missionList.get);
 
-// 미션 리스트 조회
-// GET /mission/list/
-missionRouter.get("/list/", missionController.missionList.get);
+// 미션 출제
+// POST /mission/create
+missionRouter.post("/create", missionController.create.post);
 
-// 개별 미션 상세 조회
-// GET /mission/:mission_id
-missionRouter.get("/:mission_id", missionController.mission.get);
-
-// 콜로세움 미션 상세 조회(문제 오픈)
+// 미션 상세 페이지 요청(콜로세움)
 // POST /mission/colosseum/:mission_id
-missionRouter.post("/colosseum/:mission_id", missionController.colosseum.post);
+missionRouter.post(
+  "/colosseum/:mission_id",
+  missionController.colosseumOpen.post
+);
 
-// 미션 생성
-// POST /mission/
-missionRouter.post("/", missionController.mission.post);
+// 미션 상세 페이지 요청(연습문제)
+// POST /mission/practice/:mission_id
+missionRouter.post("/practice/:mission_id", missionController.practiceOpen.get);
+
+// 풀이 제출(콜로세움)
+// POST /mission/challenge/colosseum
+missionRouter.post(
+  "/challenge/colosseum",
+  missionController.challengeColosseum.post
+);
+
+// 풀이 제출(연습문제)
+// POST /mission/challenge/practice
+missionRouter.post(
+  "/challenge/practice",
+  missionController.challengePractice.post
+);
+
+// NFT 전환 요청
+// POST /mission/mintnft
+//
+
+// 연습문제 전환 요청 API
+// POST /mission/change
+//
 
 export = missionRouter;
