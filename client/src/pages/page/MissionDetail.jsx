@@ -80,7 +80,6 @@ const MissionDetail = ({isColosseum}) => {
 
     const submitAnswer = async () => {
         const url = `/mission/challenge`;
-        console.log(state);
         const payload = {
             account: state.account,
             missionId: id,
