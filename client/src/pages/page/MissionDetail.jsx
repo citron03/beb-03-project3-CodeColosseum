@@ -30,8 +30,8 @@ const MissionDetail = ({isColosseum}) => {
     
     useCheckLogin();
 
-    const { data } = useQuery(["/mission/detail", id], async () => {
-        return axios.get(`/mission/${id}`) 
+    const { data } = useQuery(["/mission/practice", id], async () => {
+        return axios.get(`/mission/practice/${id}`) 
                         .then(el => el.data.data)
                         .catch(err => console.log(err));
     }, { enabled: !isColosseum }); // 연습문제일 때 get으로 데이터를 받아온다.
@@ -44,7 +44,7 @@ const MissionDetail = ({isColosseum}) => {
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
                         console.log(el.data);
-                        if(el.data.message !== "Not paying tokens"){
+                        if(el.data.data.isPayment){
                             setMissionData(el.data.data);
                             setIsPaid(true);
                         }
@@ -55,7 +55,6 @@ const MissionDetail = ({isColosseum}) => {
 
     useEffect(() => {
         if(data){
-            // setArgDefautCode(makeDefautCode(data?.inputs.map(el => el.name)));
             setMissionData(data); // 연습 문제 데이터 세팅
         }
     }, [data]);
@@ -79,7 +78,7 @@ const MissionDetail = ({isColosseum}) => {
     };
 
     const submitAnswer = async () => {
-        const url = `/mission/challenge`;
+        const url = `/mission/challenge/${isColosseum ? "colosseum" : "practice"}`;
         const payload = {
             account: state.account,
             missionId: id,
