@@ -1,6 +1,15 @@
 import missionList from "./missionList";
-import challenge from "./challenge";
-import mission from "./mission";
-import colosseum from "./colosseum";
+import create from "./create";
+import colosseumOpen from "./colosseumOpen";
+import practiceOpen from "./practiceOpen";
+import challengeColosseum from "./challengeColosseum";
+import challengePractice from "./challengePractice";
 
-export = { missionList, challenge, mission, colosseum };
+export = {
+  missionList,
+  create,
+  colosseumOpen,
+  practiceOpen,
+  challengeColosseum,
+  challengePractice,
+};

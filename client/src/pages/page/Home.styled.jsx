@@ -16,4 +16,13 @@ S.HeadDiv = styled.div`
     align-items: center;
 `
 
+S.Div = styled.div`
+    font-size: 2.2rem;
+    margin: 10px 30px 80px 30px;
+    &:hover {
+        color: var(--warning-light);
+        cursor: pointer;
+    }
+`
+
 export default S;

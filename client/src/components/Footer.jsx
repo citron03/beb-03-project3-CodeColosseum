@@ -13,10 +13,11 @@ const Footer = () => {
                 <S.A href='https://github.com/citron03/beb-03-project3-team8' target="_blank">깃허브</S.A>
             </S.Div>
             <S.Div>
-                <S.P>이 페이지에는 네이버에서 제공한 나눔글꼴이 적용되어 있습니다.</S.P>
+                <S.P>이 페이지에는 네이버에서 제공한 나눔글꼴(마루 부리)이 적용되어 있습니다.</S.P>
                 <S.Span onClick={() => dispatch(modeChange())}>{state ? "make light" : "make dark"}</S.Span>
             </S.Div>
-        </S.Footer>);
+        </S.Footer>
+    );
 }
 
 export default Footer;

@@ -27,7 +27,8 @@ const Feedback = () => {
             dispatch(showNotification("평가를 완료해 주세요!"));
             return;
         }
-        console.log(id, review, difficulty, missionRating);
+        console.log(state.account, id, review, difficulty, missionRating);
+        dispatch(showNotification("기능이 아직 구현되지 않았습니다."));
     }
     
     return (

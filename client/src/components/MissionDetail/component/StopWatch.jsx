@@ -16,7 +16,6 @@ const StopWatch = ({endTime}) => {
         const end = new Date(endTime);
         const left = parseInt((end.getTime() - now.getTime()) / (1000));
         if(left < 0) {
-            console.log(left);
             dispatch(showNotification("이미 도전에 실패한 문제입니다."));
             setStopWatchText("Time Over!");
             setSeconds(0);
