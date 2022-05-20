@@ -44,7 +44,7 @@ const MissionDetail = ({isColosseum}) => {
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
                         console.log(el.data);
-                        if(el.data.data.isPayment){
+                        if(el.data.message !== "Not paying tokens"){
                             setMissionData(el.data.data);
                             setIsPaid(true);
                         }
@@ -60,7 +60,7 @@ const MissionDetail = ({isColosseum}) => {
     }, [data]);
 
     useEffect(() => {
-        if(missionData.inputs){ // 에디터에 인자를 포함하는 디폴트 코드 설정
+        if(missionData?.inputs){ // 에디터에 인자를 포함하는 디폴트 코드 설정
             setArgDefautCode(makeDefautCode(missionData?.inputs.map(el => el.name))); 
         }
     }, [missionData])
