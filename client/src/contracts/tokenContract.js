@@ -3,6 +3,7 @@ import { getAccountAddress } from "../utils/address";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../redux/action";
 import axios from "axios";
+// import makeSenderRawTx from "../utils/tx";
 
 export const checkNetwork = async () => {
    // 8217 - 메인넷
@@ -40,6 +41,11 @@ export const payKlay = async () => {
    }
 }
 
+// 카이카스 설치 되어있는지 확인
+// 지갑 연결되어있는지
+// 지갑 주소 가져오고
+// 싸인하고
+// 포스트 날리고
 export const usePayKIP7 = (setIsPaid, id, setMissionData) => {
 
    const dispatch = useDispatch();
@@ -49,24 +55,26 @@ export const usePayKIP7 = (setIsPaid, id, setMissionData) => {
       if(!checkNet){
          dispatch(showNotification("카이카스 지갑의 네트워크를\n 바오밥으로 설정하세요."));
       } else {
-         const to = "0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2"; // 토큰을 보낼 주소
-         const from = await getAccountAddress();
-         const amount = 10000000000000000000n; // 10토큰의 지불 필요 (1000000000000000000n -> 1토큰)
-         const gas = 8000000;
-         const contract = new window.caver.klay.Contract(contractABI, contractAddress);
+         // const to = "0xB3D98B072FCeEc91f87d36cA53a4Eb92973A82a2"; // 토큰을 보낼 주소
+         const account = await getAccountAddress();
+         // const amount = 10000000000000000000n; // 10토큰의 지불 필요 (1000000000000000000n -> 1토큰)
+         // const gas = 8000000;
+         // const contract = new window.caver.klay.Contract(contractABI, contractAddress);
          try {
-            const transfer = await contract.methods.transfer(to, amount).send({from, gas});
-            if(transfer){
-               // post 요청으로 토큰 지불 확인
-               console.log(transfer);
-               console.log(id);
-               axios.post(`/mission/colosseum/${id}`, {account: from, txHash: transfer.transactionHash})
-                     .then(el => {
-                        setMissionData(el.data.data);
-                        setIsPaid(true); // 지불 완료
-                     })
-                     .catch(err => console.log(err));
-            }
+            // const transfer = await contract.methods.transfer(to, amount).send({from, gas});
+            // if(transfer){
+            //    // post 요청으로 토큰 지불 확인
+            //    console.log(transfer);
+            //    console.log(id);
+            //    axios.post(`/mission/colosseum/${id}`, {account: from, txHash: transfer.transactionHash})
+            //          .then(el => {
+            //             setMissionData(el.data.data);
+            //             setIsPaid(true); // 지불 완료
+            //          })
+            //          .catch(err => console.log(err));
+            // }
+            const rawTx = makeSenderRawTx(obj, account);
+            
          } catch {
             dispatch(showNotification("지불에 실패하였습니다!"));
          }

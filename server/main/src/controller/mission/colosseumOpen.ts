@@ -1,4 +1,10 @@
 import models from "../../models";
+import contract from "../../contract";
+
+// const obj = await contract.tokenPaymentResDataColosseum();
+// response.send({data:obj})
+
+// const result = await contract.feeDelegatedTxExcution(senderRawTransaction)
 
 /*
 1. 최초 요청 or 재요청 - txHash 없음. account로 미션 참여 여부 확인.
