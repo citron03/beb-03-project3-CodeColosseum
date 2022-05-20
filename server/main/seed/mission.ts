@@ -1,4 +1,4 @@
-import config from '../src/config';
+import { ENV } from '../src/config';
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import coplitDummyMissions from '../src/dummy/coplitMissions';
@@ -7,16 +7,16 @@ import { MissionCollosseum } from '../src/utils/types';
 
 async function seedDB() {
 
-    if (config.ENV.MONGO_URI) {
-        const client = new MongoClient(config.ENV.MONGO_URI, { serverApi: ServerApiVersion.v1 });
+    if (ENV.MONGO_URI) {
+        const client = new MongoClient(ENV.MONGO_URI, { serverApi: ServerApiVersion.v1 });
 
         try {
             await client.connect();
-            console.log(`DB ${config.ENV.MONGO_database} connected!!`);
+            console.log(`DB ${ENV.MONGO_database} connected!!`);
 
 
-            const missionsCollection = client.db(config.ENV.MONGO_database).collection("missions");
-            const usersCollection = client.db(config.ENV.MONGO_database).collection("users");
+            const missionsCollection = client.db(ENV.MONGO_database).collection("missions");
+            const usersCollection = client.db(ENV.MONGO_database).collection("users");
 
         // 삭제
             await missionsCollection.drop()

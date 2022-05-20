@@ -1,5 +1,4 @@
-import config from "../config"
-import models from "../models";
+import { caver, fromDb } from "../config"
 
 // 수수료 대납 트렌젝션에 feePayer 싸인하고 실행시키는 함수입니다.
 // 인자로 싸인된 Tx를 받고 tx 실행 결과를 리턴합니다.
@@ -7,15 +6,14 @@ import models from "../models";
 export = async function(senderRawTransaction:string, txChecker?:Object):Promise<Object> {
 
     try {
-        const feePayer = await models.Account.findOne({name:"feePayer"});
-        const feePayerAddress = feePayer.account; // 수수료 대납 계정의 주소
+        const feePayerAddress = fromDb.account.feePayer; // 수수료 대납 계정의 주소
 
-        const contractInstance = await config.caver.transaction.feeDelegatedSmartContractExecution.decode(senderRawTransaction) // 싸인하기위해 디코드
-        // 싸인하기 전에 트렌젝션 세부사항 확인하기 (txChecker)
+        const contractInstance = await caver.transaction.feeDelegatedSmartContractExecution.decode(senderRawTransaction) // 싸인하기위해 디코드
+        // 싸인하기 전에 트렌젝션 세부사항 확인하기 (txChecker) 여기서 확인하는것으로 신뢰도 100% 라고 생각됨.
         // ... 생략
-        const signedTransaction = await config.caver.wallet.signAsFeePayer(feePayerAddress, contractInstance) // 대납 싸인
+        const signedTransaction = await caver.wallet.signAsFeePayer(feePayerAddress, contractInstance) // 대납 싸인
         const rawTx = signedTransaction.getRLPEncoding() // 인코딩
-        const result = await config.caver.rpc.klay.sendRawTransaction(rawTx) // 실행
+        const result = await caver.rpc.klay.sendRawTransaction(rawTx) // 실행
             .once('receipt', async (receipt:any) => {
                 return receipt
             })

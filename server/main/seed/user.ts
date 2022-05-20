@@ -1,17 +1,17 @@
-import config from '../src/config';
+import { ENV } from '../src/config';
 import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
 async function seedDB() {
 
-    if (config.ENV.MONGO_URI) {
-        const client = new MongoClient(config.ENV.MONGO_URI, { serverApi: ServerApiVersion.v1 });
+    if (ENV.MONGO_URI) {
+        const client = new MongoClient(ENV.MONGO_URI, { serverApi: ServerApiVersion.v1 });
 
         try {
             await client.connect();
-            console.log(`DB ${config.ENV.MONGO_database} connected!!`);
+            console.log(`DB ${ENV.MONGO_database} connected!!`);
 
-            const usersCollection = client.db(config.ENV.MONGO_database).collection("users");
+            const usersCollection = client.db(ENV.MONGO_database).collection("users");
 
             // 삭제
             await usersCollection.drop()
