@@ -33,10 +33,10 @@ S.H1 = styled.h1`
 
 const appear = keyframes`
     from {
-        bottom: 0%;
+        left: 0%;
     }
     to {
-        bottom: 10%;
+        left: 15%;
     }
 `
 
