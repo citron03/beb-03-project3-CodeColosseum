@@ -7,16 +7,69 @@ import contract from "../../contract";
 // const result = await contract.feeDelegatedTxExcution(senderRawTransaction)
 
 /*
-1. 최초 요청 or 재요청 - txHash 없음. account로 미션 참여 여부 확인.
-   참여자가 아니라면 토큰 지불하도록 응답
-2. txHash가 같이 옴 -> txHash를 조회해 검증
-   검증에 성공 - 지불 장부에 기록. stakedToken 증가. challenge 데이터 생성. 문제 데이터 전송
-   검증에 실패 - 토큰 지불하도록 응답 (서버 에러 or txHash 문제)
+1. 최초 요청 or 재요청 - signObj 없음. account로 미션 참여 여부 확인.
+   참여자가 아니라면 토큰 지불하도록 응답 (signObj 전달)
+2. signObj 같이 옴 -> signObj 를 사용해 토큰 지불
+   지불에 성공 - 지불 장부에 기록. stakedToken 증가. challenge 데이터 생성. 문제 데이터 전송
+   지불에 실패 - 토큰 지불하도록 응답 (서버 에러 or txHash 문제)
 */
 const post = async (req: any, res: any) => {
-  const { account, txHash } = req.body;
+  const { account, senderRawTransaction } = req.body;
   const missionId = req.params.mission_id;
 
+  if (senderRawTransaction === undefined) {
+    // 최초 요청 or 재요청
+    const checkResult = await checkChallengers(account, missionId);
+    if (checkResult.result === 1) {
+      // 이미 도전 중인 사람
+      const gmResult = await getMissionInfo(missionId, account);
+      if (gmResult.result) {
+        return res
+          .status(200)
+          .send({ message: "Success", data: gmResult.missionInfo });
+      } else {
+        return res.status(400).send({ message: gmResult.message });
+      }
+    } else if (checkResult.result === 2) {
+      // 토큰 내야하는 사람
+      const newTxObj = await contract.tokenPaymentResDataColosseum();
+      return res.status(200).send({
+        message: checkResult.message,
+        data: { isPayment: false, txSignReqObj: newTxObj },
+      });
+    } else {
+      // 디비 조회 실패
+      return res.status(400).send({ message: checkResult.message });
+    }
+  } else {
+    // senderRawTransaction과 함께 요청
+    const txResult = await contract.feeDelegatedTxExcution(
+      senderRawTransaction
+    );
+    console.log(txResult);
+
+    // TODO : 지불 장부 기록, challenge 생성, stakedToken 증가, mission.colosseum 업데이트
+
+    console.log("지불장부에 기록 시작");
+    // 지불 장부 기록
+    console.log("지불장부에 기록 완료");
+
+    console.log("challenge 데이터 생성 시작");
+    const ancResult = await addNewChallenge(account, missionId);
+    if (!ancResult.result) {
+      return res.status(400).send({ message: ancResult.message });
+    }
+    console.log("challenge 데이터 생성 완료");
+
+    console.log("stakedToken 증가 시작");
+    const amount = 10; // 임시
+    const stResult = await stakingToken(missionId, amount);
+    if (!stResult.result) {
+      return res.status(400).send({ message: stResult.message });
+    }
+    console.log("stakedToken 증가 완료");
+  }
+  /*
   if (txHash) {
     console.log("지불 검증 시작");
     const { confirmResult, message } = await paymentConfirm(txHash, account);
@@ -27,9 +80,7 @@ const post = async (req: any, res: any) => {
 
     console.log("지불장부에 기록 시작");
     const wtpResult = await writeTokenPaymentLog(
-      txHash,
-      account,
-      10,
+      txResult,
       missionId
     );
     if (!wtpResult.result) {
@@ -81,6 +132,7 @@ const post = async (req: any, res: any) => {
       return res.status(400).send({ message: checkResult.message });
     }
   }
+  */
 };
 
 const paymentConfirm = async (txHash: string, account: string) => {
@@ -97,7 +149,7 @@ const paymentConfirm = async (txHash: string, account: string) => {
   };
 };
 
-const stakingToken = async (missionId: string) => {
+const stakingToken = async (missionId: string, amount: number) => {
   // mission을 조회하고 stakedToken을 증가시킴
   try {
     const missionInfo = await models.Mission.findOne({ _id: missionId });
@@ -106,7 +158,7 @@ const stakingToken = async (missionId: string) => {
     try {
       await models.Mission.updateOne(
         { _id: missionId },
-        { colosseum: { ...colosseum, stakedTokens: stakedTokens + 10 } }
+        { colosseum: { ...colosseum, stakedTokens: stakedTokens + amount } }
       );
     } catch (err) {
       console.log(err);
@@ -118,13 +170,8 @@ const stakingToken = async (missionId: string) => {
   }
   return { result: true, message: "Token Staking Success" };
 };
-
-const writeTokenPaymentLog = async (
-  txHash: string,
-  account: string,
-  amount: number,
-  missionId: string
-) => {
+/*
+const writeTokenPaymentLog = async (txResult: any, missionId: string) => {
   try {
     const user = await models.User.findOne({ account });
     const userId = user.id;
@@ -148,7 +195,7 @@ const writeTokenPaymentLog = async (
     return { result: false, message: "failed to load user info" };
   }
 };
-
+*/
 const addNewChallenge = async (account: string, mission: string) => {
   try {
     const userInfo = await models.User.findOne({ account });
