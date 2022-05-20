@@ -4,6 +4,7 @@ const S = {};
 
 S.MypageNavigation = styled.div`
     width: 70%;
+    min-width: 900px;
     height: 70px;
     display: flex;
     justify-content: center;

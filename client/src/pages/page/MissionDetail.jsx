@@ -25,6 +25,7 @@ const MissionDetail = ({isColosseum}) => {
     const [code, setCode] = useState(defautCode);
     const [isPaid, setIsPaid] = useState(false);
     const [missionData, setMissionData] = useState({});
+    const [txSignReqObj, setTxSignReqObj] = useState({});
     const state = useSelector(state => state.signup).account;
     const dispatch = useDispatch();
     
@@ -43,10 +44,12 @@ const MissionDetail = ({isColosseum}) => {
             console.log(state.account);
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
-                        console.log(el.data);
-                        if(el.data.message !== "Not paying tokens"){
+                        // console.log(el.data.data);
+                        if(el.data.data.isPayment){ // 이미 지불 함
                             setMissionData(el.data.data);
                             setIsPaid(true);
+                        } else {
+                            setTxSignReqObj(el.data.data.txSignReqObj);
                         }
                     })
                     .catch(err => console.log(err));
@@ -131,7 +134,7 @@ const MissionDetail = ({isColosseum}) => {
                         </S.FunctionDiv>
                     </S.EditorDiv>
                     <Scoring grading={grading} id={id}/>
-            </S.MissionDetail> : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData}/>
+            </S.MissionDetail> : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>
             : <Login/> }
         </>
     );
