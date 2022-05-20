@@ -7,7 +7,7 @@ import { showNotification } from "./../../../redux/action";
 const Mission = ({data, isColosseum}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const url = isColosseum ? `/mission/colosseum/${data.missionId}` : `/mission/${data.missionId}`;
+    const url = isColosseum ? `/mission/colosseum/${data.missionId}` : `/mission/practice/${data.missionId}`;
     const state = useSelector(state => state.signup).account;
 
     const handleEnter = () => {

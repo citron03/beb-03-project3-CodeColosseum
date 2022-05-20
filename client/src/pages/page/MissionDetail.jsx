@@ -123,7 +123,7 @@ const MissionDetail = ({isColosseum}) => {
                     <S.EditorDiv>
                         {isColosseum ? <TimeLimit endTime={missionData?.endTime}/> : null}
                         <S.SupportDiv>
-                            {missionData?.inputs.length > 0 ? missionData.inputs.map((el, idx) => 
+                            {missionData?.inputs?.length > 0 ? missionData.inputs.map((el, idx) => 
                                 <ArgsInfo key={idx} index={idx} arg={el}/>) 
                                 : <S.P>인자가 필요하지 않습니다.</S.P>}
                             <OutputInfo output={missionData?.output}/>
@@ -134,8 +134,9 @@ const MissionDetail = ({isColosseum}) => {
                         </S.FunctionDiv>
                     </S.EditorDiv>
                     <Scoring grading={grading} id={id}/>
-            </S.MissionDetail> : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>
-            : <Login/> }
+            </S.MissionDetail> 
+            : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>
+        : <Login/> }
         </>
     );
 }
