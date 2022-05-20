@@ -13,6 +13,7 @@ const MyMission = ({data}) => {
             <S.ButtonDiv>
                 <C.Button onClick={() => console.log("계정: " + state.account, "문제: " + data._id)}>NFT로 만들기</C.Button>
                 <C.Button onClick={() => console.log("계정: " + state.account, "문제: " + data._id)}>연습문제로 만들기</C.Button>
+                <C.Button onClick={() => console.log("계정: " + state.account, "문제: " + data._id)}>문제 비공개</C.Button>
             </S.ButtonDiv>
         </S.MyMission>
     );
