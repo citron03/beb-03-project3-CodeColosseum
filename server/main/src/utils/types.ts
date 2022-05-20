@@ -48,9 +48,9 @@ interface MissionNft {
 
 type ChallengeKind = 0|1|2; // 0: etc
 
-interface TokenPaymentLogItem {
+interface TokenPaymentLogFor {
     collection: number, // 0: etc, 1: challenge
     id: string,
 }
 
-export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenPaymentLogItem, Challenger };
+export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenPaymentLogFor, Challenger };
