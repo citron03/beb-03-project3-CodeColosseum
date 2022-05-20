@@ -4,7 +4,7 @@ const loadingSlice = createSlice({
   name: "loading",
   initialState: {
       isLoading: false,
-      text: "로딩중입니다."
+      text: "Loading..."
   },
   reducers: {
     onLoading: (state, actions) => {
@@ -14,7 +14,7 @@ const loadingSlice = createSlice({
         state.isLoading = true;
     },
     offLoading: (state) => {
-        state.text = "로딩중입니다."
+        state.text = "Loading..."
         state.isLoading = false;
     }
   },

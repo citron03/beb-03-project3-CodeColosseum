@@ -11,6 +11,7 @@ S.Loading = styled.div`
     transform: translate(-50%, -50%);
     width: 200px;
     height: 200px;
+    line-height: 1;
     border-radius: 100px;
     border: 10px solid black;
     z-index: 6;

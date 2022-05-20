@@ -46,7 +46,7 @@ const RegisterMission = () => {
     };
 
     const usePostMission = async (completeData) => {
-        const url = `/mission`;
+        const url = `/mission/create`;
         if(!checkArgs()){
             dispatch(showNotification("input에 대한 정보를 입력해주세요."));
             return;
