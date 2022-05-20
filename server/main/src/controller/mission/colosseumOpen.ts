@@ -7,61 +7,18 @@ import contract from "../../contract";
 // const result = await contract.feeDelegatedTxExcution(senderRawTransaction)
 
 /*
-1. 최초 요청 or 재요청 - txHash 없음. account로 미션 참여 여부 확인.
-   참여자가 아니라면 토큰 지불하도록 응답
-2. txHash가 같이 옴 -> txHash를 조회해 검증
-   검증에 성공 - 지불 장부에 기록. stakedToken 증가. challenge 데이터 생성. 문제 데이터 전송
-   검증에 실패 - 토큰 지불하도록 응답 (서버 에러 or txHash 문제)
+1. 최초 요청 or 재요청 - signObj 없음. account로 미션 참여 여부 확인.
+   참여자가 아니라면 토큰 지불하도록 응답 (signObj 전달)
+2. signObj 같이 옴 -> signObj 를 사용해 토큰 지불
+   지불에 성공 - 지불 장부에 기록. stakedToken 증가. challenge 데이터 생성. 문제 데이터 전송
+   지불에 실패 - 토큰 지불하도록 응답 (서버 에러 or txHash 문제)
 */
 const post = async (req: any, res: any) => {
-  const { account, txHash } = req.body;
+  const { account, senderRawTransaction } = req.body;
   const missionId = req.params.mission_id;
 
-  if (txHash) {
-    console.log("지불 검증 시작");
-    const { confirmResult, message } = await paymentConfirm(txHash, account);
-    if (!confirmResult) {
-      return res.status(400).send({ message });
-    }
-    console.log("지불 검증 완료");
-
-    console.log("지불장부에 기록 시작");
-    const wtpResult = await writeTokenPaymentLog(
-      txHash,
-      account,
-      10,
-      missionId
-    );
-    if (!wtpResult.result) {
-      return res.status(400).send({ message: wtpResult.message });
-    }
-    console.log("지불장부에 기록 완료");
-
-    console.log("stakedToken 증가 시작");
-    const stResult = await stakingToken(missionId);
-    if (!stResult.result) {
-      return res.status(400).send({ message: stResult.message });
-    }
-    console.log("stakedToken 증가 완료");
-
-    console.log("challenge 데이터 생성");
-    const ancResult = await addNewChallenge(account, missionId);
-    if (!ancResult.result) {
-      return res.status(400).send({ message: ancResult.message });
-    }
-    console.log("challenge 데이터 생성 완료");
-
-    console.log("문제 데이터 전송");
-    const gmResult = await getMissionInfo(missionId, account);
-    if (gmResult.result) {
-      return res
-        .status(200)
-        .send({ message: "Success", data: gmResult.missionInfo });
-    } else {
-      return res.status(400).send({ message: gmResult.message });
-    }
-  } else {
-    // 도전자 목록 확인
+  if (senderRawTransaction === undefined) {
+    // 최초 요청 or 재요청
     const checkResult = await checkChallengers(account, missionId);
     if (checkResult.result === 1) {
       // 이미 도전 중인 사람
@@ -69,35 +26,68 @@ const post = async (req: any, res: any) => {
       if (gmResult.result) {
         return res
           .status(200)
-          .send({ message: "Success", data: gmResult.missionInfo });
+          .send({
+            message: "Success",
+            data: { isPayment: true, ...gmResult.missionInfo },
+          });
       } else {
         return res.status(400).send({ message: gmResult.message });
       }
     } else if (checkResult.result === 2) {
       // 토큰 내야하는 사람
-      return res.status(200).send({ message: checkResult.message });
+      const newTxObj = await contract.tokenPaymentResDataColosseum();
+      return res.status(200).send({
+        message: checkResult.message,
+        data: { isPayment: false, txSignReqObj: newTxObj },
+      });
     } else {
       // 디비 조회 실패
       return res.status(400).send({ message: checkResult.message });
     }
+  } else {
+    // senderRawTransaction과 함께 요청
+    // 수수료 대납 토큰 지불
+    const txResult = await contract
+      .feeDelegatedTxExcution(senderRawTransaction)
+      .then((result) => console.log(typeof result));
+
+    // TODO : 지불 장부 기록, challenge 생성, mission.colosseum 업데이트, stakedToken 증가,
+
+    console.log("지불장부에 기록 시작");
+    // 지불 장부 기록
+    console.log("지불장부에 기록 완료");
+
+    console.log("challenge 데이터 생성 시작");
+    const ancResult = await addNewChallenge(account, missionId);
+    if (!ancResult.result) {
+      return res.status(400).send({ message: ancResult.message });
+    }
+    console.log("challenge 데이터 생성 완료");
+
+    console.log("stakedToken 증가 시작");
+    const amount = 100; // 임시
+    const stResult = await stakingToken(missionId, amount);
+    if (!stResult.result) {
+      return res.status(400).send({ message: stResult.message });
+    }
+    console.log("stakedToken 증가 완료");
+
+    console.log("문제 데이터 전송");
+    const gmResult = await getMissionInfo(missionId, account);
+    if (gmResult.result) {
+      return res
+        .status(200)
+        .send({
+          message: "Success",
+          data: { isPayment: true, ...gmResult.missionInfo },
+        });
+    } else {
+      return res.status(400).send({ message: gmResult.message });
+    }
   }
 };
 
-const paymentConfirm = async (txHash: string, account: string) => {
-  const confirmResult = true;
-
-  //TODO
-  // txHash를 조회해서
-  // 보낸 사람(account), 받은 사람(server account), 전송 토큰 확인
-  // 모두 확인 되면 {true, 전송된 토큰량}, 조회되지 않으면 {false, 0} 반환
-
-  return {
-    confirmResult,
-    message: "Failed to verify token payment history.",
-  };
-};
-
-const stakingToken = async (missionId: string) => {
+const stakingToken = async (missionId: string, amount: number) => {
   // mission을 조회하고 stakedToken을 증가시킴
   try {
     const missionInfo = await models.Mission.findOne({ _id: missionId });
@@ -106,7 +96,7 @@ const stakingToken = async (missionId: string) => {
     try {
       await models.Mission.updateOne(
         { _id: missionId },
-        { colosseum: { ...colosseum, stakedTokens: stakedTokens + 10 } }
+        { colosseum: { ...colosseum, stakedTokens: stakedTokens + amount } }
       );
     } catch (err) {
       console.log(err);
@@ -118,23 +108,18 @@ const stakingToken = async (missionId: string) => {
   }
   return { result: true, message: "Token Staking Success" };
 };
-
-const writeTokenPaymentLog = async (
-  txHash: string,
-  account: string,
-  amount: number,
-  missionId: string
-) => {
+/*
+const writeTokenPaymentLog = async (txResult: any, missionId: string) => {
   try {
-    const user = await models.User.findOne({ account });
+    const user = await models.User.findOne({ txResult.result.account });
     const userId = user.id;
     const tokenPaymentLogSchema = {
-      txHash,
+      txHash : txResult.result.transactionHash,
       from: userId,
-      to: "627c8c1b6860b92a3770c740",
-      item: { collection: 1, id: missionId },
-      token: "colosseum",
-      amount,
+      to: "628640f3296e0e06e8be33ec",
+      for: { collection: 1, id: missionId },
+      token: "CCT",
+      amount: 100,
     };
     try {
       await models.TokenPaymentLog.create(tokenPaymentLogSchema);
@@ -148,7 +133,7 @@ const writeTokenPaymentLog = async (
     return { result: false, message: "failed to load user info" };
   }
 };
-
+*/
 const addNewChallenge = async (account: string, mission: string) => {
   try {
     const userInfo = await models.User.findOne({ account });

@@ -21,7 +21,7 @@ missionRouter.post(
 
 // 미션 상세 페이지 요청(연습문제)
 // POST /mission/practice/:mission_id
-missionRouter.post("/practice/:mission_id", missionController.practiceOpen.get);
+missionRouter.get("/practice/:mission_id", missionController.practiceOpen.get);
 
 // 풀이 제출(콜로세움)
 // POST /mission/challenge/colosseum
