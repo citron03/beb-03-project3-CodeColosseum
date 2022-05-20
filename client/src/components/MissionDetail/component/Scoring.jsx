@@ -11,7 +11,7 @@ const Scoring = ({grading, id}) => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        console.log(grading.data); // {failCount: 0, passedCases: Array(5), reward: null, isClosed: true}
+        console.log("채점 결과: ", grading.data); // {failCount: 0, passedCases: Array(5), reward: null, isClosed: true}
         if(grading?.data?.reward){
             // 내가 답을 맞춤
             dispatch(showNotification(`정답입니다!\n${grading.data.reward}개의 토큰을 획득하였습니다.`));

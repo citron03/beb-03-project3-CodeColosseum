@@ -13,6 +13,7 @@ ace.config.setModuleUrl('ace/mode/javascript_worker', "https://cdn.jsdelivr.net/
 
 const editorStyle = {
     width: "100%",
+    maxWidth: "1200px"
 }
 
 const Editor = ({handleCode, defautCode = null, setSyntaxError}) => {

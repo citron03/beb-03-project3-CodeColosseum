@@ -14,7 +14,7 @@ const Navigator = () => {
                     연습문제 도전
                 </S.Div>
                 <S.Div onClick={() => navigate("/register")}>
-                    문제 제출 하기
+                    문제 출제 하기
                 </S.Div>
             </S.NavDiv>
         </S.Navigator>
