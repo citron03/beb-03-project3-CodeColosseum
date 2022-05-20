@@ -1,9 +1,14 @@
 import { caver, fromDb } from "../config"
 
+interface Result {
+    success: boolean
+    result: any // 성공시 이곳에 txReceipt 들어감
+    resultAt: Date
+}
+
 // 수수료 대납 트렌젝션에 feePayer 싸인하고 실행시키는 함수입니다.
-// 인자로 싸인된 Tx를 받고 tx 실행 결과를 리턴합니다.
-// 성공시 txHash 는 리턴값의 .transactionHash 를 사용하세요.
-export = async function(senderRawTransaction:string, txChecker?:Object):Promise<Object> {
+// 인자로 싸인된 Tx를 받고 tx 실행 결과객체를 리턴합니다.
+export = async function(senderRawTransaction:string, txChecker?:Object):Promise<Result> {
 
     try {
         const feePayerAddress = fromDb.account.feePayer; // 수수료 대납 계정의 주소
@@ -24,13 +29,15 @@ export = async function(senderRawTransaction:string, txChecker?:Object):Promise<
         if (result.status === "0x1") {
             return {
                 success: true, // 성공
-                result: result
+                result: result,
+                resultAt: new Date()
             }
         }
         else {
             return {
                 success: false, // 실패
-                result: result
+                result: result,
+                resultAt: new Date()
             }
         }
 

@@ -1,3 +1,5 @@
+// 실재 사용하지는 않는다
+
 import { Schema, model } from "mongoose";
 
 const schema = new Schema(
@@ -11,4 +13,4 @@ const schema = new Schema(
 
 const Model = model("Contract", schema);
 
-export = Model
+// export = Model
