@@ -57,8 +57,8 @@ const MissionDetail = ({isColosseum}) => {
     }, [isColosseum, id, state]);
 
     useEffect(() => {
-        if(data){
-            setMissionData(data); // 연습 문제 데이터 세팅
+        if(data?.missionInfo){
+            setMissionData(data.missionInfo); // 연습 문제 데이터 세팅
         }
     }, [data]);
 

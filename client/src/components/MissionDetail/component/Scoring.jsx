@@ -24,20 +24,16 @@ const Scoring = ({grading, id}) => {
             // navigate("/");
             return;
         }
-        if(grading.message){
-            console.log(grading);
+        if(grading?.message){
             if(grading?.message === "Grading Fail, Code Error"){
                 dispatch(showNotification("코드 에러!"));
             }
-            else if(grading?.message === "Grading Complete, try again!"){
+            else if(grading?.data?.failCount > 0){
                 dispatch(showNotification("채점 완료!\n 하지만 아쉽게도 틀렸습니다."));
+                setMessage(`아쉽네요!`);
             } else{
                 dispatch(showNotification("채점 완료!\n 모든 테스트를 통과하셨습니다!"));
-            }
-            if(grading?.data?.failCount === 0){
                 setMessage("축하합니다!");
-            } else{
-                setMessage(`아쉽네요!`);
             }
         }
     }, [grading, dispatch, navigate])
