@@ -17,12 +17,7 @@ const GlobalStyle = createGlobalStyle`
         color: ${({isDarkMode}) => isDarkMode ? "white" : "#161515"};
     }
 
-    textarea {
-        background-color: ${({isDarkMode}) => isDarkMode ? "black" : "white"};
-        color: ${({isDarkMode}) => isDarkMode ? "white" : "black"};
-    }
-
-    input {
+    textarea, input {
         background-color: ${({isDarkMode}) => isDarkMode ? "black" : "white"};
         color: ${({isDarkMode}) => isDarkMode ? "white" : "black"};
     }
