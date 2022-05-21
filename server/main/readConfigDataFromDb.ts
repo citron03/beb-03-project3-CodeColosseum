@@ -1,6 +1,6 @@
 import { ENV } from './src/config';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import { writeFileSync } from 'fs';
+import { writeFile } from 'fs';
 
 ( async ()=>{
 
@@ -64,7 +64,7 @@ const fromDb = { account, CCToken };
 
 export default fromDb`;
             
-                writeFileSync("src/config/fromDb.ts", data);
+                writeFile("src/config/fromDb.ts", data, () => { console.log("success!!"); });
 
             } else { console.log(`DB애서 데이터를 불러오는데 실패했다`); }
             
