@@ -1,21 +1,36 @@
 import { caver, fromDb } from "../config"
+import type { TxExcutionResult } from '../utils/types';
 
-interface Result {
-    success: boolean
-    result: any // 성공시 이곳에 txReceipt 들어감
-    resultAt: Date
+interface TxChecker {
+    to: string
+    amount: string
 }
 
 // 수수료 대납 트렌젝션에 feePayer 싸인하고 실행시키는 함수입니다.
 // 인자로 싸인된 Tx를 받고 tx 실행 결과객체를 리턴합니다.
-export = async function(senderRawTransaction:string, txChecker?:Object):Promise<Result> {
+// txChecker 를 넣으면 디코딩할떄 to, amount 를 체크합니다.
+export = async function(senderRawTransaction:string, txChecker?:TxChecker):Promise<TxExcutionResult> {
 
     try {
         const feePayerAddress = fromDb.account.feePayer; // 수수료 대납 계정의 주소
 
         const contractInstance = await caver.transaction.feeDelegatedSmartContractExecution.decode(senderRawTransaction) // 싸인하기위해 디코드
-        // 싸인하기 전에 트렌젝션 세부사항 확인하기 (txChecker) 여기서 확인하는것으로 신뢰도 100% 라고 생각됨.
-        // ... 생략
+        
+        // to 와 amount 꺼내기
+        const decodedInput = await caver.abi.decodeFunctionCall(fromDb.CCToken.transferAbi, contractInstance._input);
+        const to = decodedInput.to;
+        const amount = decodedInput.value;
+
+        // 싸인하기 전에 트렌젝션 세부사항 확인하기 (txChecker) 여기서 to, value 확인하는것과 나중에 tx결과 확인하는 것으로 신뢰도 100% 라고 생각됨.
+        if (txChecker) {
+            if (txChecker.to !== to) {
+                throw new Error('txChecker found error. to is not same.');
+            }
+            if (txChecker.amount !== amount) {
+                throw new Error('txChecker found error. amount is not same.');
+            }
+        };
+
         const signedTransaction = await caver.wallet.signAsFeePayer(feePayerAddress, contractInstance) // 대납 싸인
         const rawTx = signedTransaction.getRLPEncoding() // 인코딩
         const result = await caver.rpc.klay.sendRawTransaction(rawTx) // 실행
@@ -30,6 +45,8 @@ export = async function(senderRawTransaction:string, txChecker?:Object):Promise<
             return {
                 success: true, // 성공
                 result: result,
+                to,
+                amount,
                 resultAt: new Date()
             }
         }

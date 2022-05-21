@@ -1,6 +1,6 @@
 import User from './user';
 import Mission from './mission';
 import Challenge from './challenge';
-import TokenPaymentLog from './tokenPaymentLog';
+import TokenTransferLog from './tokenTransferLog';
 
-export = { User, Mission, Challenge, TokenPaymentLog }
+export = { User, Mission, Challenge, TokenTransferLog }

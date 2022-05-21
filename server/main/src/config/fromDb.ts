@@ -8,7 +8,16 @@ const CCToken = {
     symbol: "CCT",
     address: "0xf62a966da088ac148b4c33b51f42a82d05cb251f",
     colosseum: "100",
-    transferGasLimit: "300000"
+    transferGasLimit: "300000",
+    transferAbi: {
+        constant: false,
+        inputs: [{ internalType: 'address', name: 'to', type: 'address' }, { internalType: 'uint256', name: 'value', type: 'uint256' }],
+        name: 'transfer',
+        outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+        payable: false,
+        stateMutability: 'nonpayable',
+        type: 'function',
+    }
 };
 
 const fromDb = { account, CCToken };
