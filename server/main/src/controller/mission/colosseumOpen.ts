@@ -21,7 +21,7 @@ const post = async (req: any, res: any) => {
 
     if (missionInfo.state !== 1) {
       res
-        .status(400)
+        .status(404)
         .send({ message: "This Mission is not a colosseum mission." });
     }
   } catch (err) {
