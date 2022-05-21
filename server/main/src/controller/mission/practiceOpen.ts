@@ -4,6 +4,19 @@ const get = async (req: any, res: any) => {
   const missionId = req.params.mission_id;
 
   try {
+    const missionInfo = await models.Mission.findOne({ _id: missionId });
+
+    if (missionInfo.state === 1) {
+      res
+        .status(404)
+        .send({ message: "This Mission is not a practice mission." });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: "Failed to load Mission Data" });
+  }
+
+  try {
     const mission = await models.Mission.findOne({ _id: missionId });
     const creatorInfo = await models.User.findOne({ _id: mission.creator });
 
