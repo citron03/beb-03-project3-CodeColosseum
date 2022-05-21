@@ -16,6 +16,18 @@ import contract from "../../contract";
 const post = async (req: any, res: any) => {
   const { account, senderRawTransaction } = req.body;
   const missionId = req.params.mission_id;
+  try {
+    const missionInfo = await models.Mission.findOne({ _id: missionId });
+
+    if (missionInfo.state !== 1) {
+      res
+        .status(404)
+        .send({ message: "This Mission is not a colosseum mission." });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: "Failed to load Mission Data" });
+  }
 
   if (senderRawTransaction === undefined) {
     // 최초 요청 or 재요청
@@ -24,12 +36,10 @@ const post = async (req: any, res: any) => {
       // 이미 도전 중인 사람
       const gmResult = await getMissionInfo(missionId, account);
       if (gmResult.result) {
-        return res
-          .status(200)
-          .send({
-            message: "Success",
-            data: { isPayment: true, ...gmResult.missionInfo },
-          });
+        return res.status(200).send({
+          message: "Success",
+          data: { isPayment: true, ...gmResult.missionInfo },
+        });
       } else {
         return res.status(400).send({ message: gmResult.message });
       }
@@ -47,9 +57,10 @@ const post = async (req: any, res: any) => {
   } else {
     // senderRawTransaction과 함께 요청
     // 수수료 대납 토큰 지불
-    const txResult = await contract
-      .feeDelegatedTxExcution(senderRawTransaction)
-      // .then((result) => console.log(typeof result));
+    const txResult = await contract.feeDelegatedTxExcution(
+      senderRawTransaction
+    );
+    // .then((result) => console.log(typeof result));
 
     // TODO : 지불 장부 기록, challenge 생성, mission.colosseum 업데이트, stakedToken 증가,
 
@@ -75,12 +86,10 @@ const post = async (req: any, res: any) => {
     console.log("문제 데이터 전송");
     const gmResult = await getMissionInfo(missionId, account);
     if (gmResult.result) {
-      return res
-        .status(200)
-        .send({
-          message: "Success",
-          data: { isPayment: true, ...gmResult.missionInfo },
-        });
+      return res.status(200).send({
+        message: "Success",
+        data: { isPayment: true, ...gmResult.missionInfo },
+      });
     } else {
       return res.status(400).send({ message: gmResult.message });
     }
