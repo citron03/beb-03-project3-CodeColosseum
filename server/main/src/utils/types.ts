@@ -53,7 +53,7 @@ interface TokenTransferLogFor {
     id: string|Object,
 }
 
-type TokenTransferLogCode = 0|1|2|3|4|5|6 // 0:??
+type TokenTransferLogCode = 0|1|2|3|4|5|6 // 0:?? 1: 콜로세움도전 2: 위너보상 3: 출제자보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매
 
 interface TxExcutionResult {
     success: boolean
