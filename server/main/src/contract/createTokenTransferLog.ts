@@ -1,4 +1,4 @@
-import type { TxExcutionResult, TokenTransferLogFor } from '../utils/types';
+import type { TxExcutionResult, TokenTransferLogFor, TokenTransferLogCode } from '../utils/types';
 import models from '../models';
 import { fromDb } from '../config';
 
@@ -12,7 +12,7 @@ transferFor: 목적, 대가, 이유 등을 직접 확인할 수 있는 콜렉션
 
 return: 생성결과
 */
-export default async (txExcutionResult:TxExcutionResult, transferCode:Number, transferFor:Object|String ):Promise<Object> => {
+export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTransferLogCode, transferFor:Object|String ):Promise<Object> => {
     try {
         const { to, amount, resultAt } = txExcutionResult;
         const { transactionHash, from, feePayer } = txExcutionResult.result;
