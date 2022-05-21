@@ -48,9 +48,18 @@ interface MissionNft {
 
 type ChallengeKind = 0|1|2; // 0: etc
 
-interface TokenPaymentLogFor {
-    collection: number, // 0: etc, 1: challenge
-    id: string,
+interface TokenTransferLogFor {
+    collection: string, // 콜렉션 이름
+    id: string|Object,
 }
 
-export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenPaymentLogFor, Challenger };
+type TokenTransferLogCode = 0|1|2|3|4|5|6 // 0:??
+
+interface TxExcutionResult {
+    success: boolean
+    result: any // 성공시 이곳에 txReceipt 들어감
+    to?: string
+    amount?: string
+    resultAt: Date
+}
+export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult };
