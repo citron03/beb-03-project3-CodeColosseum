@@ -49,7 +49,7 @@ const post = async (req: any, res: any) => {
     // 수수료 대납 토큰 지불
     const txResult = await contract
       .feeDelegatedTxExcution(senderRawTransaction)
-      .then((result) => console.log(typeof result));
+      // .then((result) => console.log(typeof result));
 
     // TODO : 지불 장부 기록, challenge 생성, mission.colosseum 업데이트, stakedToken 증가,
 

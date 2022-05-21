@@ -7,9 +7,10 @@ const schema = new Schema(
     description: { type: String, /* required: true */ }, // 문제 리스팅에 보여줄 간단 설명
     paragraph: { type: String, required: true }, // 문제 지문
     creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // 크리에이터
-    state : { type: Number, required: true }, // <MissionState> ( 1: 콜로세움진행중, 2: 콜로세움중료, 3: 종료되고 NFT로 만들어짐, 4: 종료되고 NFT로 만들어지고 연습문제로 공개됨 )
+    state : { type: Number, required: true }, // <MissionState> ( 1: 콜로세움진행중, 2: 콜로세움중료, 3: 종료되고 소유권 NFT 만들어짐, 4: 종료되고 NFT로 만들어지고 연습문제광맥의 미네랄광산으로 오픈됨 )
     colosseum: { type: Object }, // <MissionCollosseum>
-    MissionNft: { type: Object }, // <MissionNft>
+    nft: { type: Object }, // <MissionNft>
+    mineral: { type: Object}, // <MissionMineral>
     inputs: { type: Array, required: true }, // <Inputs>
     output: { type: Object, required: true }, // <Output>
     refCode: { type: String, required: true }, // 

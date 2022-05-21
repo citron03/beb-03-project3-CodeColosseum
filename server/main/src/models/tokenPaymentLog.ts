@@ -7,9 +7,9 @@ const schema = new Schema(
     from: { type: Schema.Types.ObjectId, ref: "User", required: true },
     to: { type: Schema.Types.ObjectId, ref: "Account", required: true },
     for: { type: Object, required: true }, // <TokenPaymentLogFor> 지불 대상 정보 {collection, id}
-    token: { type: String, required: true }, // 지불 토큰 Symbol (디비에서도 찾을 수 있음) ex> CCT
+    token: { type: String, required: true }, // 지불 토큰 Symbol
     amount: { type: Number, required: true }, // 지불 양
-    paymentAt: { type: Date, required: true }, // 지불 시각
+    paymentAt: { type: Date, required: true }, // 대략적인 지불 시각
   },
   { timestamps: true }
 );

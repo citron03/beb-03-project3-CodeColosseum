@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "readDb": "ts-node readConfigDataFromDb.ts",
     "build": "tsc",
     "start": "node build/index.js",
+    "all": "ts-node readConfigDataFromDb.ts && npm run build && npm run start",
     "dev": "nodemon --exec ts-node src/index.ts",
-    "bs": "npm run build && npm run start",
     "debug": "nodemon --inspect-brk build/index.js",
     "seedAll": "ts-node seed/user.ts && ts-node seed/mission.ts && ts-node seed/challenge.ts",
     "seedUser": "ts-node seed/user.ts",
@@ -32,6 +33,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
+    "fs": "^0.0.1-security",
     "mongoose": "^6.3.2"
   }
 }
