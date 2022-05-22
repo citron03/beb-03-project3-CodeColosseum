@@ -2,7 +2,7 @@ import { ENV } from '../src/config';
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import duummyChallenges from '../src/dummy/challenges';
-import utils from '../src/utils';
+import { getRandomId } from '../src/utils';
 import axios from 'axios';
 import { Challenger } from '../src/utils/types';
 
@@ -42,7 +42,7 @@ async function seedDB() {
         // 더미 리스트 만들기
             let challengesData = [];
             for (let i = 0; i < duummyChallenges.length; i++) {
-                const challenger = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
+                const challenger = await getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
                 const mission = await missionsCollection.findOne({title: duummyChallenges[i].missionTitle}) // 미션 가져오기
                     .then((mission) => {
                         if (!mission) {

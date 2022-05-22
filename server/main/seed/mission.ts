@@ -2,7 +2,7 @@ import { ENV } from '../src/config';
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import coplitDummyMissions from '../src/dummy/coplitMissions';
-import utils from '../src/utils';
+import { getRandomId } from '../src/utils';
 import { MissionCollosseum } from '../src/utils/types';
 
 async function seedDB() {
@@ -26,7 +26,7 @@ async function seedDB() {
             // 코플릿 더미 넣기
             let missionsData = [];
             for (let i = 0; i < coplitDummyMissions.length; i++) {
-                const user_id = await utils.func.getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
+                const user_id = await getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
                 
                 // colosseum 객체 만들기
                 let colosseum: MissionCollosseum
