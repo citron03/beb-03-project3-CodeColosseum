@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const S = {};
 
 S.Trade = styled.div`
-    font-size: 4rem;
+    margin: 30px;
+    font-size: 2.5rem;
+    text-align: center;
 `
 
 export default S;
