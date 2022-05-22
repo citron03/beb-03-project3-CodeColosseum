@@ -25,6 +25,7 @@ S.SupportDiv = styled.div`
 
 S.P = styled.p`
     font-size: 1.1rem;
+    text-align: center;
 `
 
 S.ArgDiv = styled.div`

@@ -12,6 +12,7 @@ const Header = () => {
                 <S.Span>Code 🗡️</S.Span>
                 <S.Span>Colosseum</S.Span>
             </S.SpanDiv>
+            <S.MapSpan onClick={() => navigate('/map')}>Map</S.MapSpan>
         </S.Title>
         <S.LinkDiv>
             <Link to='/missions'>

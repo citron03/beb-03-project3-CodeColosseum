@@ -3,19 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import ColosseumMissionInfo from "./ColosseumMissionInfo";
 import { useSelector, useDispatch } from "react-redux"
 import { showNotification } from "./../../../redux/action";
+import { useCheckLogin } from "./../../../utils/login";
 
 const Mission = ({data, isColosseum}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const url = isColosseum ? `/mission/colosseum/${data.missionId}` : `/mission/${data.missionId}`;
+    const url = isColosseum ? `/mission/colosseum/${data.missionId}` : `/mission/practice/${data.missionId}`;
+    useCheckLogin(); // 로그인 먼저 확인
     const state = useSelector(state => state.signup).account;
 
-    const handleEnter = () => {
+    const handleEnter = async () => {
         if(data.creator !== state.nickName){
             navigate(url);
         } else {
             dispatch(showNotification("당신이 출제한 문제입니다."));
-            console.log(data.creator, state.nickName);
+            // navigate(url);
         }
     }
 

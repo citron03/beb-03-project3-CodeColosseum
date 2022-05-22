@@ -2,7 +2,7 @@ import S from "./Carousel.styled";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {img0, img1, img2, img3, img4} from './../../../assets';
+import {img0, img1, img2, img3, img4} from '../../../assets/carousel';
 
 const carouselData = [
     {image: img0, text: "No PAIN, No GAIN"},

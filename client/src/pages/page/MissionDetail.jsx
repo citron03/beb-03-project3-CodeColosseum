@@ -45,7 +45,7 @@ const MissionDetail = ({isColosseum}) => {
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
                         // console.log(el.data.data);
-                        if(el.data.data.isPayment){ // 이미 지불 함
+                        if(el.data.data.isPayment){ 
                             setMissionData(el.data.data);
                             setIsPaid(true);
                         } else {
@@ -57,8 +57,9 @@ const MissionDetail = ({isColosseum}) => {
     }, [isColosseum, id, state]);
 
     useEffect(() => {
-        if(data){
-            setMissionData(data); // 연습 문제 데이터 세팅
+        if(data?.missionInfo){
+            setMissionData(data.missionInfo); // 연습 문제 데이터 세팅
+            console.log(data.missionInfo);
         }
     }, [data]);
 
@@ -100,7 +101,7 @@ const MissionDetail = ({isColosseum}) => {
 
     const handleSubmit = () => {
         if(state.account){
-            dispatch(onLoading("채점중입니다"));
+            dispatch(onLoading("채점중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0){
                     mutate();
@@ -123,7 +124,7 @@ const MissionDetail = ({isColosseum}) => {
                     <S.EditorDiv>
                         {isColosseum ? <TimeLimit endTime={missionData?.endTime}/> : null}
                         <S.SupportDiv>
-                            {missionData?.inputs.length > 0 ? missionData.inputs.map((el, idx) => 
+                            {missionData?.inputs?.length > 0 ? missionData.inputs.map((el, idx) => 
                                 <ArgsInfo key={idx} index={idx} arg={el}/>) 
                                 : <S.P>인자가 필요하지 않습니다.</S.P>}
                             <OutputInfo output={missionData?.output}/>
@@ -133,9 +134,11 @@ const MissionDetail = ({isColosseum}) => {
                             {argDefautCode ? <Editor handleCode={setCode} defautCode={argDefautCode} setSyntaxError={setSyntaxError}/> : null}
                         </S.FunctionDiv>
                     </S.EditorDiv>
-                    <Scoring grading={grading} id={id}/>
-            </S.MissionDetail> : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>
-            : <Login/> }
+                    {state?.nickName === missionData?.creator ? <S.P>당신이 출제한 문제입니다.</S.P>
+                    : <Scoring grading={grading} id={id}/>}
+            </S.MissionDetail> 
+            : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>
+        : <Login/> }
         </>
     );
 }

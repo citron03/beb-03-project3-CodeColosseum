@@ -18,4 +18,9 @@ S.Div = styled.div`
     margin: auto;
 `
 
+S.P = styled.p`
+    font-size: 1.1rem;
+    text-align: center;
+`
+
 export default S;

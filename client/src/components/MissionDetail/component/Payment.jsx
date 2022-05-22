@@ -12,6 +12,7 @@ const Payment = ({setIsPaid, id, setMissionData, txSignReqObj}) => {
             <S.Div>
                 <C.Button onClick={payKIP7}>지불하기</C.Button>
             </S.Div>
+            <S.P>지불 후 트랜잭션 처리에 시간이 필요합니다. 잠시 기다려 주세요.</S.P>
         </S.Payment>
     );
 }
