@@ -16,7 +16,7 @@ S.Map = styled.div`
         top: 0;
         left: 0;
         z-index: -1;
-        opacity: 0.2;
+        opacity: 0.8;
     }
 `
 
@@ -58,8 +58,8 @@ S.BankImg = styled(S.Image)`
 `
 
 S.MineImg = styled(S.Image)`
-    bottom: 15%;
-    right: 5%;
+    bottom: 20%;
+    right: 10%;
     width: 250px;
     &:hover{
         transform: scale(1.1);
