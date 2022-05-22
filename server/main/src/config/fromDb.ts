@@ -17,6 +17,10 @@ const CCToken = {
         payable: false,
         stateMutability: 'nonpayable',
         type: 'function',
+    },
+    colosseumRewardRatioObj: {
+        winner: 0.45,
+        creator: 0.45
     }
 };
 
