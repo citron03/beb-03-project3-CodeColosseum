@@ -1,3 +1,5 @@
+import type { TxExcutionResult } from '../utils';
+
 const randomIntFromInterval = function(min:number, max:number):number {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -14,4 +16,23 @@ const getRandomId = function(collection:any):Promise<string> {
     })
 }
 
-export = {randomIntFromInterval, getRandomId};
+const makeReturnByTxResult = function(txResult:any, to:string, amount:string, resultAt?:Date):TxExcutionResult {
+    if (txResult.status === "0x1") {
+        return {
+            success: true, // 성공
+            result: txResult,
+            to,
+            amount,
+            resultAt
+        }
+    }
+    else {
+        return {
+            success: false, // 실패
+            result: txResult,
+            resultAt
+        }
+    }
+}
+
+export { randomIntFromInterval, getRandomId, makeReturnByTxResult };

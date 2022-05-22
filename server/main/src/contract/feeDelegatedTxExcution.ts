@@ -1,5 +1,5 @@
 import { caver, fromDb } from "../config"
-import type { TxExcutionResult } from '../utils/types';
+import { makeReturnByTxResult , TxExcutionResult} from '../utils';
 
 interface TxChecker {
     to: string
@@ -33,30 +33,18 @@ export = async function(senderRawTransaction:string, txChecker?:TxChecker):Promi
 
         const signedTransaction = await caver.wallet.signAsFeePayer(feePayerAddress, contractInstance) // 대납 싸인
         const rawTx = signedTransaction.getRLPEncoding() // 인코딩
+        let resultAt;
         const result = await caver.rpc.klay.sendRawTransaction(rawTx) // 실행
-            .once('receipt', async (receipt:any) => {
+            .once('receipt', (receipt:any) => {
+                resultAt = new Date();
                 return receipt
             })
             .once('error', (error:any) => {
+                resultAt = new Date();
                 return error
-            })
+            });
         
-        if (result.status === "0x1") {
-            return {
-                success: true, // 성공
-                result: result,
-                to,
-                amount,
-                resultAt: new Date()
-            }
-        }
-        else {
-            return {
-                success: false, // 실패
-                result: result,
-                resultAt: new Date()
-            }
-        }
+        return makeReturnByTxResult(result, to, amount, resultAt);
 
     } catch (error) {
         throw error;

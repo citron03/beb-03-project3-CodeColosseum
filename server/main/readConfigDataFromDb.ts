@@ -46,6 +46,7 @@ import { writeFile } from 'fs';
                 const CCTcolosseum = CCTcontract.colosseum;
                 const CCTtransferGasLimit = CCTcontract.transferGas;
                 const CCTtransferAbi = CCTcontract.transferAbi;
+                const CCTcolosseumRewardRatioObj = CCTcontract.colosseumRewardRatioObj;
             
                 const data =
 `const account = {
@@ -59,7 +60,8 @@ const CCToken = {
     address: "${CCTaddress}",
     colosseum: "${CCTcolosseum}",
     transferGasLimit: "${CCTtransferGasLimit}",
-    transferAbi: ${CCTtransferAbi}
+    transferAbi: ${CCTtransferAbi},
+    colosseumRewardRatioObj: ${CCTcolosseumRewardRatioObj}
 };
 
 const fromDb = { account, CCToken };

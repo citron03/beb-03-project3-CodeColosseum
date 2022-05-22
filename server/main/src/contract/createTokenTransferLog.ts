@@ -1,4 +1,4 @@
-import type { TxExcutionResult, TokenTransferLogFor, TokenTransferLogCode } from '../utils/types';
+import type { TxExcutionResult, TokenTransferLogFor, TokenTransferLogCode } from '../utils';
 import models from '../models';
 import { fromDb } from '../config';
 

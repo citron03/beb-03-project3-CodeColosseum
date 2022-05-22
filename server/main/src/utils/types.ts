@@ -23,15 +23,16 @@ interface testCase {
     isExample?: boolean
 };
 
-type testCases = testCase[];
+type TestCases = testCase[];
 
-type MissionState = 0|1|2|3|4; // 0: etc
+type MissionState = 0|1|2|3|4; // 0: etc ( 1: 콜로세움진행중, 2: 콜로세움중료(우승자나옴), 3: 종료되고 소유권 NFT 만들어짐, 4: 종료되고 NFT로 만들어지고 연습문제광맥의 미네랄광산으로 오픈됨 )
 
 interface Challenger {
     account: string,
     challengedAt: Date,
 }
 interface MissionCollosseum {
+    isRewarded?: boolean,
     stakedTokens: number,
     limitSeconds: number, // 1200 ~ 3600
     winner?: Challenger,
@@ -60,6 +61,6 @@ interface TxExcutionResult {
     result: any // 성공시 이곳에 txReceipt 들어감
     to?: string
     amount?: string
-    resultAt: Date
+    resultAt?: Date
 }
-export type { Input, Output, Inputs, testCase, testCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult };
+export type { Input, Output, Inputs, testCase, TestCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult };
