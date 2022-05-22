@@ -68,4 +68,11 @@ S.AccountDiv = styled.div`
     display: flex;
 `
 
+S.MapSpan = styled(S.Span)`
+    &:hover{
+        cursor: pointer;
+        color: var(--highlight-yellow);
+    }
+`
+
 export default S;

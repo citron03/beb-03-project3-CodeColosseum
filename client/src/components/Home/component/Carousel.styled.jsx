@@ -28,7 +28,6 @@ S.ContentDiv = styled.div`
 
 S.H1 = styled.h1`
     text-decoration: underline;
-    color: white;
 `
 
 const appear = keyframes`
