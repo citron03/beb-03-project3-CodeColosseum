@@ -1,19 +1,6 @@
-import type {
-  Input,
-  Output,
-  Inputs,
-  testCase,
-  TestCases,
-  MissionCollosseum,
-  MissionNft,
-  MissionState,
-  ChallengeKind,
-  TokenTransferLogFor,
-  Challenger,
-  TokenTransferLogCode,
-  TxExcutionResult,
-} from "./types";
-import {
+import func from "./func";
+
+export const {
   randomIntFromInterval,
   getRandomId,
   makeReturnByTxResult,
@@ -21,7 +8,8 @@ import {
   findMissionInfoByMissionId,
   findChallengeInfoByUserIdAndMissionId,
   gradingMission,
-} from "./func";
+  calMineralbalance
+} = func;
 
 export type {
   Input,
@@ -37,13 +25,5 @@ export type {
   Challenger,
   TokenTransferLogCode,
   TxExcutionResult,
-};
-export {
-  randomIntFromInterval,
-  getRandomId,
-  makeReturnByTxResult,
-  findUserInfoByAccount,
-  findMissionInfoByMissionId,
-  findChallengeInfoByUserIdAndMissionId,
-  gradingMission,
-};
+  MineralLogCode
+} from "./types";

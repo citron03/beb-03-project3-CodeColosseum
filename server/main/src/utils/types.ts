@@ -65,4 +65,7 @@ interface TxExcutionResult {
     amount?: string
     resultAt?: Date
 }
-export type { Input, Output, Inputs, testCase, TestCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult };
+
+type MineralLogCode = "mining"|"trading"
+
+export type { Input, Output, Inputs, testCase, TestCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult, MineralLogCode };
