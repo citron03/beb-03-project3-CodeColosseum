@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const handlePractice = async (account, missionId) => {
-    const urlNft = "/mission/mintnft";
-    const url = "/mission/changetopractice";
+    const urlNft = "/mission/mission/mintnft";
+    const url = "/mission/mission/changetopractice";
     const payload = {
         account,
         missionId
@@ -37,7 +37,6 @@ const MyMission = ({data}) => {
             <S.P>만든 날짜 : {parseDate(data?.createdAt)}</S.P>
             <S.ButtonDiv>
                 <C.Button onClick={() => handlePractice(state?.account, data?._id)}>연습문제로 만들기</C.Button>
-                {/* <C.Button onClick={() => console.log("계정: " + state.account, "문제: " + data._id)}>문제 비공개</C.Button> */}
             </S.ButtonDiv>
         </S.MyMission>
     );

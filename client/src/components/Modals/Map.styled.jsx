@@ -9,7 +9,7 @@ S.Map = styled.div`
     left: 10%;
     height: 80%;
     width: 80%;
-    z-index: 3;
+    z-index: 11;
     &::after {
         width: 100%;
         height: 100%;
