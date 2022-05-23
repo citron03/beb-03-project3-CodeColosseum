@@ -18,6 +18,10 @@ S.ComponentDiv = styled.div`
     font-size: 2rem;
     color: ${({selected}) => selected ? "var(--universal)" : "var(--font-theme)"};
     font-weight: ${({selected}) => selected ? "bolder" : "normal"};
+    &:hover{
+        cursor: pointer;
+        color: var(--highlight-yellow);
+    }
 `
 
 export default S;

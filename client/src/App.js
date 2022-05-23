@@ -3,8 +3,9 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStyle from "./GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { Home, Mypage, MissionList, RegisterMission, MissionDetail, Feedback, About, Map, Trade, Bank } from './pages';
-import { Loading, Notification, SignUp, DisappearingNotification } from "./components/Modals";
+import { Home, Mypage, MissionList, RegisterMission, MissionDetail, Feedback, About, Trade, Bank } from './pages';
+import { Loading, Notification, SignUp, DisappearingNotification, Map } from "./components/Modals";
+import MapNav from "./components/MapNav";
 import { useLogin } from "./utils/login";
 import { useSelector } from "react-redux";
 
@@ -19,7 +20,6 @@ function App() {
           <Header/>
           <Routes>
                 <Route exact path="/" element={<Home/>}/>
-                <Route exact path="/map" element={<Map/>}/>
                 <Route exact path="/trade" element={<Trade/>}/>
                 <Route exact path="/bank" element={<Bank/>}/>
                 <Route path="/mypage/*" element={<Mypage/>}/>
@@ -36,6 +36,8 @@ function App() {
           <Loading/>
           <SignUp/>
           <DisappearingNotification/>
+          <MapNav/>
+          <Map/>
         </QueryClientProvider>
         <GlobalStyle isDarkMode={isDarkMode}/>
     </BrowserRouter>
