@@ -70,6 +70,7 @@ S.AccountDiv = styled.div`
 `
 
 S.CasementSpan = styled(S.Span)`
+    font-size: 35px;
     &:hover{
         cursor: pointer;
         color: var(--highlight-yellow);

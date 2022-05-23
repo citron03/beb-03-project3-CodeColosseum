@@ -6,8 +6,13 @@ const ListTitle = ({isColosseum}) => {
 
     return (
             <S.ListTitle>
-                {isColosseum ? <S.ColosseumH1>{title}</S.ColosseumH1> 
-                : <S.H1>{title}</S.H1>}
+                {isColosseum ? 
+                <S.H1>
+                    <S.Sword/>{title}<S.Shield/>
+                </S.H1> 
+                : <S.H1>
+                    <S.Fitness/>{title}
+                </S.H1>}
             </S.ListTitle>
         );
 }

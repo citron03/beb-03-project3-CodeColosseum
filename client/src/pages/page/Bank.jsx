@@ -8,7 +8,9 @@ const Bank = () => {
     const [component, setComponent] = useState("Collect");
     return (
         <S.Bank>
-            <S.H1>은행</S.H1>
+            <S.H1>
+                <S.OutlineBank/>은행
+            </S.H1>
             <BankNav setComponent={setComponent} component={component}/>
             {component === "Collect" ? 
                 <Collect/> : <TokenPurchase/>}

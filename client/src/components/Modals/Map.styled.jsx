@@ -9,7 +9,7 @@ S.Map = styled.div`
     left: 10%;
     height: 80%;
     width: 80%;
-    z-index: 100;
+    z-index: 3;
     &::after {
         width: 100%;
         height: 100%;
@@ -73,7 +73,7 @@ S.MineImg = styled(S.Image)`
 
 S.MypageImg = styled(S.Image)`
     bottom: 35%;
-    left: 25%;
+    left: 20%;
     width: 150px;
     &:hover{
         transform: scale(1.1);

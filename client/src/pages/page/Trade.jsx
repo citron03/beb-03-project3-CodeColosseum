@@ -6,7 +6,9 @@ const Trade = () => {
     useCheckLogin();
     return (
         <S.Trade>
-            <S.H1>교역소</S.H1>
+            <S.H1>
+                <S.Handshake/>교역소
+            </S.H1>
             <Exchange/>
         </S.Trade>
     );
