@@ -12,15 +12,18 @@ transferFor: 목적, 대가, 이유 등을 직접 확인할 수 있는 콜렉션
 
 return: 생성결과
 */
-export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTransferLogCode, transferFor:Object|String ):Promise<Object> => {
+export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTransferLogCode, transferFor:TokenTransferLogFor ):Promise<Object> => {
     try {
         const { to, amount, resultAt } = txExcutionResult;
         const { transactionHash, from, feePayer } = txExcutionResult.result;
 
-        // for 만들기
-        let objFor:TokenTransferLogFor;
-        if (transferCode === 1) { objFor = { collection: 'Mission', id: transferFor }; }
-        else { throw new Error("Error : Making for"); };
+        // for 체크하기
+        let cheker:boolean
+        if (transferCode === 1) { cheker = transferFor.collection === "Challenge" }
+        else if (transferCode === 2 || transferCode === 3) { cheker = transferFor.collection === "Mission" }
+        else { throw new Error("Error: transferCode is wrong!"); };
+        
+        if (cheker === false) { throw new Error("Error: transferFor.collection is wrong!"); };
 
         return await models.TokenTransferLog.create({ // 생성하고 리턴!
             txHash: transactionHash,
@@ -28,7 +31,7 @@ export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTrans
             to,
             feePayer,
             code: transferCode,
-            for: objFor,
+            for: transferFor,
             token: fromDb.CCToken.symbol,
             amount,
             paymentAt: resultAt,
