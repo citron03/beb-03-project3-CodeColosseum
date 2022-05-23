@@ -15,7 +15,7 @@ interface TokenRewardColosseumReturn {
 }
 
 // 콜로세움 종료시 토큰 리워드를 분배하는 함수입니다.
-// 종결된 콜로세움 미션객체와 보상비율객체를 인자로 받습니다.
+// 종결된 콜로세움 미션객체와 보상비율객체를 인자로 받습니다. 미션객체는 존재한다고 가정하고 확인하지 않기때문에 꼭 DB에 존재하는 유효한 객체를 넣으세요.
 export default async function (missionDoc:Mission): Promise<TokenRewardColosseumReturn> {
     try {
     // 종료된 미션인지, 보상이 안된 미션인지 확인하기
