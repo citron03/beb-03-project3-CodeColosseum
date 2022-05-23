@@ -17,7 +17,7 @@ const schema = new Schema(
     state: { type: Number, required: true }, // <MissionState>
     colosseum: { type: Object }, // <MissionCollosseum>
     nft: { type: Object }, // <MissionNft>
-    mineral: { type: Object }, // <MissionMineral>
+    // mine: { type: Object}, // <MissionMine>
     inputs: { type: Array, required: true }, // <Inputs>
     output: { type: Object, required: true }, // <Output>
     refCode: { type: String, required: true }, //
