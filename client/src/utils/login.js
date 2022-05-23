@@ -20,7 +20,7 @@ const useLogin = () => {
         getAccountAddress()
           .then(el => dispatch(setAccount(el)))
           .catch(err => console.log(err));          
-      })
+      });
   });
 }
 

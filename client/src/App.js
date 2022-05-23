@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 const queryClient = new QueryClient();
 
 function App() {
-  useLogin();
   const isDarkMode = useSelector(state => state.darkMode).isDarkMode;
+  useLogin();
   return (
     <BrowserRouter>
         <QueryClientProvider client={queryClient}>
