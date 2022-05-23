@@ -16,7 +16,7 @@ const MyMissions = ({userCreatedMissions}) => {
             <S.H2>내가 출제한 미션들</S.H2>
             <MissionSelector setSelector={setSelector}/>
             <S.Div>
-                {!!userCreatedMissions && userCreatedMissions.length > 0 ? 
+                {!!userCreatedMissions && userCreatedMissions?.length > 0 ? 
                     userCreatedMissions.map((el) => 
                         <MyMission key={el._id} data={el}/>)
                 : <S.P>해당하는 문제가 없습니다.</S.P>}

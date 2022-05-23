@@ -69,10 +69,23 @@ S.AccountDiv = styled.div`
     display: flex;
 `
 
-S.MapSpan = styled(S.Span)`
+S.CasementSpan = styled(S.Span)`
     &:hover{
         cursor: pointer;
         color: var(--highlight-yellow);
+    }
+`
+
+S.ClosedDiv = styled.div`
+    height: 40px;
+    text-align: center;
+    font-size: 20px;
+    background-color: var(--background-theme-gray);
+    border-bottom: 1px solid var(--universal);
+    line-height: 2;
+    &:hover {
+        cursor: pointer;
+    border-bottom: 2px solid var(--dark-yellow);
     }
 `
 

@@ -21,7 +21,7 @@ S.Map = styled.div`
         top: 0;
         left: 0;
         z-index: -1;
-        opacity: 0.8;
+        opacity: 0.9;
     }
 `
 
@@ -70,5 +70,15 @@ S.MineImg = styled(S.Image)`
         transform: scale(1.1);
     }
 `
+
+S.MypageImg = styled(S.Image)`
+    bottom: 35%;
+    left: 25%;
+    width: 150px;
+    &:hover{
+        transform: scale(1.1);
+    }
+`
+
 
 export default S;
