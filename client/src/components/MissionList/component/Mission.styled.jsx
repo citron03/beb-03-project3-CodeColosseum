@@ -7,7 +7,7 @@ S.Mission = styled.div`
     flex-direction: column;
     padding: 20px;
     margin: 30px;
-    border: 1px solid var(--highlight-yellow);
+    border: 3px solid var(--highlight-yellow);
     &:hover {
     border: 1px solid gray;
         box-shadow: 1px 1.5px var(--highlight-yellow);
