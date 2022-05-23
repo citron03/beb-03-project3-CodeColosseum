@@ -1,4 +1,4 @@
-import type { Output, Inputs, TestCases } from '../utils/types';
+import type { Output, Inputs, TestCases } from '../utils';
 
 // 코플릿 알고리즘 1짐나르기, 3보드게임, 7블랙잭
 
