@@ -20,13 +20,8 @@ const getRandomId = function (collection: any): Promise<string> {
   });
 };
 
-const makeReturnByTxResult = function (
-  txResult: any,
-  to: string,
-  amount: string,
-  resultAt?: Date
-): TxExcutionResult {
-  if (txResult.status === "0x1") {
+const makeReturnByTxResult = function (txResult: any, to: string, amount: string, resultAt?: Date): TxExcutionResult {
+  if (txResult.status === "0x1" || txResult.status === "Submitted") {
     return {
       success: true, // 성공
       result: txResult,
