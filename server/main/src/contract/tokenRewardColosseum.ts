@@ -38,26 +38,10 @@ export default async function (missionDoc:Mission): Promise<TokenRewardColosseum
         // winner
         let winnerResultAt;
         const winnerResult = await caver.kas.kip7.transfer(contractAddr, from, winner.account, winnerAmount)
-            .once('receipt', (receipt:any) => {
-                winnerResultAt = new Date();
-                return receipt;
-            })
-            .once('error', (error:any) => {
-                winnerResultAt = new Date();
-                return error;
-            });
         const winnerTxReturn = makeReturnByTxResult(winnerResult, winner.account, winnerAmount, winnerResultAt);
         // creator
         let creatorResultAt;
         const creatorResult = await caver.kas.kip7.transfer(contractAddr, from, creator.account, creatorAmount)
-            .once('receipt', (receipt:any) => {
-                creatorResultAt = new Date();
-                return receipt;
-            })
-            .once('error', (error:any) => {
-                creatorResultAt = new Date();
-                return error;
-            });
         const creatorTxReturn = makeReturnByTxResult(creatorResult, creator.account, creatorAmount, creatorResultAt);
     // 디비수정(mission) // 둘다 성공했을 경우만 디비 수정
         if (winnerTxReturn.success && creatorTxReturn.success) {
