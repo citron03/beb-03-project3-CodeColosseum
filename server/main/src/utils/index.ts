@@ -20,6 +20,7 @@ import {
   findUserInfoByAccount,
   findMissionInfoByMissionId,
   findChallengeInfoByUserIdAndMissionId,
+  gradingMission,
 } from "./func";
 
 export type {
@@ -44,4 +45,5 @@ export {
   findUserInfoByAccount,
   findMissionInfoByMissionId,
   findChallengeInfoByUserIdAndMissionId,
+  gradingMission,
 };

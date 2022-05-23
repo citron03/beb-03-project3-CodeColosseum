@@ -1,5 +1,6 @@
 import axios from "axios";
 import models from "../../models";
+import { gradingMission } from "../../utils";
 const post = async (req: any, res: any) => {
   const { account, missionId, code, reqType } = req.body;
 
@@ -38,29 +39,6 @@ const post = async (req: any, res: any) => {
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: "Failed to load data" });
-  }
-};
-
-const gradingMission = async (testCases: [], code: string) => {
-  // 채점하고 결과만 반환하는 함수
-
-  //console.log(testCases);
-  try {
-    const { data } = await axios.post("http://localhost:3003/grading", {
-      code,
-      testCases,
-    });
-    // console.log(data);
-    if (data.data) {
-      // 정답 여부 상관 없이 채점에 성공
-      return { message: data.message, data: data.data };
-    } else {
-      // 문법 오류 등의 이유로 채점 실패
-      return { message: data.message };
-    }
-  } catch (err) {
-    console.log(err);
-    return { message: "Grading Failed" };
   }
 };
 
