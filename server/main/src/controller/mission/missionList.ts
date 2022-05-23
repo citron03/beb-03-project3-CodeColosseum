@@ -15,6 +15,9 @@ const get = async (req: any, res: any) => {
         missions.map(async (mission) => {
           const user = await models.User.findOne({ _id: mission.creator });
           const tokenExpectation = mission.colosseum.stakedTokens;
+          const feedback = mission.feedback
+            ? mission.feedback
+            : { difficulty: 0, quality: 0, participatedNum: 0 };
           return {
             missionId: mission.id,
             title: mission.title,
@@ -25,10 +28,14 @@ const get = async (req: any, res: any) => {
               : [],
             limitSeconds: mission.colosseum.limitSeconds,
             difficulty:
-              mission.feedback.difficulty / mission.feedback.participatedNum,
+              feedback.participatedNum === 0
+                ? 0
+                : feedback.difficulty / feedback.participatedNum,
             quality:
-              mission.feedback.quality / mission.feedback.participatedNum,
-            participatedNum: mission.feedback.participatedNum,
+              feedback.participatedNum === 0
+                ? 0
+                : feedback.quality / feedback.participatedNum,
+            participatedNum: feedback.participatedNum,
           };
         })
       );
