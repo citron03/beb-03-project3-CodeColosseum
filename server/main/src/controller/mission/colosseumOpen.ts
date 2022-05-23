@@ -1,5 +1,6 @@
 import models from "../../models";
 import contract from "../../contract";
+import { TokenTransferLogFor } from "../../utils";
 
 // const obj = await contract.tokenPaymentResDataColosseum();
 // response.send({data:obj})
@@ -62,11 +63,7 @@ const post = async (req: any, res: any) => {
     );
     // .then((result) => console.log(typeof result));
 
-    // TODO : 지불 장부 기록, challenge 생성, mission.colosseum 업데이트, stakedToken 증가,
-
-    console.log("지불장부에 기록 시작");
-    // 지불 장부 기록
-    console.log("지불장부에 기록 완료");
+    // TODO : challenge 생성, 지불 장부 기록, mission.colosseum 업데이트, stakedToken 증가,
 
     console.log("challenge 데이터 생성 시작");
     const ancResult = await addNewChallenge(account, missionId);
@@ -74,6 +71,21 @@ const post = async (req: any, res: any) => {
       return res.status(400).send({ message: ancResult.message });
     }
     console.log("challenge 데이터 생성 완료");
+
+    console.log("지불장부에 기록 시작");
+    // 지불 장부 기록
+
+    const transferFor: TokenTransferLogFor = {
+      collection: "Challenge",
+      id: ancResult.cId,
+    };
+    try {
+      await contract.createTokenTransferLog(txResult, 1, transferFor);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).send({ message: "Failed " });
+    }
+    console.log("지불장부에 기록 완료");
 
     console.log("stakedToken 증가 시작");
     const amount = 100; // 임시
@@ -117,32 +129,7 @@ const stakingToken = async (missionId: string, amount: number) => {
   }
   return { result: true, message: "Token Staking Success" };
 };
-/*
-const writeTokenPaymentLog = async (txResult: any, missionId: string) => {
-  try {
-    const user = await models.User.findOne({ txResult.result.account });
-    const userId = user.id;
-    const tokenPaymentLogSchema = {
-      txHash : txResult.result.transactionHash,
-      from: userId,
-      to: "628640f3296e0e06e8be33ec",
-      for: { collection: 1, id: missionId },
-      token: "CCT",
-      amount: 100,
-    };
-    try {
-      await models.TokenPaymentLog.create(tokenPaymentLogSchema);
-      return { result: true, message: "completed write tokenpayment log" };
-    } catch (err) {
-      console.log(err);
-      return { result: false, message: "failed write tokenpayment log" };
-    }
-  } catch (err) {
-    console.log(err);
-    return { result: false, message: "failed to load user info" };
-  }
-};
-*/
+
 const addNewChallenge = async (account: string, mission: string) => {
   try {
     const userInfo = await models.User.findOne({ account });
@@ -157,7 +144,7 @@ const addNewChallenge = async (account: string, mission: string) => {
     };
     try {
       await models.Challenge.create(challengeSchema);
-
+      const newChallengeInfo = await models.Challenge.findOne(challengeSchema);
       try {
         const challengedAt = new Date();
         const challengers = missionInfo.colosseum.challengings
@@ -173,7 +160,11 @@ const addNewChallenge = async (account: string, mission: string) => {
           }
         );
 
-        return { result: true, message: "Success add new challenge" };
+        return {
+          result: true,
+          message: "Success add new challenge",
+          cId: newChallengeInfo.id,
+        };
       } catch (err) {
         console.log(err);
         return { result: false, message: "Failed to load Mission Data" };
