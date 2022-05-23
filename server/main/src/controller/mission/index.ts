@@ -4,6 +4,8 @@ import colosseumOpen from "./colosseumOpen";
 import practiceOpen from "./practiceOpen";
 import challengeColosseum from "./challengeColosseum";
 import challengePractice from "./challengePractice";
+import mintNft from "./mintNft";
+import changeToPractice from "./changeToPractice";
 
 export = {
   missionList,
@@ -12,4 +14,6 @@ export = {
   practiceOpen,
   challengeColosseum,
   challengePractice,
+  mintNft,
+  changeToPractice,
 };

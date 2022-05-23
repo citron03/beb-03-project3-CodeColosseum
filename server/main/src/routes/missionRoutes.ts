@@ -42,7 +42,7 @@ missionRouter.post(
 // missionRouter.post("/mission/mintnft", missionController.mintNft.post);
 
 // 연습문제 전환 요청 API
-// POST /mission/change
-// missionRouter.post("/mission/change", missionController.change.post);
+// POST /mission/changetopractice
+// missionRouter.post("/mission/changetopractice", missionController.change.post);
 
 export = missionRouter;
