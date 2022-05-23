@@ -1,5 +1,8 @@
 import axios from "axios";
+import tokenRewardColosseum from "../../contract/tokenRewardColosseum";
 import models from "../../models";
+import contract from "../../contract";
+import { TokenTransferLogFor, gradingMission } from "../../utils";
 
 const post = async (req: any, res: any) => {
   const { account, missionId, code } = req.body;
@@ -87,13 +90,36 @@ const post = async (req: any, res: any) => {
           console.log(err);
           res.status(400).sned({ message: "DB update Error" });
         }
-        res.status(200).send({
-          message: gradingResult.message,
-          data: {
-            ...data,
-            reward: missionInfo.colosseum.stakedToken * 0.4,
-          },
-        });
+        // 보상 지급
+        try {
+          const missionInfo = await models.Mission.findOne({ _id: missionId });
+          const { winnerTxReturn, creatorTxReturn } =
+            await tokenRewardColosseum(missionInfo);
+
+          if (winnerTxReturn.success && creatorTxReturn.success) {
+            await contract.createTokenTransferLog(winnerTxReturn, 2, {
+              collection: "Mission",
+              id: missionInfo.id,
+            });
+            await contract.createTokenTransferLog(creatorTxReturn, 3, {
+              collection: "Mission",
+              id: missionInfo.id,
+            });
+          } else {
+            throw new Error("Failed reward");
+          }
+
+          res.status(200).send({
+            message: gradingResult.message,
+            data: {
+              ...data,
+              reward: winnerTxReturn.amount,
+            },
+          });
+        } catch (err: any) {
+          console.log(err);
+          res.status(400).send({ message: err.message });
+        }
       } catch (err) {
         console.log(err);
         res.status(400).send({ message: "DB update Error" });
@@ -135,29 +161,6 @@ const post = async (req: any, res: any) => {
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: "Failed to load Data" });
-  }
-};
-
-const gradingMission = async (testCases: [], code: string) => {
-  // 채점하고 결과만 반환하는 함수
-
-  //console.log(testCases);
-  try {
-    const { data } = await axios.post("http://localhost:3003/grading", {
-      code,
-      testCases,
-    });
-    // console.log(data);
-    if (data.data) {
-      // 정답 여부 상관 없이 채점에 성공
-      return { message: data.message, data: data.data };
-    } else {
-      // 문법 오류 등의 이유로 채점 실패
-      return { message: data.message };
-    }
-  } catch (err) {
-    console.log(err);
-    return { message: "Grading Failed" };
   }
 };
 
