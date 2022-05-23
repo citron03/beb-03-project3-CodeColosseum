@@ -16,6 +16,7 @@ const Scoring = ({grading, id}) => {
             if(grading?.data?.reward){
                 // 내가 답을 맞춤 (콜로세움 문제)
                 dispatch(showNotification(`정답입니다!\n${grading.data.reward}개의 토큰을 획득하였습니다.`));
+                setMessage("축하합니다!");
                 // navigate(`/feedback/${id}`); 평가 페이지 이동
                 return;
             }
@@ -37,7 +38,7 @@ const Scoring = ({grading, id}) => {
                 else if(grading?.data?.isPassed){
                     dispatch(showNotification("채점 완료!\n 모든 테스트를 통과하셨습니다!\n평가를 남겨주세요 ★"));
                     setMessage("축하합니다!");
-                } else{
+                } else {
                     dispatch(showNotification("채점 완료!\n 하지만 아쉽게도 틀렸습니다."));
                     setMessage(`아쉽네요!`);
                 }

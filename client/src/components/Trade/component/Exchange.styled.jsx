@@ -6,7 +6,7 @@ S.Exchange = styled.div`
     text-align: center;
     font-size: 1.3rem;
     margin: 30px auto;
-    padding: 80px 200px;
+    padding: 40px 200px;
     border: 2px solid var(--highlight-yellow);
     display: flex;
     flex-direction: column;

@@ -23,9 +23,9 @@ const Mypage = () => {
             <MypageNavigation/>
             {state?.account ? 
                 <Routes>
-                     <Route exact path="/" element={<AccountInfo data={state.account}/>}/>
-                     <Route path="/solved-missions" element={<SolvedMissions userCallenges={data?.data.userCallenges}/>}/>
-                     <Route path="/my-missions" element={<MyMissions userCreatedMissions={data?.data.userCreatedMissions}/>}/>
+                     <Route exact path="/" element={<AccountInfo data={state?.account}/>}/>
+                     <Route path="/solved-missions" element={<SolvedMissions userCallenges={data?.data?.userCallenges}/>}/>
+                     <Route path="/my-missions" element={<MyMissions userCreatedMissions={data?.data?.userCreatedMissions}/>}/>
                      <Route path="/nft" element={<NftMissions/>}/>
                  </Routes> 
             : <Login/>}
