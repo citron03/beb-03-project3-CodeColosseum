@@ -48,4 +48,8 @@ missionRouter.post(
   missionController.changeToPractice.post
 );
 
+// 연습문제 풀이 후 피드백 API
+// POST /mission/feedback
+missionRouter.post("mission/feedback", missionController.feedback.post);
+
 export = missionRouter;

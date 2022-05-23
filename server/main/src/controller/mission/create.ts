@@ -46,6 +46,7 @@ const post = async (req: any, res: any) => {
           output,
           refCode,
           testCases,
+          feedback: { difficulty: 0, quality: 0, participatedNum: 0 },
         };
         try {
           await models.Mission.create(missionSchema);

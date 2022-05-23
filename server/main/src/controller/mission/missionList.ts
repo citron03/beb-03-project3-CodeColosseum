@@ -24,6 +24,11 @@ const get = async (req: any, res: any) => {
               ? mission.colosseum.challengings
               : [],
             limitSeconds: mission.colosseum.limitSeconds,
+            difficulty:
+              mission.feedback.difficulty / mission.feedback.participatedNum,
+            quality:
+              mission.feedback.quality / mission.feedback.participatedNum,
+            participatedNum: mission.feedback.participatedNum,
           };
         })
       );
