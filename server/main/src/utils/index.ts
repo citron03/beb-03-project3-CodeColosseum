@@ -8,7 +8,8 @@ export const {
   findMissionInfoByMissionId,
   findChallengeInfoByUserIdAndMissionId,
   gradingMission,
-  calMineralbalance
+  calMineralbalance,
+  updateUserMineralBalance
 } = func;
 
 export type {

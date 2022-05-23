@@ -1,4 +1,4 @@
-import { TxExcutionResult, randomIntFromInterval } from "../utils";
+import { TxExcutionResult, randomIntFromInterval, calMineralbalance } from "../utils";
 import models from "../models";
 import axios from "axios";
 
@@ -109,10 +109,29 @@ export default {
 
 
   // 특정 유저의 미네랄 보유량을 Logs 를 통해 계산해서 반환하는 함수
-  calMineralbalance: async (userId:String|Object):Promise<Number> => {
+  calMineralbalance: async (userId:String):Promise<Number> => {
     try {
-      
-    return 0
+      // code = "mining" 인 모든 로그의 amount 들의 합
+      const miningAmount = (await models.MineralLog.find({ code: "mining", user: userId })).reduce((acc, cur)=>{
+        return acc + cur.amount;
+      }, 0);
+      // code = "trading" 인 모든 로그의 amount 들의 합
+      const tradingAmount = (await models.MineralLog.find({ code: "trading", user: userId })).reduce((acc, cur)=>{
+        return acc + cur.amount;
+      }, 0);
+      // if (miningAmount < tradingAmount) {throw new Error("miningAmount < tradingAmount")}
+      // 두 amount 차이를 반환
+      return miningAmount - tradingAmount;
+    } catch (err) {throw err;};
+  },
+
+
+  // User 도큐먼트에 미네랄 잔약을 최신화하는 함수. 최신화 된 도큐먼트갹체를 반환
+  updateUserMineralBalance: async (userId:String):Promise<Object> => {
+    try {
+      const balance = await calMineralbalance(userId);
+      const updatedUser = await models.User.findByIdAndUpdate({userId}, {mineral:balance}, {new:true});
+      return updatedUser;
     } catch (err) {throw err;};
   },
 

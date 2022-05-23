@@ -156,3 +156,4 @@ build/
 #
 kastest.js
 test.ts
+format.ts
