@@ -2,6 +2,8 @@ import S from './Header.styled';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { GiSwordsEmblem } from 'react-icons/gi';
+import { BsFileArrowUp } from 'react-icons/bs';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ const Header = () => {
             <S.Header>
                 <S.Title>
                     <S.SpanDiv onClick={() => navigate('/')}>
-                        <S.Span>Code 🗡️</S.Span>
+                        <S.Span>Code <GiSwordsEmblem/></S.Span>
                         <S.Span>Colosseum</S.Span>
                     </S.SpanDiv>
                 </S.Title>
@@ -40,7 +42,7 @@ const Header = () => {
                         <S.Div>마이 페이지</S.Div>
                     </Link>
                 </S.LinkDiv>
-                <S.CasementSpan onClick={() => setIsClosed(prev => !prev)}>⇅</S.CasementSpan>
+                <S.CasementSpan onClick={() => setIsClosed(prev => !prev)}><BsFileArrowUp/></S.CasementSpan>
             </S.Header> }
         </>
     );
