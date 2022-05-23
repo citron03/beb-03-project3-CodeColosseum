@@ -23,7 +23,7 @@ const MypageNavigation = () => {
             <S.Div onClick={() => handleTaps("/mypage")} focus={focus === 1}>계정 정보</S.Div>
             <S.Div onClick={() => handleTaps("/mypage/solved-missions")} focus={focus === 2}>내가 푼 미션들</S.Div>
             <S.Div onClick={() => handleTaps("/mypage/my-missions")} focus={focus === 3}>내가 출제한 미션들</S.Div>
-            <S.Div onClick={() => handleTaps("/mypage/nft")} focus={focus === 4}>내 NFT 미션들</S.Div>
+            {/* <S.Div onClick={() => handleTaps("/mypage/nft")} focus={focus === 4}>내 NFT 미션들</S.Div> */}
         </S.MypageNavigation>
     );
 }

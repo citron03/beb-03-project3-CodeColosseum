@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
         --font-theme: ${({isDarkMode}) => isDarkMode ? "white" : "black"};
         --warning: #d63031;
         --warning-light: #ff7675;
+        --universal: #cd6133;
     }
 
     code {

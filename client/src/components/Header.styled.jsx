@@ -45,7 +45,8 @@ S.Image = styled.img`
 `
 
 S.Div = styled.div`
-    width: 250px;
+    width: fit-content;
+    margin: 0 25px;
     font-size: 30px;
     text-align: center;
 `

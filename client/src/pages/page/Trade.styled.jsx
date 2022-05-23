@@ -8,4 +8,9 @@ S.Trade = styled.div`
     text-align: center;
 `
 
+S.H1 = styled.h1`
+    text-align: center;
+    font-size: 3rem;
+`
+
 export default S;
