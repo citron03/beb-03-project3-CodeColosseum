@@ -22,7 +22,7 @@ S.BorderDiv = styled.div`
 
 S.Div = styled.div`
     width: fit-content;
-    padding: 50px;
+    padding: 20px;
     display: flex;
 `
 

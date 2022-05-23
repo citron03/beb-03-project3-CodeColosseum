@@ -21,9 +21,10 @@ S.Div = styled.div`
     &:hover {
         background-color: #e58e26;
     }
-    background-color: ${({focus}) => focus ? "var(--dark-yellow)" : "var(--background-theme)"};
+    background-color: ${({focus}) => focus ? "var(--universal)" : "var(--background-theme)"};
+    color: ${({focus}) => focus ? "white" : "var(--font-theme)"};
     font-size: ${({focus}) => focus ? "1.4rem" : "1.3rem"};
-    font-weight: 500;
+    font-weight: bolder;
 
 `
 

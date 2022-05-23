@@ -23,6 +23,19 @@ S.Div = styled.div`
     border-bottom: 1px solid var(--dark-yellow);
 `
 
+S.LinkDiv = styled.div`
+    display: flex;
+    a {
+        color: var(--font-theme);
+        text-decoration: none;
+        margin-left: 10px;
+        &:hover {
+            color: var(--highlight-yellow);
+            cursor: pointer;
+        }
+    }
+`
+
 S.P = styled.p`
     text-align: center;
     margin: 12px;

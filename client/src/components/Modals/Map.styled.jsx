@@ -3,8 +3,13 @@ import styled from 'styled-components';
 const S = {};
 
 S.Map = styled.div`
-    position: relative;
-    height: 1380px;
+    display: ${({state}) => state ? "block" : "none"};
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    height: 80%;
+    width: 80%;
+    z-index: 11;
     &::after {
         width: 100%;
         height: 100%;
@@ -16,7 +21,7 @@ S.Map = styled.div`
         top: 0;
         left: 0;
         z-index: -1;
-        opacity: 0.8;
+        opacity: 0.9;
     }
 `
 
@@ -30,10 +35,10 @@ S.Image = styled.img`
 `
 
 S.ColosseumImg = styled(S.Image)`
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
+    width: 300px;
     &:hover{
         transform: translate(-50%, -50%) scale(1.1);
     }
@@ -42,7 +47,7 @@ S.ColosseumImg = styled(S.Image)`
 S.TradeImg = styled(S.Image)`
     top: 35%;
     right: 20%;
-    width: 250px;
+    width: 150px;
     &:hover{
         transform: scale(1.1);
     }
@@ -51,7 +56,7 @@ S.TradeImg = styled(S.Image)`
 S.BankImg = styled(S.Image)`
     top: 15%;
     right: 45%;
-    width: 200px;
+    width: 100px;
     &:hover{
         transform: scale(1.1);
     }
@@ -60,10 +65,20 @@ S.BankImg = styled(S.Image)`
 S.MineImg = styled(S.Image)`
     bottom: 20%;
     right: 10%;
-    width: 250px;
+    width: 150px;
     &:hover{
         transform: scale(1.1);
     }
 `
+
+S.MypageImg = styled(S.Image)`
+    bottom: 35%;
+    left: 20%;
+    width: 150px;
+    &:hover{
+        transform: scale(1.1);
+    }
+`
+
 
 export default S;
