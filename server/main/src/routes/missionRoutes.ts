@@ -39,10 +39,13 @@ missionRouter.post(
 
 // NFT 전환 요청
 // POST /mission/mintnft
-// missionRouter.post("/mission/mintnft", missionController.mintNft.post);
+missionRouter.post("/mission/mintnft", missionController.mintNft.post);
 
 // 연습문제 전환 요청 API
 // POST /mission/changetopractice
-// missionRouter.post("/mission/changetopractice", missionController.change.post);
+missionRouter.post(
+  "/mission/changetopractice",
+  missionController.changeToPractice.post
+);
 
 export = missionRouter;
