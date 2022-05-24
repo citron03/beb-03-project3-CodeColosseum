@@ -6,8 +6,9 @@ const S = {};
 S.Map = styled.div`
     display: ${({state}) => state ? "block" : "none"};
     position: fixed;
-    top: 10%;
-    left: 10%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 760px;
     width: 1480px;
     z-index: 11;

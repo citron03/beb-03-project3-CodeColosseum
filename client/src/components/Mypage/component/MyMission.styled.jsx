@@ -14,6 +14,14 @@ S.P = styled.p`
     font-size: 1.1rem;
 `
 
+S.TitleP = styled.p`
+    font-size: 1.2rem;
+    &:hover {
+        color: var(--dark-yellow);
+        cursor: pointer;
+    }
+`
+
 S.ButtonDiv = styled.div`
     
 `

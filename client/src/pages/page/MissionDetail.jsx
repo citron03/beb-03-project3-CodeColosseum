@@ -59,7 +59,6 @@ const MissionDetail = ({isColosseum}) => {
     useEffect(() => {
         if(data?.missionInfo){
             setMissionData(data.missionInfo); // 연습 문제 데이터 세팅
-            console.log(data.missionInfo);
         }
     }, [data]);
 
@@ -128,13 +127,14 @@ const MissionDetail = ({isColosseum}) => {
                                 <ArgsInfo key={idx} index={idx} arg={el}/>) 
                                 : <S.P>인자가 필요하지 않습니다.</S.P>}
                             <OutputInfo output={missionData?.output}/>
-                            <C.Button onClick={handleSubmit}>제출 !</C.Button>
+                            {state?.nickName === missionData?.create ? <S.P>제출할 수 없습니다.</S.P>
+                            : <C.Button onClick={handleSubmit}>제출 !</C.Button>}
                         </S.SupportDiv>
                         <S.FunctionDiv>
                             {argDefautCode ? <Editor handleCode={setCode} defautCode={argDefautCode} setSyntaxError={setSyntaxError}/> : null}
                         </S.FunctionDiv>
                     </S.EditorDiv>
-                    {state?.nickName === missionData?.creator ? <S.P>당신이 출제한 문제입니다.</S.P>
+                    {state?.nickName === missionData?.create ? <S.P>당신이 출제한 문제입니다.</S.P>
                     : <Scoring grading={grading} id={id}/>}
             </S.MissionDetail> 
             : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>

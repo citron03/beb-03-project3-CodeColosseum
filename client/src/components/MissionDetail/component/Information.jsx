@@ -5,7 +5,7 @@ const Information = ({data}) => {
     return (
         <S.Information>
             <S.H1>{data.title}</S.H1>
-            <S.P>출제자 : {data.creator}</S.P>
+            <S.P>출제자 : {data.creator || data.create}</S.P>
             <S.Pre>{data.paragraph}</S.Pre>
             <S.H2>테스트 케이스</S.H2>
             <S.TestCasesDiv>

@@ -16,20 +16,19 @@ S.Fieldset = styled.fieldset`
 S.Input = styled.input`
     display: none;
     &:checked ~ label {
-        text-shadow: 0 0 0 #F79F1F;
+        color: var(--highlight-yellow);
     }   
 `
 
 S.Label = styled.label`
-    font-size: 2.5em;
-    color: transparent;
-    text-shadow: 0 0 0 #f0f0f0;
+    font-size: 50px;
+    color: var(--font-theme);
     margin: 5px;
     &:hover{
-        text-shadow: 0 0 0 #F79F1F;
+        color: var(--universal)!important;
     }
     &:hover ~ label{
-        text-shadow: 0 0 0 #F79F1F;
+        color: var(--universal);
     }
 `
 

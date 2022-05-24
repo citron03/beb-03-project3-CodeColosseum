@@ -10,6 +10,7 @@ S.BankNav = styled.div`
     border: 2px solid var(--warning-light);
     border-radius: 50px;
     margin: auto;
+    background-color: var(--background-theme-gray);
 `
 
 S.ComponentDiv = styled.div`
