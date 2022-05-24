@@ -1,5 +1,5 @@
 import { Router } from "express";
-import controller from '../controller';
+import controller from "../controller";
 
 const userRouter = Router();
 const { userController } = controller;
@@ -20,5 +20,12 @@ userRouter.post("/", userController.user.post);
 // GET /user/mypage/:user_id
 userRouter.get("/mypage/:user_id", userController.mypage.get);
 
+// mineral -> token 환전 요청
+// GET /user/trading/:account
+userRouter.get("/trading/:account", userController.trading.get);
+
+// nft reward 출금 요청
+// GET /user/withdraw/:account
+userRouter.get("/withdraw/:account", userController.withdraw.get);
 
 export = userRouter;
