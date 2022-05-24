@@ -12,7 +12,9 @@
     "seedAll": "ts-node seed/user.ts && ts-node seed/mission.ts && ts-node seed/challenge.ts",
     "seedUser": "ts-node seed/user.ts",
     "seedMission": "ts-node seed/mission.ts",
-    "seedChallenge": "ts-node seed/challenge.ts"
+    "seedChallenge": "ts-node seed/challenge.ts",
+    "test": "ts-node test.ts"
+
   },
   "author": "",
   "license": "ISC",

@@ -21,7 +21,9 @@ const CCToken = {
     colosseumRewardRatioObj: {
         winner: 0.45,
         creator: 0.45
-    }
+    },
+    mining: 10,
+    tradingLimit: 500
 };
 
 const fromDb = { account, CCToken };

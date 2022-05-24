@@ -2,18 +2,20 @@ import { ENV } from './src/config';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import { writeFile } from 'fs';
 
+// 디비에서 데이터 가져와서 config 파일을 만들어서 저장하는 프로그램.
 ( async ()=>{
 
     if (ENV.MONGO_URI) {
         const client = new MongoClient(ENV.MONGO_URI, { serverApi: ServerApiVersion.v1 });
 
         try {
+            // DB 연결
             await client.connect();
             console.log(`DB ${ENV.MONGO_database} connected!!`);
-
+            // 콜렉션 가져오기
             const accountsCollection = client.db(ENV.MONGO_database).collection("accounts");
             const contractsCollection = client.db(ENV.MONGO_database).collection("contracts");
-
+            // 도큐먼트 가져오기
             const CoCo = await accountsCollection.findOne({name: "CoCo"})
                 .then((CoCo) => {
                     if (!CoCo) { console.log(`CoCo not found`); return null;
@@ -34,7 +36,7 @@ import { writeFile } from 'fs';
                     if (!CCTcontract) { console.log(`CCTcontract not found`); return null;
                     } else { return CCTcontract; }
                 });
-            
+            // 데이터 만들고 파일 생성하기
             if (CoCo && colosseum && feePayer && CCTcontract) {
 
                 const CoCoAccount = CoCo.account;
@@ -47,6 +49,8 @@ import { writeFile } from 'fs';
                 const CCTtransferGasLimit = CCTcontract.transferGas;
                 const CCTtransferAbi = CCTcontract.transferAbi;
                 const CCTcolosseumRewardRatioObj = CCTcontract.colosseumRewardRatioObj;
+                const CCTmining = CCTcontract.mining;
+                const CCTtradingLimit = CCTcontract.tradingLimit;
             
                 const data =
 `const account = {
@@ -61,7 +65,9 @@ const CCToken = {
     colosseum: "${CCTcolosseum}",
     transferGasLimit: "${CCTtransferGasLimit}",
     transferAbi: ${CCTtransferAbi},
-    colosseumRewardRatioObj: ${CCTcolosseumRewardRatioObj}
+    colosseumRewardRatioObj: ${CCTcolosseumRewardRatioObj},
+    mining: ${CCTmining},
+    tradingLimit: ${CCTtradingLimit}
 };
 
 const fromDb = { account, CCToken };
