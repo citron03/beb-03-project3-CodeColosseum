@@ -1,6 +1,9 @@
 import axios from "axios";
+import { fromDb } from "../../config";
+import contract from "../../contract";
 import models from "../../models";
-import { gradingMission } from "../../utils";
+import { gradingMission, updateUserMineralBalance } from "../../utils";
+
 const post = async (req: any, res: any) => {
   const { account, missionId, code, reqType } = req.body;
 
@@ -16,8 +19,9 @@ const post = async (req: any, res: any) => {
     const gradingResult = await gradingMission(testCases, code);
 
     try {
+      let challenge;
       if (reqType === 2) {
-        const challenge = {
+        challenge = {
           challenger: userInfo._id,
           mission: missionId,
           answerCode: code,
@@ -29,6 +33,24 @@ const post = async (req: any, res: any) => {
         };
         await models.Challenge.create(challenge);
       }
+
+      // 풀이에 성공한 경우 미네랄 지급
+      if (gradingResult.data.failCount === 0) {
+        console.log("미네랄 지급 시작");
+        // TODO
+        // challenger에게 +mineral
+        // mineral log 기록
+        // 중복 지급 방지
+        const challengeInfo = await models.Challenge.findOne(challenge);
+        await contract.createMiningMineralLog(challengeInfo);
+        await updateUserMineralBalance(userInfo._id);
+
+        console.log("미네랄 지급 완료");
+
+        // nft 보유자는 토큰이 쌓임
+        await editMineOwnerRewardLog("reward", missionId);
+      }
+
       res
         .status(200)
         .send({ message: gradingResult.message, data: gradingResult.data });
@@ -43,3 +65,19 @@ const post = async (req: any, res: any) => {
 };
 
 export = { post };
+
+const editMineOwnerRewardLog = async (code: string, missionId: string) => {
+  // mission id로 nft 정보 조회
+  // const nft = await models.Nft.findOne({missionId})
+
+  // 현 nft의 owner를 추출
+
+  const rewardLogSchema = {
+    code,
+    // nft,
+    // user : nft.owner,
+    amount: fromDb.CCToken.token,
+  };
+
+  await models.MineOwnerRewardLog.create(rewardLogSchema);
+};
