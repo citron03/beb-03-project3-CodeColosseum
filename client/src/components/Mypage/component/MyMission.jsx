@@ -18,8 +18,8 @@ const MyMission = ({data}) => {
         };
         console.log(payload);
         try {
-            const res = await axios.post(url, payload);
             const resNft = await axios.post(urlNft, payload);
+            const res = await axios.post(url, payload);
             dispatch(showNotification("연습 문제 등록 성공!"));
             console.log("연습 문제 등록 완료", res, resNft);
         } catch (err) {

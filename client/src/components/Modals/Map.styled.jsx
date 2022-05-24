@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BiPencil } from 'react-icons/bi';
 
 const S = {};
 
@@ -28,7 +29,6 @@ S.Map = styled.div`
 S.Image = styled.img`
     position: absolute;
     height: auto;
-    border-radius: 100px;
     &:hover{
         cursor: pointer;
     }
@@ -55,7 +55,7 @@ S.TradeImg = styled(S.Image)`
 
 S.BankImg = styled(S.Image)`
     top: 15%;
-    right: 45%;
+    right: 40%;
     width: 100px;
     &:hover{
         transform: scale(1.1);
@@ -72,12 +72,35 @@ S.MineImg = styled(S.Image)`
 `
 
 S.MypageImg = styled(S.Image)`
-    bottom: 35%;
+    bottom: 28%;
     left: 20%;
     width: 150px;
     &:hover{
         transform: scale(1.1);
     }
+`
+
+S.RegisterMission = styled(BiPencil)`
+    position: absolute;
+    top: 18%;
+    left: 31%;
+    height: auto;
+    width: 150px;
+    color: black;
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+`
+
+S.H2 = styled.h2`
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    color: black;
+    padding: 10px;
+    font-size: 2rem;
+    border: 3px solid black;
 `
 
 

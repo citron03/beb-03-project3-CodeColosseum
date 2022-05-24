@@ -8,7 +8,7 @@ import { useRating } from "../../utils/feedback";
 import {showNotification} from "./../../redux/action";
 import { useDispatch } from "react-redux";
 import { useCheckLogin } from "../../utils/login";
-import { useEffect } from "react";
+import axios from "axios";
 
 const Feedback = () => {
     const id = useParams().id;
@@ -17,18 +17,25 @@ const Feedback = () => {
     const [review, difficulty, missionRating, handleReview, handleDifficulty, handleMissionRating] = useRating();
     
     useCheckLogin();
-
-    useEffect(() => {
-        console.log(state);
-    }, [state])
-
-    const submitFeedback = () => {
+    
+    const submitFeedback = async () => {
         if(difficulty === 0 || missionRating === 0 || review.length === 0){
             dispatch(showNotification("평가를 완료해 주세요!"));
             return;
         }
-        console.log(state.account, id, review, difficulty, missionRating);
-        dispatch(showNotification("기능이 아직 구현되지 않았습니다."));
+        try {
+            const payload = {
+                account: state.account,
+                missionId: id,
+                quality: missionRating,
+                difficulty
+            }
+            const res = await axios.post("/mission/mission/feedback", payload);
+            console.log(payload, res);
+            dispatch(showNotification(`${res.message}\n 평가 완료!`));
+        } catch {
+            dispatch(showNotification("평가 제출에 실패하였습니다!"));
+        }
     }
     
     return (
