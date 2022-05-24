@@ -30,10 +30,10 @@ export default async (challengeDoc:Challenge):Promise<Object> => {
             amount: fromDb.CCToken.mining 
         });
     // 유저 미네랄잔액 업뎃 (지금은 일단 항상 업뎃하게 해놨는데 불필요하게 디비에 접근하는것 같아서 나중엔 필요할 때만 최신화 하도록 수정해야 할것같아서 함수로 빼놓음)
-        const updatedUser = await updateUserMineralBalance(challengeDoc._id);
+        // const updatedUser = await updateUserMineralBalance(challengeDoc._id);
         return {
             newLog,
-            updatedUser
+            // updatedUser
         }
     }
     catch (error) {
