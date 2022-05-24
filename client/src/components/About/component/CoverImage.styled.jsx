@@ -21,6 +21,7 @@ S.ScollDiv = styled.div`
     width: fit-content;
     &:hover {
         cursor: pointer;
+        color: var(--universal);
     }
 `
 

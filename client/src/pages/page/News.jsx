@@ -1,17 +1,17 @@
-import S from "./Home.styled";
-import { Carousel } from "../../components/Home";
+import S from "./News.styled";
+import { Carousel } from "../../components/News";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const News = () => {
     const navigate = useNavigate();
     return (
-        <S.Home>
+        <S.News>
             <S.HeadDiv>
                 <Carousel/>
             </S.HeadDiv>
             <S.Div onClick={() => navigate("/about")}>What is the Code Colosseum?</S.Div>
-        </S.Home>
+        </S.News>
     );
 }
 
-export default Home;
+export default News;

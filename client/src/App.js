@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import GlobalStyle from "./GlobalStyle";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import { Home, Mypage, MissionList, RegisterMission, MissionDetail, Feedback, About, Trade, Bank } from './pages';
+import { News, Mypage, MissionList, RegisterMission, MissionDetail, Feedback, About, Trade, Bank } from './pages';
 import { Loading, Notification, SignUp, DisappearingNotification, Map } from "./components/Modals";
 import MapNav from "./components/MapNav";
 import { useLogin } from "./utils/login";
@@ -19,7 +19,8 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Header/>
           <Routes>
-                <Route exact path="/" element={<Home/>}/>
+                <Route path="/" element={<About/>}/>
+                <Route exact path="/news" element={<News/>}/>
                 <Route exact path="/trade" element={<Trade/>}/>
                 <Route exact path="/bank" element={<Bank/>}/>
                 <Route path="/mypage/*" element={<Mypage/>}/>
@@ -29,7 +30,6 @@ function App() {
                 <Route path="/mission/practice/:id" element={<MissionDetail isColosseum={false}/>}/>
                 <Route path="/feedback/:id" element={<Feedback/>}/>
                 <Route path="/register" element={<RegisterMission/>}/>
-                <Route path="/about" element={<About/>}/>
           </Routes>
           <Footer/>
           <Notification/>

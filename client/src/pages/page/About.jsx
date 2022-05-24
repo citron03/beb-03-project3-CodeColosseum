@@ -1,12 +1,12 @@
 import S from "./About.styled";
 import { CoverImage, Introduce, Navigator } from "../../components/About";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 const About = () => {
     const introduceRef = useRef();
-    useEffect(() => {
-        window.scrollTo({top: 123});
-    }, []);
+    // useEffect(() => {
+    //     window.scrollTo({top: 123});
+    // }, []);
     return (
         <S.About>
             <CoverImage introduceRef={introduceRef}/>

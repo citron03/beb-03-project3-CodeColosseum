@@ -1,5 +1,6 @@
 import S from "./CoverImage.styled";
 import image from "./../../../assets/Colosseum-68343-_1_.gif";
+import { BsArrowDownCircle } from 'react-icons/bs';
 
 const CoverImage = ({introduceRef}) => {
 
@@ -10,7 +11,9 @@ const CoverImage = ({introduceRef}) => {
     return (
         <S.CoverImage>
             <S.Image src={image} alt="커버 이미지"/>
-            <S.ScollDiv onClick={goToTextTop}>☟</S.ScollDiv>
+            <S.ScollDiv onClick={goToTextTop}>
+                <BsArrowDownCircle/>
+            </S.ScollDiv>
         </S.CoverImage>
     );
 }
