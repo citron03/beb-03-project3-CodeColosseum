@@ -15,6 +15,7 @@ S.MapNav = styled.div`
         transform: scale(1.1);
         cursor: pointer;
     }
+    z-index: 12;
 `
 
 export default S;
