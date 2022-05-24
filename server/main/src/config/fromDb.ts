@@ -23,7 +23,9 @@ const CCToken = {
         creator: 0.45
     },
     mining: 10,
-    tradingLimit: 500
+    tradingLimit: 500,
+    token: 5,
+    tokenLimit: 500
 };
 
 const fromDb = { account, CCToken };

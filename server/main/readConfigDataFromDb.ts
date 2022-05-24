@@ -51,6 +51,8 @@ import { writeFile } from 'fs';
                 const CCTcolosseumRewardRatioObj = CCTcontract.colosseumRewardRatioObj;
                 const CCTmining = CCTcontract.mining;
                 const CCTtradingLimit = CCTcontract.tradingLimit;
+                const CCTtoken = CCTcontract.token;
+                const CCTtokenLimit = CCTcontract.tokenLimit;
             
                 const data =
 `const account = {
@@ -67,7 +69,9 @@ const CCToken = {
     transferAbi: ${CCTtransferAbi},
     colosseumRewardRatioObj: ${CCTcolosseumRewardRatioObj},
     mining: ${CCTmining},
-    tradingLimit: ${CCTtradingLimit}
+    tradingLimit: ${CCTtradingLimit},
+    token: ${CCTtoken},
+    tokenLimit: ${CCTtokenLimit}
 };
 
 const fromDb = { account, CCToken };
