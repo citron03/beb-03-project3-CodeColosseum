@@ -16,6 +16,7 @@ S.ScollDiv = styled.div`
     position: absolute;
     bottom: 10%;
     left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 80px;
     font-weight: bolder;
     width: fit-content;

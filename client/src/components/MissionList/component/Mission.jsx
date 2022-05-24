@@ -1,6 +1,7 @@
 import S from "./Mission.styled";
 import { useNavigate } from 'react-router-dom';
 import ColosseumMissionInfo from "./ColosseumMissionInfo";
+import PracticeMissionInfo from "./PracticeMissionInfo";
 import { useSelector, useDispatch } from "react-redux"
 import { showNotification } from "./../../../redux/action";
 import { useCheckLogin } from "./../../../utils/login";
@@ -24,9 +25,8 @@ const Mission = ({data, isColosseum}) => {
     return (
         <S.Mission onClick={handleEnter}>
             <S.H3>{data.title}</S.H3>
-            {/* <S.P>평점 : ⚔️ ⚔️ ⚔️ ⚔️ ⚔️</S.P> */}
             <S.P>출제자 : {data.creator}</S.P>
-            {isColosseum ? <ColosseumMissionInfo data={data}/> : null}
+            {isColosseum ? <ColosseumMissionInfo data={data}/> : <PracticeMissionInfo data={data}/>}
         </S.Mission>
     );
 }

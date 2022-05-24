@@ -10,7 +10,15 @@ S.Callenge = styled.div`
 `
 
 S.P = styled.p`
-    
+    font-size: 1rem;
+`
+
+S.TitleP = styled.p`
+    font-size: 1.1rem;
+    &:hover {
+        color: var(--dark-yellow);
+        cursor: pointer;
+    }
 `
 
 export default S;
