@@ -26,7 +26,7 @@ const Scoring = ({grading, id}) => {
                 // navigate("/");
                 return;
             }
-            if(!grading?.data?.timeSafe){
+            if(grading.data?.timeSafe === false){
                 // 타임 오버
                 dispatch(showNotification("아쉽네요!\n주어진 시간을 모두 소모하였습니다."));
                 return;            
@@ -35,7 +35,7 @@ const Scoring = ({grading, id}) => {
                 if(grading?.data?.codeError){
                     dispatch(showNotification("코드 에러!"));
                 }
-                else if(grading?.data?.isPassed){
+                else if(grading?.data?.isPassed || grading?.data?.failCount === 0){
                     dispatch(showNotification("채점 완료!\n 모든 테스트를 통과하셨습니다!\n평가를 남겨주세요 ★"));
                     setMessage("축하합니다!");
                 } else {

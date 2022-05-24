@@ -9,7 +9,7 @@ S.Mission = styled.div`
     margin: 30px;
     border: 3px solid var(--highlight-yellow);
     &:hover {
-    border: 1px solid gray;
+    border: 3px solid gray;
         box-shadow: 1px 1.5px var(--highlight-yellow);
         transform: translate(1px, 0.5px);
         background-color: #f5f5f515;

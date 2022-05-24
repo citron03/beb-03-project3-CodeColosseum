@@ -7,7 +7,7 @@ import { BsFileArrowUp } from 'react-icons/bs';
 
 const Header = () => {
     const navigate = useNavigate();
-    const [isClosed, setIsClosed] = useState(true);
+    const [isClosed, setIsClosed] = useState(false);
     return (
         <>
             {isClosed ? 

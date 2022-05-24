@@ -13,10 +13,10 @@ const Mission = ({data, isColosseum}) => {
     const state = useSelector(state => state.signup).account;
 
     const handleEnter = async () => {
-        if(data.creator !== state.nickName){
+        if(data.creator !== state.nickName || !isColosseum){
             navigate(url);
         } else {
-            dispatch(showNotification("당신이 출제한 문제입니다."));
+            dispatch(showNotification("당신이 출제한\n 콜로세움 문제입니다."));
             // navigate(url);
         }
     }

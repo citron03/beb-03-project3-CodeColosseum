@@ -1,35 +1,33 @@
 import S from "./MyMission.styled";
 import C from "./../../CommonStyled";
 import { parseDate } from "../../../utils/date";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { showNotification } from "./../../../redux/action";
 import axios from "axios";
-
-const handlePractice = async (account, missionId) => {
-    const urlNft = "/mission/mission/mintnft";
-    const url = "/mission/mission/changetopractice";
-    const payload = {
-        account,
-        missionId
-    };
-    console.log(payload);
-    try {
-        const resNft = await axios.post(urlNft, payload);
-        console.log("NFT 변환 완료", resNft);
-    } catch (err) {
-        console.log("NFT 변환 실패", err);
-        return;
-    }
-    try {
-        const res = await axios.post(url, payload);
-        console.log("연습 문제 등록 완료", res);
-    } catch (err) {
-        console.log("연습 문제 변환 실패", err);
-        return;
-    }  
-}
 
 const MyMission = ({data}) => {
     const state = useSelector(state => state.signup).account;
+    const dispatch = useDispatch();
+
+    const handlePractice = async (account, missionId) => {
+        const urlNft = "/mission/mission/mintnft";
+        const url = "/mission/mission/changetopractice";
+        const payload = {
+            account,
+            missionId
+        };
+        console.log(payload);
+        try {
+            const resNft = await axios.post(urlNft, payload);
+            const res = await axios.post(url, payload);
+            dispatch(showNotification("연습 문제 등록 성공!"));
+            console.log("연습 문제 등록 완료", res, resNft);
+        } catch (err) {
+            dispatch(showNotification("연습 문제 변환 중\n오류 발생"));
+            console.log("연습 문제 변환 실패", err);
+        }  
+    }
+
     return (
         <S.MyMission>
             <S.P>제목 : {data?.title}</S.P>

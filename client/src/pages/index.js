@@ -1,4 +1,4 @@
-import Home from "./page/Home";
+import News from "./page/News";
 import Mypage from "./page/Mypage";
 import MissionList from "./page/MissionList";
 import RegisterMission from './page/RegisterMission';
@@ -8,5 +8,5 @@ import About from "./page/About";
 import Trade from "./page/Trade";
 import Bank from "./page/Bank"
 
-export { Home, Mypage, MissionList, RegisterMission, MissionDetail, Feedback, About, Trade, Bank };
+export { News, Mypage, MissionList, RegisterMission, MissionDetail, Feedback, About, Trade, Bank };
 

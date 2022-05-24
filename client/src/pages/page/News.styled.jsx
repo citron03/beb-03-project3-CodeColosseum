@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.Home = styled.div`
+S.News = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
