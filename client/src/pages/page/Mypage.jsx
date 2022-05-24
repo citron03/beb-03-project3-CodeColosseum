@@ -1,5 +1,5 @@
 import S from "./Mypage.styled";
-import { AccountInfo, SolvedMissions, MyMissions, MypageNavigation, NftMissions } from "../../components/Mypage";
+import { AccountInfo, Callenges, MyMissions, MypageNavigation, NftMissions } from "../../components/Mypage";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -24,7 +24,7 @@ const Mypage = () => {
             {state?.account ? 
                 <Routes>
                      <Route exact path="/" element={<AccountInfo data={state?.account}/>}/>
-                     <Route path="/solved-missions" element={<SolvedMissions userCallenges={data?.data?.userCallenges}/>}/>
+                     <Route path="/solved-missions" element={<Callenges userCallenges={data?.data?.userCallenges}/>}/>
                      <Route path="/my-missions" element={<MyMissions userCreatedMissions={data?.data?.userCreatedMissions}/>}/>
                      <Route path="/nft" element={<NftMissions/>}/>
                  </Routes> 
