@@ -8,11 +8,11 @@ const Callenge = ({data}) => {
     const navigate = useNavigate();
 
     const handleEvaluation = (data) => {
-        navigate(`/feedback/${data._id}`);
+        navigate(`/feedback/${data.mission}`);
     }
     
     const handleNavigate = (id) => {
-        // navigate(`/mission/practice/${id}`); // 연습문제
+        navigate(`/mission/practice/${id}`);
     }
 
     return (

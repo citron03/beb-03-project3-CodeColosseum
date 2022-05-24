@@ -9,10 +9,12 @@ import {showNotification} from "./../../redux/action";
 import { useDispatch } from "react-redux";
 import { useCheckLogin } from "../../utils/login";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Feedback = () => {
     const id = useParams().id;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const state = useSelector(state => state.signup).account;
     const [review, difficulty, missionRating, handleReview, handleDifficulty, handleMissionRating] = useRating();
     
@@ -30,10 +32,9 @@ const Feedback = () => {
                 quality: parseInt(missionRating),
                 difficulty: parseInt(difficulty)
             }
-            console.log(payload);
             const res = await axios.post("/mission/feedback", payload);
-            console.log("결과:", res);
-            dispatch(showNotification(`${res.message}\n 평가 완료!`));
+            dispatch(showNotification(`${res.data.message}\n 평가 완료!`));
+            navigate(`/practice`)
         } catch {
             dispatch(showNotification("평가 제출에 실패하였습니다!"));
         }
