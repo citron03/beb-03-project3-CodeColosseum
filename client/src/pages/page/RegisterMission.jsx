@@ -102,8 +102,7 @@ const RegisterMission = () => {
             return;
         }
 
-        const isUnLock = await checkUnlocked(); // 지갑 연결 확인
-        if(state?.account && isUnLock){
+        if(state?.account){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0) {
