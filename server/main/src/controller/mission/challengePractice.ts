@@ -44,7 +44,7 @@ const post = async (req: any, res: any) => {
         // 중복 지급 방지
         const challengeInfo = await models.Challenge.findOne(challenge);
         await contract.createMiningMineralLog(challengeInfo);
-        await updateUserMineralBalance(userInfo._id);
+        await updateUserMineralBalance(userInfo.id);
 
         console.log("미네랄 지급 완료");
 
