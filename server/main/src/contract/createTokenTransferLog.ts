@@ -18,12 +18,16 @@ export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTrans
         const { transactionHash, from, feePayer } = txExcutionResult.result;
 
         // for 체크하기
-        let cheker:boolean
-        if (transferCode === 1) { cheker = transferFor.collection === "Challenge" }
-        else if (transferCode === 2 || transferCode === 3) { cheker = transferFor.collection === "Mission" }
+        let checker:boolean
+        if (transferCode === 1) { checker = transferFor.collection === "Challenge" && amount === fromDb.CCToken.colosseum && to === fromDb.account.colosseum }
+        else if (transferCode === 2 || transferCode === 3) { checker = transferFor.collection === "Mission" && from === fromDb.account.colosseum }
+        else if (transferCode === 4) { checker = false }
+        else if (transferCode === 5) { checker = transferFor.collection === "MineralLog" && from === fromDb.account.CoCo }
+        else if (transferCode === 6) { checker = false }
+        else if (transferCode === 7) { checker = false }
         else { throw new Error("Error: transferCode is wrong!"); };
         
-        if (cheker === false) { throw new Error("Error: transferFor.collection is wrong!"); };
+        if (checker === false) { throw new Error("Error: checker is False!"); };
 
         return await models.TokenTransferLog.create({ // 생성하고 리턴!
             txHash: transactionHash,

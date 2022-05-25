@@ -48,14 +48,14 @@ interface MissionNft {
 
 type ChallengeKind = 0 | 1 | 2; // 0: etc
 
-type Collection = "Mission" | "Challenge";
+type Collection = "Mission" | "Challenge" | "MineralLog";
 
 interface TokenTransferLogFor {
     collection: Collection, // 콜렉션 이름
     id: string, // 도큐먼트_id
 }
 
-type TokenTransferLogCode = 0 | 1 | 2 | 3 | 4 | 5 | 6; // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매
+type TokenTransferLogCode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7; // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매
 
 interface TxExcutionResult {
   success: boolean;
