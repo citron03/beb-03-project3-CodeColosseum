@@ -46,4 +46,22 @@ const useCheckLogin = () => {
   }, [dispatch, state])
 }
 
-export { useLogin, useCheckLogin };
+const useRefreshLogin = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+        getAccount()
+            .then(el => {
+                if(el.data.message === "user not found!"){ // 회원가입 필요
+                    dispatch(showSignUp());
+                }else {
+                      dispatch(setAccount(el.data.data));
+                      const addressStr = el.data.data.account.slice(0, 4) + 
+                        "..." + el.data.data.account.slice(el.data.data.account.length - 4);
+                      dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
+                }              
+            })
+            .catch(err => console.log(err));
+  }, [dispatch])  
+}
+
+export { useLogin, useCheckLogin, useRefreshLogin };

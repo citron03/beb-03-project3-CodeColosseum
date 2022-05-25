@@ -5,6 +5,7 @@ import Login from "../../Login";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../../../redux/action";
 import axios from "axios";
+import { parseDate } from "./../../../utils/date";
 
 const AccountInfo = ({data}) => {
     const dispatch = useDispatch();
@@ -35,6 +36,8 @@ const AccountInfo = ({data}) => {
                         <S.Input placeholder="변경할 닉네임" onChange={(e) => setNewNickname(e.target.value)} />
                         <C.Button onClick={handleNickname}>변경</C.Button>
                     </S.Div> 
+                    <S.H2>가입 날짜 : {parseDate(data.createdAt)}</S.H2>
+                    <S.H2>보유 미네랄 : {data.mineral}</S.H2>
                 </> : <Login/>}
         </S.AccountInfo>
     );

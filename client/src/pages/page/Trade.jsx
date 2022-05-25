@@ -1,9 +1,9 @@
 import S from "./Trade.styled";
 import { Exchange } from "../../components/Trade";
-import { useCheckLogin } from "../../utils/login";
+import { useRefreshLogin } from "../../utils/login";
 
 const Trade = () => {
-    useCheckLogin();
+    useRefreshLogin();
     return (
         <S.Trade>
             <S.H1>

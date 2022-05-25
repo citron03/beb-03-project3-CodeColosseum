@@ -8,7 +8,6 @@ const Collect = () => {
 
     const account = useSelector(state => state.signup).account;
     const dispatch = useDispatch();
-    console.log(account);
     
     const handleCollect = async () => {
         if(account?.account){
