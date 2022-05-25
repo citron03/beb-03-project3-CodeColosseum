@@ -6,9 +6,12 @@ interface TxChecker {
     amount: string
 }
 
-// 수수료 대납 트렌젝션에 feePayer 싸인하고 실행시키는 함수입니다.
-// 인자로 싸인된 Tx를 받고 tx 실행 결과객체를 리턴합니다.
-// txChecker 를 넣으면 디코딩할떄 to, amount 를 체크합니다.
+/*
+수수료 대납 트렌젝션에 feePayer 싸인하고 실행시키는 함수입니다.
+인자로 싸인된 Tx를 받고 tx 실행 결과객체를 리턴합니다.
+txChecker 를 넣으면 디코딩할떄 to, amount 를 체크합니다.
+(트렌젝션이 성공했으면 트렌젝션 로그 생성을 바로 실행할 것!)
+*/
 export = async function(senderRawTransaction:string, txChecker?:TxChecker):Promise<TxExcutionResult> {
 
     try {

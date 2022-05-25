@@ -4,8 +4,8 @@ import type {
   Inputs,
   TestCases,
   MissionState,
-  MissionCollosseum,
-  MissionNft,
+  MissionColosseum,
+  MissionMineOwnershipNft,
 } from "../utils"; // 필드의 상세한 타입 정의 바로가기
 
 const schema = new Schema(
@@ -15,8 +15,8 @@ const schema = new Schema(
     paragraph: { type: String, required: true }, // 문제 지문
     creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // 크리에이터
     state: { type: Number, required: true }, // <MissionState>
-    colosseum: { type: Object }, // <MissionCollosseum>
-    nft: { type: Object }, // <MissionNft>
+    colosseum: { type: Object }, // <MissionColosseum>
+    mineOwnershipNft: { type: Object }, // <MissionMineOwnershipNft>
     // mine: { type: Object}, // <MissionMine>
     inputs: { type: Array, required: true }, // <Inputs>
     output: { type: Object, required: true }, // <Output>

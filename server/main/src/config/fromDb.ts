@@ -28,6 +28,11 @@ const CCToken = {
     tokenLimit: 500
 };
 
-const fromDb = { account, CCToken };
+const CMCToken = {
+    symbol: "CMO",
+    address: "0x991e11d48d718948db929fb8f1f672930cebb517"
+};
+
+const fromDb = { account, CCToken, CMCToken };
 
 export default fromDb
