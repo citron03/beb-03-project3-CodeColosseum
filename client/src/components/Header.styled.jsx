@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const S = {};
 
 S.Header = styled.div`
+    font-family: "NanumBarunGothic";
     border-bottom: 1px solid black;
     background-color: white;
     display: flex;

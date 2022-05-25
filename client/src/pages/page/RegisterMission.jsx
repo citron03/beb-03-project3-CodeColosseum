@@ -14,7 +14,6 @@ import { getAccount } from "./../../utils/address";
 import { showSignUp, setAccount } from '../../redux/reducer/signupSlice';
 import { showDisappearingNoti } from '../../redux/reducer/disappearingSlice';
 import bgImg from "../../assets/colosseum-g612f21199_1920.jpg";
-import checkUnlocked from '../../utils/checkUnlocked';
 
 const RegisterMission = () => {
     const [argCount, argTypes, handleAddArg, handleRemoveArg, handleArgTypes, checkArgs] = useArguments();
@@ -102,8 +101,7 @@ const RegisterMission = () => {
             return;
         }
 
-        const isUnLock = await checkUnlocked(); // 지갑 연결 확인
-        if(state?.account && isUnLock){
+        if(state?.account){
             dispatch(onLoading("문제 등록 중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0) {
