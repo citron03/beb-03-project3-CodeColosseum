@@ -7,7 +7,7 @@ import { calMineralbalance, TxExcutionResult, makeReturnByTxResult } from "../ut
 미네랄을 토큰으로 교환하여 유저 지갑으로 트렌스퍼하는 함수
 인자로 유저 넣으면 로그확인해서 트렌젝션 일으키고 트렌젝션결과객체 리턴
 (트렌젝션이 성공했으면 미네랄 출금로그 생성을 바로 실행할 것!)
-(생성괸 출금로그를 가지고 트렌젝션 로그 생성함수를 바로 실행할 것!)
+(생성된 출금로그를 가지고 트렌젝션 로그 생성함수를 바로 실행할 것!)
 */
 export default async ( userAccount:string ):Promise<TxExcutionResult> => {
     try {

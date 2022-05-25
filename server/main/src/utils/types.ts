@@ -30,7 +30,7 @@ interface Challenger {
   account: string;
   challengedAt: Date;
 }
-interface MissionCollosseum {
+interface MissionColosseum {
   isRewarded?: boolean;
   stakedTokens: number;
   limitSeconds: number; // 1200 ~ 3600
@@ -39,11 +39,9 @@ interface MissionCollosseum {
   challengings?: Challenger[];
 }
 
-interface MissionNft {
-  txHash: string;
-  ipfs: string;
+interface MissionMineOwnershipNft {
   contractAddress: string;
-  tokenId: number;
+  uri: string;
 }
 
 type ChallengeKind = 0 | 1 | 2; // 0: etc
@@ -67,4 +65,4 @@ interface TxExcutionResult {
 
 type MineralLogCode = "mining"|"trading"
 
-export type { Input, Output, Inputs, testCase, TestCases, MissionCollosseum, MissionNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult, MineralLogCode };
+export type { Input, Output, Inputs, testCase, TestCases, MissionColosseum, MissionMineOwnershipNft, MissionState, ChallengeKind, TokenTransferLogFor, Challenger, TokenTransferLogCode, TxExcutionResult, MineralLogCode };
