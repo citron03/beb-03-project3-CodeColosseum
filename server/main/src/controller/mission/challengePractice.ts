@@ -24,6 +24,7 @@ const post = async (req: any, res: any) => {
         challenge = {
           challenger: userInfo._id,
           mission: missionId,
+          kind: 2,
           answerCode: code,
           isPassed: gradingResult.data.failCount === 0 ? true : false,
           PassedCasesRate: `${
