@@ -1,10 +1,13 @@
-import { TxExcutionResult, randomIntFromInterval, calMineralbalance } from "../utils";
+import {
+  TxExcutionResult,
+  randomIntFromInterval,
+  calMineralbalance,
+} from "../utils";
 import models from "../models";
 import axios from "axios";
 
 export default {
-
-  randomIntFromInterval: function (min:number, max:number):number {
+  randomIntFromInterval: function (min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min);
   },
 
@@ -22,9 +25,13 @@ export default {
     });
   },
 
-
   // 트렌젝션 실행 결과 만들기
-  makeReturnByTxResult: function (txResult: any, to: string, amount: string, resultAt?: Date): TxExcutionResult {
+  makeReturnByTxResult: function (
+    txResult: any,
+    to: string,
+    amount: string,
+    resultAt?: Date
+  ): TxExcutionResult {
     if (txResult.status === "0x1" || txResult.status === "Submitted") {
       return {
         success: true, // 성공
@@ -42,7 +49,6 @@ export default {
     }
   },
 
-
   findUserInfoByAccount: async (account: string) => {
     try {
       const userInfo = await models.User.findOne({ account });
@@ -54,7 +60,6 @@ export default {
     }
   },
 
-
   findMissionInfoByMissionId: async (missionId: string) => {
     try {
       const missionInfo = await models.Mission.findOne({ _id: missionId });
@@ -65,7 +70,6 @@ export default {
       return null;
     }
   },
-
 
   findChallengeInfoByUserIdAndMissionId: async (
     userId: string,
@@ -83,7 +87,6 @@ export default {
     }
   },
 
-
   gradingMission: async (testCases: [], code: string) => {
     // 채점하고 결과만 반환하는 함수
 
@@ -93,7 +96,7 @@ export default {
         code,
         testCases,
       });
-      // console.log(data);
+      console.log(data);
       if (data.data) {
         // 정답 여부 상관 없이 채점에 성공
         return { message: data.message, data: data.data };
@@ -107,32 +110,41 @@ export default {
     }
   },
 
-
   // 특정 유저의 미네랄 보유량을 Logs 를 통해 계산해서 반환하는 함수
-  calMineralbalance: async (userId:String):Promise<Number> => {
+  calMineralbalance: async (userId: String): Promise<Number> => {
     try {
       // code = "mining" 인 모든 로그의 amount 들의 합
-      const miningAmount = (await models.MineralLog.find({ code: "mining", user: userId })).reduce((acc, cur)=>{
+      const miningAmount = (
+        await models.MineralLog.find({ code: "mining", user: userId })
+      ).reduce((acc, cur) => {
         return acc + cur.amount;
       }, 0);
       // code = "trading" 인 모든 로그의 amount 들의 합
-      const tradingAmount = (await models.MineralLog.find({ code: "trading", user: userId })).reduce((acc, cur)=>{
+      const tradingAmount = (
+        await models.MineralLog.find({ code: "trading", user: userId })
+      ).reduce((acc, cur) => {
         return acc + cur.amount;
       }, 0);
       // if (miningAmount < tradingAmount) {throw new Error("miningAmount < tradingAmount")}
       // 두 amount 차이를 반환
       return miningAmount - tradingAmount;
-    } catch (err) {throw err;};
+    } catch (err) {
+      throw err;
+    }
   },
-
 
   // User 도큐먼트에 미네랄 잔약을 최신화하는 함수. 최신화 된 도큐먼트갹체를 반환
-  updateUserMineralBalance: async (userId:String):Promise<Object> => {
+  updateUserMineralBalance: async (userId: String): Promise<Object> => {
     try {
       const balance = await calMineralbalance(userId);
-      const updatedUser = await models.User.findByIdAndUpdate({userId}, {mineral:balance}, {new:true});
+      const updatedUser = await models.User.findOneAndUpdate(
+        { _id: userId },
+        { mineral: balance },
+        { new: true }
+      );
       return updatedUser;
-    } catch (err) {throw err;};
+    } catch (err) {
+      throw err;
+    }
   },
-
 };

@@ -25,8 +25,8 @@ router.post("/", async (req, res) => {
       });
 
       if (
-        JSON.stringify(JSON.parse(userAnswer.toString().trim())) !==
-        JSON.stringify(testCase.output)
+        JSON.parse(JSON.stringify(userAnswer.toString().trim())) !==
+        JSON.stringify(JSON.parse(testCase.output))
       ) {
         failCount += 1;
         passedCases.push(false);
@@ -35,10 +35,9 @@ router.post("/", async (req, res) => {
       }
       fs.unlinkSync(fileName);
     } catch (err: any) {
+      console.log(err);
       fs.unlinkSync(fileName);
-      return res
-        .status(200)
-        .send({ message: "syntax error or reference error or time over" });
+      return res.status(200).send({ message: "logic error or time over" });
     }
   }
   res
