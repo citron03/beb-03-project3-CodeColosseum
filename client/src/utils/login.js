@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { setAccount, showSignUp } from "../redux/reducer/signupSlice";
 import { showDisappearingNoti } from "../redux/reducer/disappearingSlice";
 import { showNotification } from "../redux/action";
-import { getAccountAddress } from "./address";
 import { getAccount } from "./address";
 
 const useLogin = () => {
@@ -17,9 +16,18 @@ const useLogin = () => {
           // window.location.href = "/";
           dispatch(showNotification("콜로세움 문제 도전 중\n 계정을 바꾸면 안됩니다!"));
         }
-        getAccountAddress()
-          .then(el => dispatch(setAccount(el)))
-          .catch(err => console.log(err));          
+        getAccount()
+            .then(el => {
+                if(el.data.message === "user not found!"){ // 회원가입 필요
+                    dispatch(showSignUp());
+                } else {
+                    dispatch(setAccount(el.data.data));
+                    const addressStr = el.data.data.account.slice(0, 4) + 
+                      "..." + el.data.data.account.slice(el.data.data.account.length - 4);
+                    dispatch(showDisappearingNoti(`${addressStr}\n계정이 변경되었습니다.`));
+                }              
+            })
+            .catch(err => console.log(err));    
       });
   });
 }

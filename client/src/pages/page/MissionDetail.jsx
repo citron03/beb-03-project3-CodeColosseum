@@ -80,12 +80,15 @@ const MissionDetail = ({isColosseum}) => {
             .catch(err => console.log(err));
     };
 
-    const submitAnswer = async () => {
+    const submitAnswer = async (reqType) => {
         const url = `/mission/challenge/${isColosseum ? "colosseum" : "practice"}`;
         const payload = {
             account: state.account,
             missionId: id,
             code,
+        }
+        if(!isColosseum){
+            payload.reqType = reqType;
         }
         console.log(payload);
         axios.post(url, payload)
@@ -98,12 +101,12 @@ const MissionDetail = ({isColosseum}) => {
 
     const { mutate } = useMutation(submitAnswer);
 
-    const handleSubmit = () => {
+    const handleSubmit = (reqType = null) => {
         if(state.account){
             dispatch(onLoading("채점중..."));
             setTimeout(() => {
                 if(syntaxError.length === 0){
-                    mutate();
+                    mutate(reqType);
                 } else {
                     dispatch(showNotification("작성한 코드에 에러가 있습니다."));
                 }
@@ -127,8 +130,10 @@ const MissionDetail = ({isColosseum}) => {
                                 <ArgsInfo key={idx} index={idx} arg={el}/>) 
                                 : <S.P>인자가 필요하지 않습니다.</S.P>}
                             <OutputInfo output={missionData?.output}/>
+                            {state?.nickName === missionData?.create || isColosseum ? null
+                            : <C.Button onClick={() => handleSubmit(1)}>테스트</C.Button>}                            
                             {state?.nickName === missionData?.create ? <S.P>제출할 수 없습니다.</S.P>
-                            : <C.Button onClick={handleSubmit}>제출 !</C.Button>}
+                            : <C.Button onClick={() => handleSubmit(2)}>제출 !</C.Button>}
                         </S.SupportDiv>
                         <S.FunctionDiv>
                             {argDefautCode ? <Editor handleCode={setCode} defautCode={argDefautCode} setSyntaxError={setSyntaxError}/> : null}
