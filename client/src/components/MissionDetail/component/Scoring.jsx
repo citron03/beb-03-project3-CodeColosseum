@@ -11,8 +11,16 @@ const Scoring = ({grading, id}) => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        console.log("채점 결과: ", grading.data); // {failCount: 0, passedCases: Array(5), reward: null, isClosed: true}
+        console.log("채점 결과: ", grading.data); 
         if(grading.data){
+            if(grading.data.isTest){
+                // 연습문제 테스트
+                let failTestCases = "";
+                grading.data.passedCases.forEach((el, idx) => !el ? failTestCases += ` ${idx + 1}번` : null);
+                const messageTest = failTestCases.length === 0 ? `공개된 모든 테스트 통과` : `공개된 테스트 중\n${failTestCases}\n실패`;
+                dispatch(showNotification(messageTest));
+                return;
+            }
             if(grading?.data?.reward){
                 // 내가 답을 맞춤 (콜로세움 문제)
                 dispatch(showNotification(`정답입니다!\n${grading.data.reward}개의 토큰을 획득하였습니다.`));
@@ -56,7 +64,7 @@ const Scoring = ({grading, id}) => {
                             `${grading?.data?.failCount}개의 테스트를 통과하지 못했습니다.`
                             : "모든 테스트 케이스를 통과하였습니다.\n정답입니다!"}
                     </S.P>
-                    {grading?.data?.failCount !== 0 ? null : 
+                    {grading?.data?.failCount !== 0 || grading.data.isTest ? null : 
                         <C.Button onClick={() => navigate(`/feedback/${id}`)}>문제 평가하기</C.Button>}
                 </S.Div>
                 : <S.P>코드를 작성한 뒤, 제출 버튼을 눌러주세요.</S.P>}
