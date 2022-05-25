@@ -15,6 +15,7 @@ export default async ( userAccount:string ):Promise<TxExcutionResult> => {
         const user = await models.User.findOne({account:userAccount});
         // 잔액 검사
         const balance = (await calMineralbalance(user._id)).toString();
+        if (parseInt(balance) < fromDb.CCToken.tradingLimit) {throw new Error("임시로 설정해 놓은 출금 리미트 보다 잔액이 적음")}
         // 트렌젝션 실행
         const contractAddr = fromDb.CCToken.address;
         const from = fromDb.account.CoCo;
