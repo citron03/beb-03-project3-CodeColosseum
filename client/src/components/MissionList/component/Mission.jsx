@@ -4,13 +4,11 @@ import ColosseumMissionInfo from "./ColosseumMissionInfo";
 import PracticeMissionInfo from "./PracticeMissionInfo";
 import { useSelector, useDispatch } from "react-redux"
 import { showNotification } from "./../../../redux/action";
-import { useCheckLogin } from "./../../../utils/login";
 
 const Mission = ({data, isColosseum}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const url = isColosseum ? `/mission/colosseum/${data.missionId}` : `/mission/practice/${data.missionId}`;
-    useCheckLogin(); // 로그인 먼저 확인
     const state = useSelector(state => state.signup).account;
 
     const handleEnter = async () => {
