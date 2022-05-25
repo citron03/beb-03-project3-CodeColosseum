@@ -47,7 +47,7 @@ const post = async (req: any, res: any) => {
 
       // 풀이에 성공한 경우 미네랄 지급
       const challengeInfo = await models.Challenge.findOne(challenge);
-      if (isPassed) {
+      if (reqType === 2 && isPassed) {
         console.log("미네랄 지급 시작");
         // TODO
         // challenger에게 +mineral
