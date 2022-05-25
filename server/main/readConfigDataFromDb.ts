@@ -17,27 +17,12 @@ import { writeFile } from 'fs';
             const contractsCollection = client.db(ENV.MONGO_database).collection("contracts");
             // 도큐먼트 가져오기
             const CoCo = await accountsCollection.findOne({name: "CoCo"})
-                .then((CoCo) => {
-                    if (!CoCo) { console.log(`CoCo not found`); return null;
-                    } else { return CoCo; }
-                });
             const colosseum = await accountsCollection.findOne({name: "colosseum"})
-                .then((colosseum) => {
-                    if (!colosseum) { console.log(`colosseum not found`); return null;
-                    } else { return colosseum; }
-                });
             const feePayer = await accountsCollection.findOne({name: "feePayer"})
-                .then((feePayer) => {
-                    if (!feePayer) { console.log(`feePayer not found`); return null;
-                    } else { return feePayer; }
-                });
             const CCTcontract = await contractsCollection.findOne({symbol: "CCT"})
-                .then((CCTcontract) => {
-                    if (!CCTcontract) { console.log(`CCTcontract not found`); return null;
-                    } else { return CCTcontract; }
-                });
+            const CMTcontract = await contractsCollection.findOne({symbol: "CMO"}) // 테스트 컨트렉트인 CMO 사용중. 추후에 symbol: "CMT" 로 수정할것.
             // 데이터 만들고 파일 생성하기
-            if (CoCo && colosseum && feePayer && CCTcontract) {
+            if (CoCo && colosseum && feePayer && CCTcontract && CMTcontract) {
 
                 const CoCoAccount = CoCo.account;
                 const colosseumAccount = colosseum.account;
@@ -53,6 +38,9 @@ import { writeFile } from 'fs';
                 const CCTtradingLimit = CCTcontract.tradingLimit;
                 const CCTtoken = CCTcontract.token;
                 const CCTtokenLimit = CCTcontract.tokenLimit;
+
+                const CMTsymbol = CMTcontract.symbol;
+                const CMTaddress = CMTcontract.address;
             
                 const data =
 `const account = {
@@ -74,7 +62,12 @@ const CCToken = {
     tokenLimit: ${CCTtokenLimit}
 };
 
-const fromDb = { account, CCToken };
+const CMCToken = {
+    symbol: "${CMTsymbol}",
+    address: "${CMTaddress}"
+};
+
+const fromDb = { account, CCToken, CMCToken };
 
 export default fromDb`;
             
