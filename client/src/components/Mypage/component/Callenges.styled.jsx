@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const S = {};
 
-S.SolvedMissions = styled.div`
+S.Callenges = styled.div`
     border: 1px solid var(--font-theme);
     padding: 20px;
     margin: 35px;
