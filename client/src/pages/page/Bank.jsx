@@ -1,10 +1,10 @@
 import S from "./Bank.styled";
 import { Collect, TokenPurchase, BankNav } from "../../components/Bank";
-import { useCheckLogin } from "../../utils/login";
+import { useRefreshLogin } from "../../utils/login";
 import { useState } from "react";
 
 const Bank = () => {
-    useCheckLogin();
+    useRefreshLogin();
     const [component, setComponent] = useState("Collect");
     return (
         <S.Bank>

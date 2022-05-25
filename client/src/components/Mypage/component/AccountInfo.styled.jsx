@@ -12,6 +12,10 @@ S.H1 = styled.h1`
     
 `
 
+S.H2 = styled.h2`
+    
+`
+
 S.Div = styled.div`
     
 `

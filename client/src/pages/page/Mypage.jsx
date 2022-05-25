@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Login from "../../components/Login";
 import { useQuery } from 'react-query';
-import { useCheckLogin } from "../../utils/login";
+import { useRefreshLogin } from "../../utils/login";
 
 const Mypage = () => {
 
     const state = useSelector(state => state.signup);
-    useCheckLogin();
+    useRefreshLogin();
 
     const { data } = useQuery([state?.account?._id], async () => {
         return axios.get(`/user/mypage/${state?.account?._id}`)
