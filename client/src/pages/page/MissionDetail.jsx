@@ -36,6 +36,12 @@ const MissionDetail = ({isColosseum}) => {
                         .then(el => el.data.data)
                         .catch(err => console.log(err));
     }, { enabled: !isColosseum }); // 연습문제일 때 get으로 데이터를 받아온다.
+    
+    useEffect(() => {
+        if(data?.missionInfo){
+            setMissionData(data.missionInfo); // 연습 문제 데이터 세팅
+        }
+    }, [data]);
 
     useEffect(() => {
         if(!isColosseum) {
@@ -55,12 +61,6 @@ const MissionDetail = ({isColosseum}) => {
                     .catch(err => console.log(err));
         }
     }, [isColosseum, id, state]);
-
-    useEffect(() => {
-        if(data?.missionInfo){
-            setMissionData(data.missionInfo); // 연습 문제 데이터 세팅
-        }
-    }, [data]);
 
     useEffect(() => {
         if(missionData?.inputs){ // 에디터에 인자를 포함하는 디폴트 코드 설정
