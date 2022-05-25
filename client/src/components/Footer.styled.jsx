@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const S = {};
 
 S.Footer = styled.div`
+    font-family: "NanumBarunGothic";
     position: relative;
     bottom: 0%;
     width: 100%;
