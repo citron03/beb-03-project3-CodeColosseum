@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const S = {};
 
 S.Header = styled.div`
-    font-family: "NanumBarunGothic";
+    font-family: "NanumBarunGothic", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
     border-bottom: 1px solid black;
     background-color: white;
     display: flex;

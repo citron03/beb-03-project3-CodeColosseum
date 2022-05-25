@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const S = {};
 
 S.Footer = styled.div`
-    font-family: "NanumBarunGothic";
+    font-family: "NanumBarunGothic", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
     position: relative;
     bottom: 0%;
     width: 100%;
