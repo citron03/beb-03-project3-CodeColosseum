@@ -160,7 +160,7 @@ export default {
         } else {
           return (pre -= cur.amount);
         }
-      });
+      }, 0);
 
       return withdrawableAmount;
     } catch (err) {
