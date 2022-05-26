@@ -22,9 +22,9 @@ const CCToken = {
         winner: 0.45,
         creator: 0.45
     },
-    mining: 10,
+    mining: 500,
     tradingLimit: 500,
-    token: 5,
+    token: 500,
     tokenLimit: 500
 };
 
