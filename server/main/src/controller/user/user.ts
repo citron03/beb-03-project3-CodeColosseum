@@ -11,6 +11,7 @@ const get = async (req: any, res: any) => {
       res.status(200).send({
         message: "user found!",
         data: {
+          _id: user.id,
           account: user.account,
           nickName: user.nickName,
           image: user.image,
