@@ -10,7 +10,16 @@ const get = async (req: any, res: any) => {
     if (user) {
       res
         .status(200)
-        .send({ message: "user found!", data: { ...user, nftReward } });
+        .send({
+          message: "user found!",
+          data: {
+            account: user.account,
+            nickName: user.nickName,
+            image: user.image,
+            mineral: user.mineral,
+            nftReward,
+          },
+        });
     } else {
       res.status(200).send({ message: "user not found!" });
     }
@@ -56,11 +65,9 @@ const patch = async (req: any, res: any) => {
       );
       res.status(200).send({ message: "nickName updated!", data: updatedUser });
     } else if (body.image) {
-      res
-        .status(400)
-        .send({
-          message: "Sorry, Request to update image is not available yet!",
-        });
+      res.status(400).send({
+        message: "Sorry, Request to update image is not available yet!",
+      });
     } else {
       res.status(400).send({ message: "There is no data to update in body!" });
     }
