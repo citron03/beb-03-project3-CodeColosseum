@@ -2,7 +2,11 @@ import axios from "axios";
 import { fromDb } from "../../config";
 import contract from "../../contract";
 import models from "../../models";
-import { gradingMission, updateUserMineralBalance } from "../../utils";
+import {
+  findUserInfoByAccount,
+  gradingMission,
+  updateUserMineralBalance,
+} from "../../utils";
 
 const post = async (req: any, res: any) => {
   const { account, missionId, code, reqType } = req.body;
@@ -88,11 +92,11 @@ const editMineOwnerRewardLog = async (code: string, missionId: string) => {
   const missionInfo = await models.Mission.findOne({ _id: missionId });
   // 현 nft의 owner를 추출
   const nftOwner = await contract.checkMineOwner(missionInfo);
-
+  const userInfo = await findUserInfoByAccount(nftOwner);
   const rewardLogSchema = {
     code,
     nft: missionId,
-    user: nftOwner,
+    user: userInfo.id,
     amount: fromDb.CCToken.token,
   };
 
