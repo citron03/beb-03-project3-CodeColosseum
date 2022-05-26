@@ -1,12 +1,12 @@
 import { caver, fromDb } from "../config"
 import models from "../models";
-import { MissionCollosseum, makeReturnByTxResult, TxExcutionResult, MissionState } from "../utils";
+import { MissionColosseum, makeReturnByTxResult, TxExcutionResult, MissionState } from "../utils";
 
 interface Mission {
     _id: Object;
     creator: Object
     state: MissionState
-    colosseum: MissionCollosseum
+    colosseum: MissionColosseum
 }
 
 interface TokenRewardColosseumReturn {
