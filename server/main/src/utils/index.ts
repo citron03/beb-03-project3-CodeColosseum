@@ -9,7 +9,8 @@ export const {
   findChallengeInfoByUserIdAndMissionId,
   gradingMission,
   calMineralbalance,
-  updateUserMineralBalance
+  updateUserMineralBalance,
+  getWithdrawableAmount,
 } = func;
 
 export type {
@@ -26,5 +27,5 @@ export type {
   Challenger,
   TokenTransferLogCode,
   TxExcutionResult,
-  MineralLogCode
+  MineralLogCode,
 } from "./types";

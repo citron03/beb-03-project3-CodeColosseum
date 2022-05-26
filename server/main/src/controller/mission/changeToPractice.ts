@@ -1,3 +1,5 @@
+import axios from "axios";
+import contract from "../../contract";
 import models from "../../models";
 
 const post = async (req: any, res: any) => {
@@ -10,10 +12,37 @@ const post = async (req: any, res: any) => {
       try {
         // TODO
         // 민팅하기
-        await models.Mission.findOneAndUpdate({ _id: missionId }, { state: 3 });
+
+        // 메타데이터 업로드
+        const metaDataUri = await contract.uploadMissionMetadata(missionInfo);
+        // 업로드 확인
+        const uploadCheck = await axios.get(metaDataUri);
+        console.log(uploadCheck);
+        if (!uploadCheck) {
+          throw new Error();
+        }
+        try {
+          const mintResult = await contract.mineOwnershipNftMint(
+            account,
+            missionId,
+            metaDataUri
+          );
+
+          if (mintResult.result.status === "Submitted") {
+            await models.Mission.findOneAndUpdate(
+              { _id: missionId },
+              { state: 3, mineOwnershipNft: mintResult.mineOwnershipNft }
+            );
+          } else {
+            throw new Error();
+          }
+        } catch (err) {
+          console.log(err);
+          res.status(400).send({ message: "Failed Minting" });
+        }
       } catch (err) {
         console.log(err);
-        res.status(400).send({ message: "DB update Error" });
+        res.status(400).send({ message: "Failed Upload Meta Data" });
       }
     } else {
       throw new Error("Not Owner Or Not State 2");

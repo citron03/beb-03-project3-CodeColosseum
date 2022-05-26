@@ -147,4 +147,24 @@ export default {
       throw err;
     }
   },
+
+  getWithdrawableAmount: async (userId: string) => {
+    try {
+      const rewardLog = await models.MineOwnerRewardLog.find({
+        user: userId,
+      });
+
+      const withdrawableAmount = rewardLog.reduce((pre, cur) => {
+        if (cur.code === "reward") {
+          return (pre += cur.amount);
+        } else {
+          return (pre -= cur.amount);
+        }
+      });
+
+      return withdrawableAmount;
+    } catch (err) {
+      throw err;
+    }
+  },
 };

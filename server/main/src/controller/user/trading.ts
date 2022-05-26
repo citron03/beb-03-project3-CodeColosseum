@@ -1,5 +1,10 @@
+import contract from "../../contract";
 import models from "../../models";
-import { findUserInfoByAccount, updateUserMineralBalance } from "../../utils";
+import {
+  findUserInfoByAccount,
+  TokenTransferLogFor,
+  updateUserMineralBalance,
+} from "../../utils";
 
 const get = async (req: any, res: any) => {
   const account = req.params.account;
@@ -33,23 +38,42 @@ const get = async (req: any, res: any) => {
       };
       await models.MineralLog.create(mineralLogSchema);
 
-      // 유저 미네랄 보유량 갱신
-      await updateUserMineralBalance(userInfo.id);
+      try {
+        // 유저 미네랄 보유량 갱신
+        await updateUserMineralBalance(userInfo.id);
 
-      // 토큰 전송
-      // const txResult = await transferToken(account, tradeableMineral*0.9);
+        try {
+          // 토큰 전송
+          const txResult = await contract.mineralTradingExcution(account);
 
-      // 토큰 전송 로그 기록
-      // const transferFor: TokenTransferLogFor = {
-      //  collection: "User",
-      //  id: userInfo.id,
-      // };
-      // await createTokenTransferLog(txResult, 5, transferFor);
+          try {
+            // 토큰 전송 로그 기록
+            const transferFor: TokenTransferLogFor = {
+              collection: "MineralLog",
+              id: userInfo.id,
+            };
+            await contract.createTokenTransferLog(txResult, 5, transferFor);
 
-      res.status(200).send({
-        message: "Success trading tokens",
-        data: { tradingAmount: tradeableMineral * 0.9 },
-      });
+            res.status(200).send({
+              message: "Success trading tokens",
+              data: { tradingAmount: tradeableMineral * 0.9 },
+            });
+          } catch (err) {
+            console.log(err);
+            res
+              .status(400)
+              .send({ message: "failed to create token transfer log" });
+          }
+        } catch (err) {
+          console.log(err);
+          res.status(400).send({ message: "failed to token transfer" });
+        }
+      } catch (err) {
+        console.log(err);
+        res
+          .status(400)
+          .send({ message: "failed to update user mineral balance" });
+      }
     } catch (err) {
       console.log(err);
       res.status(400).send({ message: "failed to edit mineral log" });
