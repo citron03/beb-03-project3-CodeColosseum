@@ -3,7 +3,7 @@ import { ENV } from '../src/config';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import coplitDummyMissions from '../src/dummy/coplitMissions';
 import { getRandomId } from '../src/utils';
-import { MissionCollosseum } from '../src/utils/types';
+import { MissionColosseum } from '../src/utils/types';
 
 async function seedDB() {
 
@@ -29,7 +29,7 @@ async function seedDB() {
                 const user_id = await getRandomId(usersCollection); // 랜덤한 유저 _id 가져오기
                 
                 // colosseum 객체 만들기
-                let colosseum: MissionCollosseum
+                let colosseum: MissionColosseum
                 if (i/2 === 0) {
                     colosseum = {
                         stakedTokens: 0,
