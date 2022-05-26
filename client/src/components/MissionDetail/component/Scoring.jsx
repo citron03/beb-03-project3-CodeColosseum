@@ -44,7 +44,7 @@ const Scoring = ({grading, id}) => {
                     dispatch(showNotification("코드 에러!"));
                 }
                 else if(grading?.data?.isPassed || grading?.data?.failCount === 0){
-                    dispatch(showNotification("채점 완료!\n 모든 테스트를 통과하셨습니다!\n평가를 남겨주세요 ★"));
+                    dispatch(showNotification("채점 완료!\n 모든 테스트를 통과하셨습니다!\n평가를 남겨주세요."));
                     setMessage("축하합니다!");
                 } else {
                     dispatch(showNotification("채점 완료!\n 하지만 아쉽게도 틀렸습니다."));

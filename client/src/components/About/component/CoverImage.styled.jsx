@@ -24,6 +24,7 @@ S.ScollDiv = styled.div`
         cursor: pointer;
         color: var(--universal);
     }
+    color: white;
 `
 
 export default S;

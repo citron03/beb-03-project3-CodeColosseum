@@ -1,5 +1,6 @@
 import S from "./TokenPurchase.styled";
 import C from "./../../CommonStyled";
+import { FaLongArrowAltDown } from 'react-icons/fa';
 
 const TokenPurchase = () => {
     return (
@@ -11,7 +12,9 @@ const TokenPurchase = () => {
                     <S.SpanHighlight>100</S.SpanHighlight>
                     <S.Span>Klay</S.Span>
                 </S.Div>                
-                <S.P>☟</S.P>
+                <S.P>
+                    <FaLongArrowAltDown/>
+                </S.P>
                 <S.Div>
                     <S.Span>획득!</S.Span>
                     <S.SpanHighlight>1000</S.SpanHighlight>
