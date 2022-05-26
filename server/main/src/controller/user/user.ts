@@ -6,8 +6,8 @@ const get = async (req: any, res: any) => {
   try {
     const account = req.params.account;
     const user = await models.User.findOne({ account });
-    const nftReward = await getWithdrawableAmount(user.id);
     if (user) {
+      const nftReward = await getWithdrawableAmount(user.id);
       res.status(200).send({
         message: "user found!",
         data: {
