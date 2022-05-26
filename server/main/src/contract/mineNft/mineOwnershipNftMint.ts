@@ -1,5 +1,5 @@
-import { caver, fromDb } from "../config";
-import { MissionMineOwnershipNft } from "../utils";
+import { caver, fromDb } from "../../config";
+import { MissionMineOwnershipNft } from "../../utils";
 
 interface Return {
     result: Result

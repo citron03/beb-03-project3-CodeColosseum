@@ -1,5 +1,5 @@
-import { caver } from "../config";
-import { MissionMineOwnershipNft } from "../utils";
+import { caver } from "../../config";
+import { MissionMineOwnershipNft } from "../../utils";
 
 interface Misiion {
     _id: string;

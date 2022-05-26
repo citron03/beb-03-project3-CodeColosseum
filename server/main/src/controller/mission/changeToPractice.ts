@@ -1,5 +1,5 @@
 import axios from "axios";
-import contract from "../../contract";
+import { mineNft } from "../../contract";
 import models from "../../models";
 
 const post = async (req: any, res: any) => {
@@ -14,7 +14,7 @@ const post = async (req: any, res: any) => {
         // 민팅하기
 
         // 메타데이터 업로드
-        const metaDataUri = await contract.uploadMissionMetadata(missionInfo);
+        const metaDataUri = await mineNft.uploadMissionMetadata(missionInfo);
         // 업로드 확인
         const uploadCheck = await axios.get(metaDataUri);
         console.log(uploadCheck);
@@ -22,7 +22,7 @@ const post = async (req: any, res: any) => {
           throw new Error();
         }
         try {
-          const mintResult = await contract.mineOwnershipNftMint(
+          const mintResult = await mineNft.mineOwnershipNftMint(
             account,
             missionId,
             metaDataUri

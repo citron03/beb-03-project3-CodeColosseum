@@ -1,4 +1,4 @@
-import { caver, fromDb } from "../config"
+import { caver, fromDb } from "../../config"
 
 // 프론트에서 유저에게 트렌젝션에 싸인을 시키기위해 필요한 객체를 반환하는 함수입니다.
 // 반환된 객체안에 txObj의 from 만 서명자의 account 를 넣어서 싸인하면 됩니다.

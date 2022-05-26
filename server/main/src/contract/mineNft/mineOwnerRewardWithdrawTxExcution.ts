@@ -1,10 +1,10 @@
-import { caver, fromDb } from "../config";
-import models from "../models";
+import { caver, fromDb } from "../../config";
+import models from "../../models";
 import {
   getWithdrawableAmount,
   makeReturnByTxResult,
   TxExcutionResult,
-} from "../utils";
+} from "../../utils";
 
 /*
 광산 소유자가 보상받은 리워드(토큰)을 개인 지갑으로 출금하는 트렌젝션 실행하는 함수.

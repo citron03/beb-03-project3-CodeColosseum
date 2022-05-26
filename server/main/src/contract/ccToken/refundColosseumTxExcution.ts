@@ -1,5 +1,5 @@
-import { caver, fromDb } from "../config";
-import { makeReturnByTxResult, MissionColosseum, MissionState, TxExcutionResult } from "../utils";
+import { caver, fromDb } from "../../config";
+import { makeReturnByTxResult, MissionColosseum, MissionState, TxExcutionResult } from "../../utils";
 
 interface Mission {
     state: MissionState

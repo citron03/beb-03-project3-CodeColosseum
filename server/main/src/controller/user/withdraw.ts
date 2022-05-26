@@ -1,4 +1,4 @@
-import contract from "../../contract";
+import { mineNft, log } from "../../contract";
 import models from "../../models";
 import { findUserInfoByAccount, TokenTransferLogFor } from "../../utils";
 
@@ -14,7 +14,7 @@ const get = async (req: any, res: any) => {
     // 로그를 조회해서 보상 토큰 계산
     try {
       // 토큰 전송
-      const txResult = await contract.mineOwnerRewardWithdrawTxExcution(
+      const txResult = await mineNft.mineOwnerRewardWithdrawTxExcution(
         account
       );
 
@@ -24,7 +24,7 @@ const get = async (req: any, res: any) => {
           collection: "MineOwnerRewardLog",
           id: userInfo.id,
         };
-        await contract.createTokenTransferLog(txResult, 4, transferFor);
+        await log.createTokenTransferLog(txResult, 4, transferFor);
 
         res.status(200).send({
           message: "Success to withdraw tokens",

@@ -1,5 +1,5 @@
 import models from "../../models";
-import contract from "../../contract";
+import { ccToken, log } from "../../contract";
 import { TokenTransferLogFor } from "../../utils";
 
 // const obj = await contract.tokenPaymentResDataColosseum();
@@ -46,7 +46,7 @@ const post = async (req: any, res: any) => {
       }
     } else if (checkResult.result === 2) {
       // 토큰 내야하는 사람
-      const newTxObj = await contract.tokenPaymentResDataColosseum();
+      const newTxObj = await ccToken.tokenPaymentResDataColosseum();
       return res.status(200).send({
         message: checkResult.message,
         data: { isPayment: false, txSignReqObj: newTxObj },
@@ -58,7 +58,7 @@ const post = async (req: any, res: any) => {
   } else {
     // senderRawTransaction과 함께 요청
     // 수수료 대납 토큰 지불
-    const txResult = await contract.feeDelegatedTxExcution(
+    const txResult = await ccToken.feeDelegatedTxExcution(
       senderRawTransaction
     );
     // .then((result) => console.log(typeof result));
@@ -80,7 +80,7 @@ const post = async (req: any, res: any) => {
       id: ancResult.cId,
     };
     try {
-      await contract.createTokenTransferLog(txResult, 1, transferFor);
+      await log.createTokenTransferLog(txResult, 1, transferFor);
     } catch (err) {
       console.log(err);
       return res.status(400).send({ message: "Failed " });

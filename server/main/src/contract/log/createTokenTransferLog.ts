@@ -1,6 +1,6 @@
-import { TxExcutionResult, TokenTransferLogFor, TokenTransferLogCode } from '../utils';
-import models from '../models';
-import { fromDb } from '../config';
+import { TxExcutionResult, TokenTransferLogFor, TokenTransferLogCode } from '../../utils';
+import models from '../../models';
+import { fromDb } from '../../config';
 
 /*
 트렌젝션 실행의 결과를 디비에 기록하는 함수
