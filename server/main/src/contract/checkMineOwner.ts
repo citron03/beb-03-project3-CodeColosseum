@@ -12,7 +12,7 @@ interface Misiion {
 export default async (missionDoc:Misiion):Promise<string> => {
     try {
         const contractAddr = missionDoc.mineOwnershipNft.contractAddress;
-        const tokenId = missionDoc._id
+        const tokenId = missionDoc._id.toString();
         const result = await caver.kas.kip17.getToken(contractAddr, tokenId)
         .then((res:any) => res.owner)
         .catch((err:any) => {throw err});
