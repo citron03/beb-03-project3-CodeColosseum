@@ -8,18 +8,18 @@ const get = async (req: any, res: any) => {
     const user = await models.User.findOne({ account });
     const nftReward = await getWithdrawableAmount(user.id);
     if (user) {
-      res
-        .status(200)
-        .send({
-          message: "user found!",
-          data: {
-            account: user.account,
-            nickName: user.nickName,
-            image: user.image,
-            mineral: user.mineral,
-            nftReward,
-          },
-        });
+      res.status(200).send({
+        message: "user found!",
+        data: {
+          account: user.account,
+          nickName: user.nickName,
+          image: user.image,
+          mineral: user.mineral,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+          nftReward,
+        },
+      });
     } else {
       res.status(200).send({ message: "user not found!" });
     }
