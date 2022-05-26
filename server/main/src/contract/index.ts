@@ -8,6 +8,7 @@ import uploadMissionMetadata from './uploadMissionMetadata';
 import mineOwnershipNftMint from './mineOwnershipNftMint';
 import checkMineOwner from './checkMineOwner';
 import mineOwnerRewardWithdrawTxExcution from './mineOwnerRewardWithdrawTxExcution';
+import refundColosseumTxExcution from './refundColosseumTxExcution';
 
 export = {
     feeDelegatedTxExcution,
@@ -19,5 +20,6 @@ export = {
     uploadMissionMetadata,
     mineOwnershipNftMint,
     checkMineOwner,
-    mineOwnerRewardWithdrawTxExcution
+    mineOwnerRewardWithdrawTxExcution,
+    refundColosseumTxExcution
 };

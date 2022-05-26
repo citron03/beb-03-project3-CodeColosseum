@@ -25,6 +25,7 @@ export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTrans
         else if (transferCode === 5) { checker = transferFor.collection === "MineralLog" && from === fromDb.account.CoCo }
         else if (transferCode === 6) { checker = false }
         else if (transferCode === 7) { checker = false }
+        else if (transferCode === 8) { checker = transferFor.collection === "TokenTransferLog" && from === fromDb.account.colosseum && amount === fromDb.CCToken.colosseum }
         else { throw new Error("Error: transferCode is wrong!"); };
         
         if (checker === false) { throw new Error("Error: checker is False!"); };

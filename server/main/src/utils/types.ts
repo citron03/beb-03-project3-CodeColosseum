@@ -24,7 +24,7 @@ interface testCase {
 
 type TestCases = testCase[];
 
-type MissionState = 0 | 1 | 2 | 3 | 4; // 0: etc ( 1: 콜로세움진행중, 2: 콜로세움중료(우승자나옴), 3: 종료되고 소유권 NFT 만들어짐, 4: 종료되고 NFT로 만들어지고 연습문제광맥의 미네랄광산으로 오픈됨 )
+type MissionState = 0 | 1 | 2 | 3 | 4; // 0: pending, etc ( 1: 콜로세움진행중, 2: 콜로세움중료(우승자나옴), 3: 종료되고 소유권 NFT 만들어짐, 4: 종료되고 NFT로 만들어지고 연습문제광맥의 미네랄광산으로 오픈됨 )
 
 interface Challenger {
   account: string;
@@ -46,14 +46,14 @@ interface MissionMineOwnershipNft {
 
 type ChallengeKind = 0 | 1 | 2; // 0: etc
 
-type Collection = "Mission" | "Challenge" | "MineralLog" | "MineOwnerRewardLog";
+type Collection = "Mission" | "Challenge" | "MineralLog" | "MineOwnerRewardLog" | "TokenTransferLog";
 
 interface TokenTransferLogFor {
     collection: Collection, // 콜렉션 이름
     id: string, // 도큐먼트_id
 }
 
-type TokenTransferLogCode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7; // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매
+type TokenTransferLogCode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8; // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매 8: 콜로세움환불
 
 interface TxExcutionResult {
   success: boolean;
