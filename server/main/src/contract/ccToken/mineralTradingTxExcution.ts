@@ -1,6 +1,6 @@
-import { caver, fromDb } from "../config";
-import models from "../models";
-import { calMineralbalance, TxExcutionResult, makeReturnByTxResult } from "../utils";
+import { caver, fromDb } from "../../config";
+import models from "../../models";
+import { calMineralbalance, TxExcutionResult, makeReturnByTxResult } from "../../utils";
 
 
 /*

@@ -1,6 +1,6 @@
-import { fromDb } from "../config";
-import models from "../models";
-import { MineralLogCode, updateUserMineralBalance } from "../utils";
+import { fromDb } from "../../config";
+import models from "../../models";
+import { MineralLogCode, updateUserMineralBalance } from "../../utils";
 
 interface Challenge {
     _id: string;

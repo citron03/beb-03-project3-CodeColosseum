@@ -1,7 +1,7 @@
-import { MissionColosseum, Inputs, Output, TestCases } from "../utils"
-import modeals from "../models"
+import { MissionColosseum, Inputs, Output, TestCases } from "../../utils"
+import modeals from "../../models"
 import axios from "axios"
-import { ENV } from "../config"
+import { ENV } from "../../config"
 
 interface Mission {
     _id: string;

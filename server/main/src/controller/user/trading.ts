@@ -1,4 +1,4 @@
-import contract from "../../contract";
+import { ccToken, log } from "../../contract";
 import models from "../../models";
 import {
   findUserInfoByAccount,
@@ -44,7 +44,7 @@ const get = async (req: any, res: any) => {
 
         try {
           // 토큰 전송
-          const txResult = await contract.mineralTradingExcution(account);
+          const txResult = await ccToken.mineralTradingExcution(account);
 
           try {
             // 토큰 전송 로그 기록
@@ -52,7 +52,7 @@ const get = async (req: any, res: any) => {
               collection: "MineralLog",
               id: userInfo.id,
             };
-            await contract.createTokenTransferLog(txResult, 5, transferFor);
+            await log.createTokenTransferLog(txResult, 5, transferFor);
 
             res.status(200).send({
               message: "Success trading tokens",
