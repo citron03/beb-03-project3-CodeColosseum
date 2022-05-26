@@ -57,14 +57,12 @@ const post = async (req: any, res: any) => {
         console.log("createMingMineralLog 완료");
         await updateUserMineralBalance(userInfo._id);
         console.log("updateUserMineral 완료");
-
         console.log("미네랄 지급 완료");
 
         // nft 보유자는 토큰이 쌓임
         await editMineOwnerRewardLog("reward", missionId);
       }
 
-      console.log(challengeInfo);
       res.status(200).send({
         message: gradingResult.message,
         data: {
@@ -87,14 +85,14 @@ export = { post };
 
 const editMineOwnerRewardLog = async (code: string, missionId: string) => {
   // mission id로 nft 정보 조회
-  // const nft = await models.Nft.findOne({missionId})
-
+  const missionInfo = await models.Mission.findOne({ _id: missionId });
   // 현 nft의 owner를 추출
+  const nftOwner = await contract.checkMineOwner(missionInfo);
 
   const rewardLogSchema = {
     code,
-    // nft,
-    // user : nft.owner,
+    nft: missionId,
+    user: nftOwner,
     amount: fromDb.CCToken.token,
   };
 
