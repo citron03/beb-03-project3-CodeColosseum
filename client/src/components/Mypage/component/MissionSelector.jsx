@@ -19,7 +19,7 @@ const MissionSelector = ({setSelector}) => {
             </S.Div>
             <S.Div>
                 <S.Label>연습문제</S.Label>
-                <S.Checkbox type="checkbox" name="3" value={3} onChange={handleSelector} defaultChecked/>
+                <S.Checkbox type="checkbox" name="4" value={4} onChange={handleSelector} defaultChecked/>
             </S.Div>
         </S.MissionSelector>
     );

@@ -61,12 +61,12 @@ const useRefreshLogin = () => {
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
-                    dispatch(showSignUp());
+                  dispatch(showSignUp());
                 }else {
-                      dispatch(setAccount(el.data.data));
-                      const addressStr = el.data.data.account.slice(0, 4) + 
-                        "..." + el.data.data.account.slice(el.data.data.account.length - 4);
-                      dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
+                  dispatch(setAccount(el.data.data));
+                  const addressStr = el.data.data.account.slice(0, 4) + 
+                    "..." + el.data.data.account.slice(el.data.data.account.length - 4);
+                  dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
                 }              
             })
             .catch(err => console.log(err));

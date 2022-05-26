@@ -29,7 +29,11 @@ const MyMission = ({data}) => {
     }
 
     const handleNavigate = (id) => {
-        // navigate(`/mission/practice/${id}`); // 연습문제
+        if(data.state === 4){
+            navigate(`/mission/practice/${id}`); 
+        } else {
+            dispatch(showNotification("연습 문제가 아닙니다."));
+        }
     }
     
     return (
@@ -37,9 +41,11 @@ const MyMission = ({data}) => {
             <S.TitleP title="이동하기" onClick={() => handleNavigate(data._id)}>제목 : {data?.title}</S.TitleP>
             <S.P>description : {data?.description}</S.P>
             <S.P>만든 날짜 : {parseDate(data?.createdAt)}</S.P>
-            <S.ButtonDiv>
-                <C.Button onClick={() => handlePractice(state?.account, data?._id)}>연습문제로 만들기</C.Button>
-            </S.ButtonDiv>
+            {data?.state === 2 ? 
+                <S.ButtonDiv>
+                    <C.Button onClick={() => handlePractice(state?.account, data?._id)}>연습문제로 만들기</C.Button>
+                </S.ButtonDiv>
+            : null}
         </S.MyMission>
     );
 }

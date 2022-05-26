@@ -11,7 +11,7 @@ const Exchange = () => {
     const dispatch = useDispatch();
     
     const handleTrade = async () => {
-        if(account?.mineral <= 0) {
+        if(account?.mineral <= 500) {
             dispatch(showNotification(`미네랄이 부족합니다.\n보유 미네랄: ${account.mineral}`));
             return;
         }
@@ -54,8 +54,8 @@ const Exchange = () => {
                     </S.Div>
                 </S.RowDiv>
             </S.BorderDiv>
-            <C.Button onClick={() => handleTrade()}>교역하기</C.Button>
-            <S.P>500미만의 미네랄은 교역할 수 없습니다.</S.P>
+            {account.mineral < 500 ? <S.P>500미만의 미네랄은 교역할 수 없습니다.</S.P> 
+                : <C.Button onClick={() => handleTrade()}>교역하기</C.Button>}
         </S.Exchange>
     );
 }

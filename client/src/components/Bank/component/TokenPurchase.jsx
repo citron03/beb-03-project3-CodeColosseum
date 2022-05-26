@@ -1,8 +1,16 @@
 import S from "./TokenPurchase.styled";
 import C from "./../../CommonStyled";
 import { FaLongArrowAltDown } from 'react-icons/fa';
+import { useDispatch } from "react-redux";
+import { showNotification } from "../../../redux/action";
 
 const TokenPurchase = () => {
+    const disptach = useDispatch();
+
+    const handlePerchase = () => {
+        disptach(showNotification("아직 구매 기능은 구현되지 않았습니다."));
+    }
+
     return (
         <S.TokenPurchase>
             <S.H2>토큰 구매 하기</S.H2>
@@ -20,7 +28,7 @@ const TokenPurchase = () => {
                     <S.SpanHighlight>1000</S.SpanHighlight>
                     <S.Span>CCT</S.Span>
                 </S.Div>
-                <C.Button>환전하기</C.Button>
+                <C.Button onClick={handlePerchase}>환전하기</C.Button>
             </S.BorderDiv>
         </S.TokenPurchase>
     );
