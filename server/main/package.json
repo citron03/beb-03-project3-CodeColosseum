@@ -1,0 +1,41 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "readDb": "ts-node readConfigDataFromDb.ts",
+    "build": "tsc",
+    "start": "node build/index.js",
+    "all": "ts-node readConfigDataFromDb.ts && npm run build && npm run start",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "debug": "nodemon --inspect-brk build/index.js",
+    "seedAll": "ts-node seed/user.ts && ts-node seed/mission.ts && ts-node seed/challenge.ts",
+    "seedUser": "ts-node seed/user.ts",
+    "seedMission": "ts-node seed/mission.ts",
+    "seedChallenge": "ts-node seed/challenge.ts",
+    "test": "ts-node test.ts"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^6.3.1",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.12",
+    "axios": "^0.27.2",
+    "mongodb": "^4.5.0",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "caver-js": "*",
+    "caver-js-ext-kas": "^1.9.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "mongoose": "^6.3.2"
+  }
+}
