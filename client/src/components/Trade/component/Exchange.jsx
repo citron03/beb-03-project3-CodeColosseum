@@ -3,6 +3,7 @@ import C from "./../../CommonStyled";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { showNotification } from "./../../../redux/action";
+import { FaLongArrowAltRight } from 'react-icons/fa';
 
 const Exchange = () => {
 
@@ -44,7 +45,9 @@ const Exchange = () => {
                         </S.Div>
                         <S.SmallP>보유 미네랄이 많아질수록, 수수료가 떨어집니다.</S.SmallP>
                     </S.ColDiv>
-                    <S.ArrowSpan>→</S.ArrowSpan>
+                    <S.ArrowSpan>
+                        <FaLongArrowAltRight/>
+                    </S.ArrowSpan>
                     <S.Div>
                         <S.SpanHighlight>{account.mineral / 10 ? account.mineral / 10 : 0}</S.SpanHighlight>
                         <S.Span>CCT</S.Span>

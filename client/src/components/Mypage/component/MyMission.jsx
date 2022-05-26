@@ -31,7 +31,7 @@ const MyMission = ({data}) => {
     const handleNavigate = (id) => {
         // navigate(`/mission/practice/${id}`); // 연습문제
     }
-
+    
     return (
         <S.MyMission>
             <S.TitleP title="이동하기" onClick={() => handleNavigate(data._id)}>제목 : {data?.title}</S.TitleP>
