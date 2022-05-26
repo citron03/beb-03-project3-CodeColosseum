@@ -17,7 +17,7 @@ const Mypage = () => {
                 .then(el => el.data)
                 .catch(err => err);
     }, {enabled: !!state?.account?._id});
-
+    
     return (
         <S.Mypage>
             <MypageNavigation/>
