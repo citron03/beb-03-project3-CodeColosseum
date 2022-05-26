@@ -46,7 +46,7 @@ interface MissionMineOwnershipNft {
 
 type ChallengeKind = 0 | 1 | 2; // 0: etc
 
-type Collection = "Mission" | "Challenge" | "MineralLog";
+type Collection = "Mission" | "Challenge" | "MineralLog" | "MineOwnerRewardLog";
 
 interface TokenTransferLogFor {
     collection: Collection, // 콜렉션 이름

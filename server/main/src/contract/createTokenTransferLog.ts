@@ -21,7 +21,7 @@ export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTrans
         let checker:boolean
         if (transferCode === 1) { checker = transferFor.collection === "Challenge" && amount === fromDb.CCToken.colosseum && to === fromDb.account.colosseum }
         else if (transferCode === 2 || transferCode === 3) { checker = transferFor.collection === "Mission" && from === fromDb.account.colosseum }
-        else if (transferCode === 4) { checker = false }
+        else if (transferCode === 4) { checker = transferFor.collection === "MineOwnerRewardLog" && from === fromDb.account.CoCo }
         else if (transferCode === 5) { checker = transferFor.collection === "MineralLog" && from === fromDb.account.CoCo }
         else if (transferCode === 6) { checker = false }
         else if (transferCode === 7) { checker = false }
