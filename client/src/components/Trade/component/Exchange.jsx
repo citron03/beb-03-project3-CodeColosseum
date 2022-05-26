@@ -11,7 +11,7 @@ const Exchange = () => {
     const dispatch = useDispatch();
     
     const handleTrade = async () => {
-        if(account?.mineral <= 500) {
+        if(account?.mineral < 500) {
             dispatch(showNotification(`미네랄이 부족합니다.\n보유 미네랄: ${account.mineral}`));
             return;
         }
