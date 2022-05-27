@@ -78,7 +78,7 @@ const post = async (req: any, res: any) => {
       } else {
         if (challengeInfo.result === 1) {
           // 지불한 사람 - 아직 시간 안됐다고 알려줌
-          res.statis(200).send({
+          res.status(200).send({
             message: "not yet time to open",
             data: { isPayment: true, isOpen: false },
           });
