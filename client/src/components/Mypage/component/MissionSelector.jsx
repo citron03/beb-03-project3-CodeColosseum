@@ -10,6 +10,10 @@ const MissionSelector = ({setSelector}) => {
     return (
         <S.MissionSelector>
             <S.Div>
+                <S.Label>비활성화) 콜로세움 미션</S.Label>
+                <S.Checkbox type="checkbox" name="0" value={0} onChange={handleSelector} defaultChecked/>
+            </S.Div>
+            <S.Div>
                 <S.Label>미해결) 콜로세움 미션</S.Label>
                 <S.Checkbox type="checkbox" name="1" value={1} onChange={handleSelector} defaultChecked/>
             </S.Div>

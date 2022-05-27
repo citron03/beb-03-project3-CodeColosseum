@@ -20,8 +20,8 @@ S.Player = styled.p`
             color: var(--font-theme); 
             background: var(--background-theme-modal); 
             position: absolute; 
-            top: 80%; 
-            left: 50%; 
+            top: 65%; 
+            left: 45%; 
             width: 200px; 
             height: fit-content; 
             padding: 15px; 

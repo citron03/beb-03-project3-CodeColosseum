@@ -1,5 +1,5 @@
 import S from "./Map.styled";
-import { ColosseumImg, parchment, tradeImg, bankImg, mineImg, mypageImg } from "../../assets/map";
+import { ColosseumImg, parchment, tradeImg, bankImg, mineImg } from "../../assets/map";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { mapPopUpControll } from "../../redux/reducer/mapSlice";
@@ -19,7 +19,7 @@ const Map = () => {
             <S.ColosseumDiv>
                 <S.ColosseumImg 
                     src={ColosseumImg} alt="콜로세움" title="콜로세움" 
-                    onClick={() => handleMap("/missions")}/>
+                    onClick={() => handleMap("/")}/>
                 <S.H2>콜로세움</S.H2>
             </S.ColosseumDiv>
             <S.TradeDiv>
@@ -37,16 +37,6 @@ const Map = () => {
                     onClick={() => handleMap("/practice")}/>
                 <S.H2>광맥</S.H2>
             </S.MineDiv>
-            <S.MypageDiv>
-                <S.MypageImg src={mypageImg} alt="마이 페이지" title="마이 페이지" 
-                    onClick={() => handleMap("/mypage")}/>
-                <S.H2>마이 페이지</S.H2>
-            </S.MypageDiv>
-            <S.RegisterMissionDiv>
-                <S.RegisterMission title="콜로세움 출제" 
-                    onClick={() => handleMap("/register")}/>
-                <S.H2>콜로세움 출제</S.H2>
-            </S.RegisterMissionDiv>
         </S.Map>
     );
 }

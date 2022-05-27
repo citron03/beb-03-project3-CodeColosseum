@@ -4,20 +4,29 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { showNotification } from "./../../../redux/action";
 import { FaLongArrowAltRight } from 'react-icons/fa';
+import { useEffect, useState } from "react";
 
 const Exchange = () => {
 
     const account = useSelector(state => state.signup).account;
+    const [mineral, setMineral] = useState(0);
     const dispatch = useDispatch();
     
+    useEffect(() => {
+        if(account?.mineral){
+            setMineral(account.mineral);
+        }
+    }, [account])
+
     const handleTrade = async () => {
-        if(account?.mineral < 500) {
-            dispatch(showNotification(`미네랄이 부족합니다.\n보유 미네랄: ${account.mineral}`));
+        if(mineral < 500) {
+            dispatch(showNotification(`미네랄이 부족합니다.\n보유 미네랄: ${mineral}`));
             return;
         }
         if(account?.account){
             try {
                 const res = await axios.get(`/user/trading/${account.account}`);
+                setMineral(0);
                 dispatch(showNotification("교역이 완료되었습니다."));
                 console.log(res);
             } catch {
@@ -36,11 +45,11 @@ const Exchange = () => {
                     <S.ColDiv>
                         <S.Div>
                             <S.Span>보유 미네랄</S.Span>
-                            <S.SpanHighlight>{account.mineral}</S.SpanHighlight>
+                            <S.SpanHighlight>{mineral}</S.SpanHighlight>
                         </S.Div>
                         <S.Div>
                             <S.Span>수수료</S.Span>
-                            <S.SpanHighlight>-100</S.SpanHighlight>
+                            <S.SpanHighlight>-{Number(mineral * 0.1).toFixed(2)}</S.SpanHighlight>
                             <S.Span>수수료율 10%</S.Span>
                         </S.Div>
                         <S.SmallP>보유 미네랄이 많아질수록, 수수료가 떨어집니다.</S.SmallP>
@@ -49,12 +58,12 @@ const Exchange = () => {
                         <FaLongArrowAltRight/>
                     </S.ArrowSpan>
                     <S.Div>
-                        <S.SpanHighlight>{account.mineral / 10 ? account.mineral / 10 : 0}</S.SpanHighlight>
+                        <S.SpanHighlight>{Number(mineral * 0.9).toFixed(2)}</S.SpanHighlight>
                         <S.Span>CCT</S.Span>
                     </S.Div>
                 </S.RowDiv>
             </S.BorderDiv>
-            {account.mineral < 500 ? <S.P>500미만의 미네랄은 교역할 수 없습니다.</S.P> 
+            {mineral < 500 ? <S.P>500미만의 미네랄은 교역할 수 없습니다.</S.P> 
                 : <C.Button onClick={() => handleTrade()}>교역하기</C.Button>}
         </S.Exchange>
     );

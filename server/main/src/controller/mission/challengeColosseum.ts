@@ -1,7 +1,6 @@
 import axios from "axios";
-import tokenRewardColosseum from "../../contract/tokenRewardColosseum";
+import { ccToken, log } from "../../contract";
 import models from "../../models";
-import contract from "../../contract";
 import { TokenTransferLogFor, gradingMission } from "../../utils";
 
 const post = async (req: any, res: any) => {
@@ -94,14 +93,14 @@ const post = async (req: any, res: any) => {
         try {
           const missionInfo = await models.Mission.findOne({ _id: missionId });
           const { winnerTxReturn, creatorTxReturn } =
-            await tokenRewardColosseum(missionInfo);
+            await ccToken.tokenRewardColosseum(missionInfo);
 
           if (winnerTxReturn.success && creatorTxReturn.success) {
-            await contract.createTokenTransferLog(winnerTxReturn, 2, {
+            await log.createTokenTransferLog(winnerTxReturn, 2, {
               collection: "Mission",
               id: missionInfo.id,
             });
-            await contract.createTokenTransferLog(creatorTxReturn, 3, {
+            await log.createTokenTransferLog(creatorTxReturn, 3, {
               collection: "Mission",
               id: missionInfo.id,
             });

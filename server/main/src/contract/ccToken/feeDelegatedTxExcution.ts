@@ -1,5 +1,5 @@
-import { caver, fromDb } from "../config"
-import { makeReturnByTxResult , TxExcutionResult } from '../utils';
+import { caver, fromDb } from "../../config"
+import { makeReturnByTxResult , TxExcutionResult } from '../../utils';
 
 interface TxChecker {
     to: string

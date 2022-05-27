@@ -1,6 +1,6 @@
-import { caver, fromDb } from "../config"
-import models from "../models";
-import { MissionColosseum, makeReturnByTxResult, TxExcutionResult, MissionState } from "../utils";
+import { caver, fromDb } from "../../config"
+import models from "../../models";
+import { MissionColosseum, makeReturnByTxResult, TxExcutionResult, MissionState } from "../../utils";
 
 interface Mission {
     _id: Object;

@@ -18,7 +18,15 @@ const post = async (req: any, res: any) => {
     refCode,
     testCases,
     limitSeconds,
+    openTime,
   } = req.body;
+
+  // openTime : 0 ~ 23
+  // 오늘 날짜에 하루 더하고 openTime의 숫자를 적용해서 저장하기
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  const date = new Date().getDate() + 1;
+  const hour = openTime;
 
   // 1. 레퍼런스 코드와 테스트 케이스로 확인
   try {
@@ -47,6 +55,7 @@ const post = async (req: any, res: any) => {
           refCode,
           testCases,
           feedback: { difficulty: 0, quality: 0, participatedNum: 0 },
+          openTime: new Date(year, month, date, hour),
         };
         try {
           await models.Mission.create(missionSchema);

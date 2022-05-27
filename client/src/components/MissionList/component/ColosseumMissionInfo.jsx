@@ -1,4 +1,5 @@
 import S from "./ColosseumMissionInfo.styled";
+import { parseDateOnlyHour }  from "./../../../utils/date";
 
 const getChallengers = (data) => {
     if(data.length === 0) {
@@ -13,11 +14,13 @@ const getChallengers = (data) => {
 }
 
 const ColosseumMissionInfo = ({data}) => {
+
     return (
         <S.ColosseumMissionInfo>
             <S.P>예상되는 Token 획득량: {data.tokenExpectation}</S.P>
             <S.Player data={getChallengers(data.challengerList)}>도전한 사람들 {`( ${data.challengerList.length} )`}</S.Player>
             <S.P>시간제한 : {parseInt(data.limitSeconds / 60)}분</S.P>
+            <S.P>Open Time : {parseDateOnlyHour(data.openTime)}</S.P>
         </S.ColosseumMissionInfo>
     );
 }

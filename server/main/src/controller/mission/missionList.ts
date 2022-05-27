@@ -22,7 +22,7 @@ const get = async (req: any, res: any) => {
             missionId: mission.id,
             title: mission.title,
             creator: user.nickName,
-            tokenExpectation: category === 1 ? tokenExpectation * 0.45 : 0,
+            tokenExpectation: category === "1" ? tokenExpectation * 0.45 : 0,
             challengerList: mission.colosseum.challengings
               ? mission.colosseum.challengings
               : [],
@@ -36,6 +36,7 @@ const get = async (req: any, res: any) => {
                 ? 0
                 : feedback.quality / feedback.participatedNum,
             participatedNum: feedback.participatedNum,
+            openTime: mission.openTime,
           };
         })
       );

@@ -20,7 +20,7 @@ const RegisterMission = () => {
     const [output, setOutput] = useState({type: "string", description: ""});
     const [registerData, handleExplanation, handleCode, handleAddTestCase, 
             handleRemoveTestCase, handleTitle, handleTestCaseIsExample, 
-            handleEmptyTestcase, handleTime, handleDescription] = useRegister(); // 필수정보
+            handleEmptyTestcase, handleTime, handleDescription, handleOpenTime] = useRegister(); // 필수정보
     const [syntaxError, setSyntaxError] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -65,6 +65,7 @@ const RegisterMission = () => {
                 refCode: completeData.code,
                 testCases: completeData.testcases,
                 limitSeconds: parseInt(completeData.time * 60),
+                openTime: completeData.openTime
             }
             console.log(payload);
             axios.post(url, payload)
@@ -129,7 +130,7 @@ const RegisterMission = () => {
                     <FunctionArea handleCode={handleCode} setSyntaxError={setSyntaxError}/>
                 </S.Section>
                 <Description handleDescription={handleDescription}/>
-                <Timer handleTime={handleTime}/>
+                <Timer handleTime={handleTime} handleOpenTime={handleOpenTime}/>
                 <TestCases testcases={registerData.testcases} handleAddTestCase={handleAddTestCase} handleRemoveTestCase={handleRemoveTestCase} argTypes={argTypes} handleTestCaseIsExample={handleTestCaseIsExample} output={output}/>
                 <C.Button onClick={submitMission}>문제 등록하기</C.Button>            
             </S.Div> 

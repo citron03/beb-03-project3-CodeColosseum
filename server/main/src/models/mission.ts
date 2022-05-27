@@ -23,6 +23,7 @@ const schema = new Schema(
     refCode: { type: String, required: true }, //
     testCases: { type: Array, required: true }, // <TestCases>
     feedback: { type: Object }, // 피드백 객체 { difficulty, quality, participatedNum }
+    openTime: { type: String, required: true },
   },
   { timestamps: true }
 );

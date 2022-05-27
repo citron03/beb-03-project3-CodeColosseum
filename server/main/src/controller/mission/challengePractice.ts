@@ -1,8 +1,9 @@
 import axios from "axios";
 import { fromDb } from "../../config";
-import contract from "../../contract";
+import { log, mineNft } from "../../contract";
 import models from "../../models";
 import {
+  editMineOwnerRewardLog,
   findUserInfoByAccount,
   gradingMission,
   updateUserMineralBalance,
@@ -57,7 +58,7 @@ const post = async (req: any, res: any) => {
         // challenger에게 +mineral
         // mineral log 기록
         // 중복 지급 방지
-        await contract.createMiningMineralLog(challengeInfo);
+        await log.createMiningMineralLog(challengeInfo);
         console.log("createMingMineralLog 완료");
         await updateUserMineralBalance(userInfo._id);
         console.log("updateUserMineral 완료");
@@ -86,19 +87,3 @@ const post = async (req: any, res: any) => {
 };
 
 export = { post };
-
-const editMineOwnerRewardLog = async (code: string, missionId: string) => {
-  // mission id로 nft 정보 조회
-  const missionInfo = await models.Mission.findOne({ _id: missionId });
-  // 현 nft의 owner를 추출
-  const nftOwner = await contract.checkMineOwner(missionInfo);
-  const userInfo = await findUserInfoByAccount(nftOwner);
-  const rewardLogSchema = {
-    code,
-    nft: missionId,
-    user: userInfo.id,
-    amount: fromDb.CCToken.token,
-  };
-
-  await models.MineOwnerRewardLog.create(rewardLogSchema);
-};
