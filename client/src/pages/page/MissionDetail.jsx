@@ -46,15 +46,20 @@ const MissionDetail = ({isColosseum}) => {
 
     useEffect(() => {
         if(!isColosseum) {
-            setIsPaid(true); // 연습문제는 지불이 필요하지 않다.
+            // 연습문제는 지불과 대기가 필요하지 않다.
+            setIsPaid(true); 
+            setIsOpen(true);
         } else if(state?.account) {
             console.log(state.account);
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
-                        // console.log(el.data.data);
-                        if(el.data.data.isPayment){ 
-                            setMissionData(el.data.data);
+                        console.log(el.data.data);
+                        if(el.data.data.isPayment) { 
                             setIsPaid(true);
+                            if(el.data.data.isOpen) {
+                                setIsOpen(true);
+                                setMissionData(el.data.data);
+                            }
                         } else {
                             setTxSignReqObj(el.data.data.txSignReqObj);
                         }
@@ -122,7 +127,7 @@ const MissionDetail = ({isColosseum}) => {
         <>
         {state?.account ?  
             isPaid ?
-                false ?  
+                isOpen ?  
                     <S.MissionDetail>
                         {missionData?.title ? <Information data={missionData}/> : null}
                             <S.EditorDiv>
@@ -145,7 +150,7 @@ const MissionDetail = ({isColosseum}) => {
                             : <Scoring grading={grading} id={id}/>}
                     </S.MissionDetail> 
                 : <UnOpened/>
-            : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj}/>
+            : <Payment setIsPaid={setIsPaid} id={id} setMissionData={setMissionData} txSignReqObj={txSignReqObj} setIsOpen={setIsOpen}/>
         : <Login/> }
         </>
     );
