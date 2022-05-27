@@ -22,7 +22,9 @@ const Collect = () => {
             try {
                 const res = await axios.get(`/user/withdraw/${account.account}`);
                 dispatch(showNotification("수금이 완료되었습니다."));
-                console.log(res);
+                if(!res){
+                    console.log(res);
+                }
             } catch {
                 dispatch(showNotification("수금에 실패하였습니다."));
             }
