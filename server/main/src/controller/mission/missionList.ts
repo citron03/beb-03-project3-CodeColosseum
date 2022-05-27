@@ -36,6 +36,7 @@ const get = async (req: any, res: any) => {
                 ? 0
                 : feedback.quality / feedback.participatedNum,
             participatedNum: feedback.participatedNum,
+            openTime: mission.openTime,
           };
         })
       );
