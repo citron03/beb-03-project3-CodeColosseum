@@ -19,7 +19,7 @@ const Map = () => {
             <S.ColosseumDiv>
                 <S.ColosseumImg 
                     src={ColosseumImg} alt="콜로세움" title="콜로세움" 
-                    onClick={() => handleMap("/missions")}/>
+                    onClick={() => handleMap("/")}/>
                 <S.H2>콜로세움</S.H2>
             </S.ColosseumDiv>
             <S.TradeDiv>
