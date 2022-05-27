@@ -9,7 +9,7 @@ const News = () => {
             <S.HeadDiv>
                 <Carousel/>
             </S.HeadDiv>
-            <S.Div onClick={() => navigate("/about")}>What is the Code Colosseum?</S.Div>
+            <S.Div onClick={() => navigate("/")}>What is the Code Colosseum?</S.Div>
         </S.News>
     );
 }
