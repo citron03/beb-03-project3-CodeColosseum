@@ -272,7 +272,7 @@ const refundProcess = async (missionInfo: any) => {
         refreshMissionInfo
       );
       const transferFor: TokenTransferLogFor = {
-        collection: "Mission",
+        collection: "TokenTransferLog",
         id: refreshMissionInfo.id,
       };
       await log.createTokenTransferLog(txResult, 8, transferFor);
