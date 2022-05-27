@@ -52,4 +52,8 @@ missionRouter.post(
 // POST /mission/feedback
 missionRouter.post("/feedback", missionController.feedback.post);
 
+// 콜로세움 재출제 API
+// POST /mission/recreate
+missionRouter.post("/recreate", missionController.recreate.post);
+
 export = missionRouter;

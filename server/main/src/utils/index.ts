@@ -11,6 +11,7 @@ export const {
   calMineralbalance,
   updateUserMineralBalance,
   getWithdrawableAmount,
+  editMineOwnerRewardLog,
 } = func;
 
 export type {

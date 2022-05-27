@@ -6,6 +6,7 @@ const schema = new Schema(
     nickName: { type: String }, // 유니크 속성 안줄것임. 저장할때 중복여부 확인할것임.
     image: { type: String },
     mineral: { type: Number, default: 0 },
+    mineOwnerReward: { type: Number, default: 0 },
     // rating: { type: Number }, // 상대적으로 문제를 얼마나 잘 푸는가
     // tagRating: { type: Array }, // 상대적인 태그별로 문제를 얼마나 잘 푸는가 [...{tag_id, rating}]
     // levelVoteRatio: { type: Number }, // 상대적인 문제 난이도 투표 성향
@@ -17,4 +18,4 @@ const schema = new Schema(
 
 const Model = model("User", schema);
 
-export = Model
+export = Model;
