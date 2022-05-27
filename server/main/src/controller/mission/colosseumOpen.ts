@@ -94,7 +94,7 @@ const post = async (req: any, res: any) => {
     }
   } catch (err: any) {
     console.log(err);
-    res.status(400).send({ message: err.message });
+    res.status(200).send({ message: err.message, data: { status: 400 } });
   }
 };
 
@@ -266,14 +266,17 @@ const refundProcess = async (missionInfo: any) => {
       { _id: missionInfo.id },
       { state: 0 }
     );
-    if (missionInfo.colosseum.challengings !== undefined) {
-      const txResult = await ccToken.refundColosseumTxExcution(missionInfo);
+    const refreshMissionInfo = await findMissionInfoByMissionId(missionInfo.id);
+    if (refreshMissionInfo.colosseum.challengings !== undefined) {
+      const txResult = await ccToken.refundColosseumTxExcution(
+        refreshMissionInfo
+      );
       const transferFor: TokenTransferLogFor = {
         collection: "Mission",
-        id: missionInfo.id,
+        id: refreshMissionInfo.id,
       };
       await log.createTokenTransferLog(txResult, 8, transferFor);
-      await removeChallenger(missionInfo);
+      await removeChallenger(refreshMissionInfo);
     }
   } catch (err) {
     console.log(err);
