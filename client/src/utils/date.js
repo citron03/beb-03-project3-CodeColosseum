@@ -5,4 +5,21 @@ const parseDate = (input) => {
     return str;
 }
 
-export {parseDate};
+const getMinutes = () => {
+    const minutes = [];
+    for(let i = 20; i <= 60; i++){
+        minutes.push(i);
+    }
+    return minutes;
+}
+
+const getHours = () => {
+    const hours = [];
+    for(let i = 0; i <= 24; i++){
+        hours.push(i);
+    }
+    return hours;
+}
+
+
+export {parseDate, getMinutes, getHours};

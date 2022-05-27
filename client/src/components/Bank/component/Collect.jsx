@@ -35,14 +35,14 @@ const Collect = () => {
                     </S.Div>
                     <S.Div>
                         <S.Span>수수료</S.Span>
-                        <S.SpanHighlight>-100</S.SpanHighlight>
+                        <S.SpanHighlight>-{Number(account.nftReward * 0.1).toFixed(2)}</S.SpanHighlight>
                         <S.Span>수수료율 10%</S.Span>                        
                     </S.Div>
                 </S.ColDiv>
             </S.BorderDiv>
             <S.Div>
                 <S.Span>수금할 수 있는 토큰</S.Span>
-                <S.SpanHighlight>{account.nftReward * 0.9}</S.SpanHighlight>
+                <S.SpanHighlight>{Number(account.nftReward * 0.9).toFixed(2)}</S.SpanHighlight>
                 <S.Span>CCT</S.Span>
                 {account.nftReward < 500 ? null 
                 : <C.Button onClick={() => handleCollect()}>수금하기</C.Button>}

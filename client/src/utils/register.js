@@ -3,7 +3,7 @@ import { defautCode } from "../assets/constants";
 
 export const useRegister = () => {
     const [registerData, setRegisterData] = useState({"testcases": [], "title" : "",
-         "explanation": "", "code": defautCode, "time": 20, "description": ""}); 
+         "explanation": "", "code": defautCode, "time": 20, "description": "", "openTime": 0}); 
 
     const handleExplanation = (e) => {
         setRegisterData(Object.assign({...registerData}, {"explanation" : e.target.value}));
@@ -48,7 +48,11 @@ export const useRegister = () => {
         setRegisterData(Object.assign({...registerData}, { "description": e.target.value}));
     }
 
+    const handleOpenTime = (e) => {
+        setRegisterData(Object.assign({...registerData}, { "openTime": parseInt(e.target.value) }));
+    }
+
     return [registerData, handleExplanation, handleCode, handleAddTestCase, 
             handleRemoveTestCase, handleTitle, handleTestCaseIsExample, 
-            handleEmptyTestcase, handleTime, handleDescription];
+            handleEmptyTestcase, handleTime, handleDescription, handleOpenTime];
 }
