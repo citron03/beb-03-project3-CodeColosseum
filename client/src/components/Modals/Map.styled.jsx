@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { BiPencil } from 'react-icons/bi';
 
 const S = {};
 
@@ -41,10 +40,8 @@ S.ColosseumDiv = styled.div`
 `
 
 S.ColosseumImg = styled(S.Image)`
-    /* transform: translate(-50%, -50%); */
     width: 300px;
     &:hover{
-        /* transform: translate(-50%, -50%) scale(1.1); */
         transform: scale(1.1);
     }
 `
@@ -52,7 +49,7 @@ S.ColosseumImg = styled(S.Image)`
 S.TradeDiv = styled.div`
     position: absolute;
     top: 35%;
-    right: 20%;
+    left: 25%;
 `
 
 S.TradeImg = styled(S.Image)`
@@ -64,8 +61,8 @@ S.TradeImg = styled(S.Image)`
 
 S.BankDiv = styled.div`
     position: absolute;
-    top: 15%;
-    right: 40%;
+    top: 18%;
+    right: 35%;
 `
 
 S.BankImg = styled(S.Image)`
@@ -84,35 +81,6 @@ S.MineDiv = styled.div`
 S.MineImg = styled(S.Image)`
     width: 150px;
     &:hover{
-        transform: scale(1.1);
-    }
-`
-
-S.MypageDiv = styled.div`
-    position: absolute;
-    bottom: 28%;
-    left: 18%;
-`
-
-S.MypageImg = styled(S.Image)`
-    width: 150px;
-    &:hover{
-        transform: scale(1.1);
-    }
-`
-
-S.RegisterMissionDiv = styled.div`
-    position: absolute;
-    top: 18%;
-    left: 28%;
-`
-
-S.RegisterMission = styled(BiPencil)`
-    height: auto;
-    width: 150px;
-    color: black;
-    &:hover{
-        cursor: pointer;
         transform: scale(1.1);
     }
 `

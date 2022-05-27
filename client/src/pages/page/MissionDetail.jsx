@@ -53,7 +53,7 @@ const MissionDetail = ({isColosseum}) => {
             console.log(state.account);
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
-                        console.log(el.data.data);
+                        console.log(el);
                         if(el.data.data.isPayment) { 
                             setIsPaid(true);
                             if(el.data.data.isOpen) {
@@ -122,7 +122,7 @@ const MissionDetail = ({isColosseum}) => {
             submitGetAccount();
         }
     };
-
+    
     return (
         <>
         {state?.account ?  
