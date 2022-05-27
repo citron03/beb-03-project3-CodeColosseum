@@ -1,113 +1,140 @@
-import models from "../../models";
+import { fromDb } from "../../config";
 import { ccToken, log } from "../../contract";
-import { TokenTransferLogFor } from "../../utils";
+import models from "../../models";
+import { findMissionInfoByMissionId, TokenTransferLogFor } from "../../utils";
 
-// const obj = await contract.tokenPaymentResDataColosseum();
-// response.send({data:obj})
-
-// const result = await contract.feeDelegatedTxExcution(senderRawTransaction)
-
-/*
-1. 최초 요청 or 재요청 - signObj 없음. account로 미션 참여 여부 확인.
-   참여자가 아니라면 토큰 지불하도록 응답 (signObj 전달)
-2. signObj 같이 옴 -> signObj 를 사용해 토큰 지불
-   지불에 성공 - 지불 장부에 기록. stakedToken 증가. challenge 데이터 생성. 문제 데이터 전송
-   지불에 실패 - 토큰 지불하도록 응답 (서버 에러 or txHash 문제)
-*/
 const post = async (req: any, res: any) => {
   const { account, senderRawTransaction } = req.body;
   const missionId = req.params.mission_id;
+
+  const missionInfo = await findMissionInfoByMissionId(missionId);
+
+  const { openTime } = missionInfo;
+
+  let message;
+  let isPayment = false;
+  let isOpen = false;
   try {
-    const missionInfo = await models.Mission.findOne({ _id: missionId });
+    const challengeNum = getChallengerNum(missionInfo);
+    const challengeInfo = checkChallengers(account, missionInfo);
+    message = challengeInfo.message;
+    if (checkTimePassed(openTime)) {
+      // 오픈 시간을 넘어감
 
-    if (missionInfo.state !== 1) {
-      res
-        .status(404)
-        .send({ message: "This Mission is not a colosseum mission." });
-    }
-  } catch (err) {
-    console.log(err);
-    res.status(400).send({ message: "Failed to load Mission Data" });
-  }
+      if (challengeInfo.result === 3) {
+        // DB 조회 에러
+        throw new Error(challengeInfo.message);
+      }
 
-  if (senderRawTransaction === undefined) {
-    // 최초 요청 or 재요청
-    const checkResult = await checkChallengers(account, missionId);
-    if (checkResult.result === 1) {
-      // 이미 도전 중인 사람
-      const gmResult = await getMissionInfo(missionId, account);
-      if (gmResult.result) {
-        return res.status(200).send({
-          message: "Success",
-          data: { isPayment: true, ...gmResult.missionInfo },
+      // 도전자 수가 0~1명임.
+      if (challengeNum < 2) {
+        // 환불 절차
+        await refundProcess(missionInfo);
+        if (challengeInfo.result === 1) {
+          // 이미 지불한 사람 - 환불 메시지
+          message = "token refunded";
+        } else {
+          // 지불해야하는 사람 - 접근 불가 메시지
+          message = "This Mission is Pending";
+        }
+        res.status(200).send({ message, data: { isPayment, isOpen } });
+      } else {
+        // 문제도 열려있고 도전하는 사람도 2명 이상임.
+        if (challengeInfo.result === 1) {
+          // 이미 지불한 사람
+          // 미션 정보 전달, challengedAt이 없으면 생성해줌
+          const colosseumInfo = await getMissionInfo(missionId, account);
+          isPayment = true;
+          isOpen = true;
+
+          res.status(200).send({
+            message,
+            data: {
+              isPayment,
+              isOpen,
+              ...colosseumInfo.missionInfo,
+            },
+          });
+        } else {
+          // 지불해야 하는 사람
+          // 사인 객체 전달
+          const txSignReqObj = await ccToken.tokenPaymentResDataColosseum();
+          isOpen = true;
+          return res.status(200).send({
+            message,
+            data: { isPayment, isOpen, txSignReqObj },
+          });
+        }
+      }
+    } else {
+      // 아직 오픈 시간 전
+      if (senderRawTransaction) {
+        // 사인 객체가 같이왔으니 지불해주고 시간이 되면 풀러오라고 알려줌
+        await paymentProcess(senderRawTransaction, account, missionId);
+        res.status(200).send({
+          message: "Complete payment, Come during opening time.",
+          data: { isPayment: true, isOpen: false },
         });
       } else {
-        return res.status(400).send({ message: gmResult.message });
+        if (challengeInfo.result === 1) {
+          // 지불한 사람 - 아직 시간 안됐다고 알려줌
+          res.statis(200).send({
+            message: "not yet time to open",
+            data: { isPayment: true, isOpen: false },
+          });
+        } else {
+          // 지불해야하는 사람 - 사인 객체 전달
+          const newTxObj = await ccToken.tokenPaymentResDataColosseum();
+          res.status(200).send({
+            message: challengeInfo.message,
+            data: { isPayment: false, isOpen: false, txSignReqObj: newTxObj },
+          });
+        }
       }
-    } else if (checkResult.result === 2) {
-      // 토큰 내야하는 사람
-      const newTxObj = await ccToken.tokenPaymentResDataColosseum();
-      return res.status(200).send({
-        message: checkResult.message,
-        data: { isPayment: false, txSignReqObj: newTxObj },
-      });
-    } else {
-      // 디비 조회 실패
-      return res.status(400).send({ message: checkResult.message });
     }
-  } else {
-    // senderRawTransaction과 함께 요청
-    // 수수료 대납 토큰 지불
-    const txResult = await ccToken.feeDelegatedTxExcution(
-      senderRawTransaction
-    );
-    // .then((result) => console.log(typeof result));
-
-    // TODO : challenge 생성, 지불 장부 기록, mission.colosseum 업데이트, stakedToken 증가,
-
-    console.log("challenge 데이터 생성 시작");
-    const ancResult = await addNewChallenge(account, missionId);
-    if (!ancResult.result) {
-      return res.status(400).send({ message: ancResult.message });
-    }
-    console.log("challenge 데이터 생성 완료");
-
-    console.log("지불장부에 기록 시작");
-    // 지불 장부 기록
-
-    const transferFor: TokenTransferLogFor = {
-      collection: "Challenge",
-      id: ancResult.cId,
-    };
-    try {
-      await log.createTokenTransferLog(txResult, 1, transferFor);
-    } catch (err) {
-      console.log(err);
-      return res.status(400).send({ message: "Failed " });
-    }
-    console.log("지불장부에 기록 완료");
-
-    console.log("stakedToken 증가 시작");
-    const amount = 100; // 임시
-    const stResult = await stakingToken(missionId, amount);
-    if (!stResult.result) {
-      return res.status(400).send({ message: stResult.message });
-    }
-    console.log("stakedToken 증가 완료");
-
-    console.log("문제 데이터 전송");
-    const gmResult = await getMissionInfo(missionId, account);
-    if (gmResult.result) {
-      return res.status(200).send({
-        message: "Success",
-        data: { isPayment: true, ...gmResult.missionInfo },
-      });
-    } else {
-      return res.status(400).send({ message: gmResult.message });
-    }
+  } catch (err: any) {
+    console.log(err);
+    res.status(400).send({ message: err.message });
   }
 };
 
+const checkTimePassed = (openTime: any) => {
+  if (Date.now() > openTime.getTime()) {
+    return true;
+  }
+  return false;
+};
+
+const getChallengerNum = (missionInfo: any) => {
+  if (missionInfo.colosseum.challengings === undefined) {
+    return 0;
+  } else {
+    return missionInfo.colosseum.challengings.length;
+  }
+};
+
+const checkChallengers = (account: string, missionInfo: any) => {
+  try {
+    let userChallengeInfo;
+    if (missionInfo.colosseum.challengings) {
+      for (let info of missionInfo.colosseum.challengings) {
+        if (info.account === account) {
+          userChallengeInfo = info;
+          break;
+        }
+      }
+    }
+    //console.log(userChallengeInfo);
+    if (userChallengeInfo) {
+      return { result: 1, message: "Already being challenged" };
+    } else {
+      return { result: 2, message: "Not paying tokens" };
+    }
+  } catch (err) {
+    console.log(err);
+    return { result: 3, message: "Failed to load Database" };
+  }
+};
 const stakingToken = async (missionId: string, amount: number) => {
   // mission을 조회하고 stakedToken을 증가시킴
   try {
@@ -146,7 +173,6 @@ const addNewChallenge = async (account: string, mission: string) => {
       await models.Challenge.create(challengeSchema);
       const newChallengeInfo = await models.Challenge.findOne(challengeSchema);
       try {
-        const challengedAt = new Date();
         const challengers = missionInfo.colosseum.challengings
           ? missionInfo.colosseum.challengings
           : [];
@@ -155,7 +181,7 @@ const addNewChallenge = async (account: string, mission: string) => {
           {
             colosseum: {
               ...missionInfo.colosseum,
-              challengings: [...challengers, { account, challengedAt }],
+              challengings: [...challengers, { account }],
             },
           }
         );
@@ -187,8 +213,13 @@ const getMissionInfo = async (missionId: string, account: string) => {
     let challengedAt;
     for (let info of mission.colosseum.challengings) {
       if (info.account === account) {
-        challengedAt = info.challengedAt;
-        break;
+        if (info.challengeAt === undefined) {
+          challengedAt = new Date();
+          break;
+        } else {
+          challengedAt = info.challengedAt;
+          break;
+        }
       }
     }
     const missionInfo = {
@@ -210,28 +241,70 @@ const getMissionInfo = async (missionId: string, account: string) => {
   }
 };
 
-const checkChallengers = async (account: string, missionId: string) => {
+const refundProcess = async (missionInfo: any) => {
+  // 미션을 팬딩상태로 바꿈 state : 0
+  // 도전자가 1명이 있으면 환불, 로그 생성, 도전자 제거
+  // 없으면 환불절차 x
   try {
-    const mission = await models.Mission.findOne({ _id: missionId });
-
-    let userChallengeInfo;
-    if (mission.colosseum.challengings) {
-      for (let info of mission.colosseum.challengings) {
-        if (info.account === account) {
-          userChallengeInfo = info;
-          break;
-        }
-      }
-    }
-    //console.log(userChallengeInfo);
-    if (userChallengeInfo) {
-      return { result: 1, message: "Already being challenged" };
-    } else {
-      return { result: 2, message: "Not paying tokens" };
+    await models.Mission.findOneAndUpdate(
+      { _id: missionInfo.id },
+      { state: 0 }
+    );
+    if (missionInfo.colosseum.challengings !== undefined) {
+      const txResult = await ccToken.refundColosseumTxExcution(missionInfo);
+      const transferFor: TokenTransferLogFor = {
+        collection: "Mission",
+        id: missionInfo.id,
+      };
+      await log.createTokenTransferLog(txResult, 8, transferFor);
+      await removeChallenger(missionInfo);
     }
   } catch (err) {
     console.log(err);
-    return { result: 3, message: "Failed to load Database" };
+    throw err;
+  }
+};
+
+const removeChallenger = async (missionInfo: any) => {
+  try {
+    await models.Mission.findOneAndUpdate(
+      { _id: missionInfo.id },
+      {
+        colosseum: {
+          ...missionInfo.colosseum,
+          stakedTokens: 0,
+          challengings: [],
+        },
+      }
+    );
+  } catch (err) {
+    throw err;
+  }
+};
+
+const paymentProcess = async (
+  senderRawTransaction: any,
+  account: string,
+  missionId: string
+) => {
+  try {
+    // 수수료 대납 토큰 지불
+    const txResult = await ccToken.feeDelegatedTxExcution(senderRawTransaction);
+    // challenge 생성, mission.colosseum 업데이트
+
+    const ancResult = await addNewChallenge(account, missionId);
+
+    // 지불 장부 기록
+    const transferFor: TokenTransferLogFor = {
+      collection: "Challenge",
+      id: ancResult.cId,
+    };
+    await log.createTokenTransferLog(txResult, 1, transferFor);
+
+    //stakedToken 증가
+    await stakingToken(missionId, parseInt(fromDb.CCToken.colosseum));
+  } catch (err) {
+    throw err;
   }
 };
 
