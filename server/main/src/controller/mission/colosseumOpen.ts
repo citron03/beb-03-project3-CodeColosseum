@@ -247,7 +247,7 @@ const getMissionInfo = async (missionId: string, account: string) => {
 
     await models.Mission.findOneAndUpdate(
       { _id: missionId },
-      { colosseum: { ...mission.colosseum, challegersInfo } }
+      { colosseum: { ...mission.colosseum, challengings: challegersInfo } }
     );
 
     return { result: true, message: "Success", missionInfo };
