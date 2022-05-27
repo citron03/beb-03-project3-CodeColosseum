@@ -45,7 +45,7 @@ export const payKlay = async () => {
 // 지갑 주소 가져오고
 // 싸인하고
 // 포스트 날리고
-export const usePayKIP7 = (setIsPaid, id, setMissionData, txObj) => {
+export const usePayKIP7 = (setIsPaid, id, setMissionData, txObj, setIsOpen) => {
 
    const dispatch = useDispatch();
 
@@ -62,8 +62,11 @@ export const usePayKIP7 = (setIsPaid, id, setMissionData, txObj) => {
                console.log(rawTx);
                axios.post(`/mission/colosseum/${id}`, {account, senderRawTransaction: rawTx})
                      .then(el => {
-                        setMissionData(el.data.data);
                         setIsPaid(true); // 지불 완료
+                        if(el.data.data.isOpen) {
+                           setMissionData(el.data.data);
+                           setIsOpen(true);
+                        }
                      })
                      .catch(err => console.log(err));
             }

@@ -2,9 +2,9 @@ import S from "./Payment.styled"
 import C from "../../CommonStyled";
 import { usePayKIP7 } from "../../../contracts/tokenContract";
 
-const Payment = ({setIsPaid, id, setMissionData, txSignReqObj}) => {
+const Payment = ({setIsPaid, id, setMissionData, txSignReqObj, setIsOpen}) => {
 
-    const payKIP7 = usePayKIP7(setIsPaid, id, setMissionData, txSignReqObj);
+    const payKIP7 = usePayKIP7(setIsPaid, id, setMissionData, txSignReqObj, setIsOpen);
 
     return (
         <S.Payment>
