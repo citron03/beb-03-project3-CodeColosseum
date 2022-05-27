@@ -221,7 +221,7 @@ const getMissionInfo = async (missionId: string, account: string) => {
     let challengedAt: any;
     for (let info of mission.colosseum.challengings) {
       if (info.account === account) {
-        if (info.challengeAt === undefined) {
+        if (info.challengedAt === undefined) {
           challengedAt = new Date();
           break;
         } else {
@@ -230,7 +230,6 @@ const getMissionInfo = async (missionId: string, account: string) => {
         }
       }
     }
-
     const missionInfo = {
       title: mission.title,
       creator: user.nickName,
