@@ -5,6 +5,14 @@ const parseDate = (input) => {
     return str;
 }
 
+const parseDateOnlyHour = (input) => {
+    const date = new Date(input);
+    const str = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 
+    ${date.getHours()}시`;
+    return str;
+}
+
+
 const getMinutes = () => {
     const minutes = [];
     for(let i = 20; i <= 60; i++){
@@ -15,11 +23,11 @@ const getMinutes = () => {
 
 const getHours = () => {
     const hours = [];
-    for(let i = 10; i < 23; i++){
+    for(let i = 0; i < 24; i++){
         hours.push(i);
     }
     return hours;
 }
 
 
-export {parseDate, getMinutes, getHours};
+export {parseDate, getMinutes, getHours, parseDateOnlyHour};

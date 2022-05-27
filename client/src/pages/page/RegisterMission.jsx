@@ -65,6 +65,7 @@ const RegisterMission = () => {
                 refCode: completeData.code,
                 testCases: completeData.testcases,
                 limitSeconds: parseInt(completeData.time * 60),
+                openTime: completeData.openTime
             }
             console.log(payload);
             axios.post(url, payload)
