@@ -30,21 +30,21 @@ const get = async (req: any, res: any) => {
       throw new Error();
     }
     try {
-      // 미네랄 로그에 교환 기록
-      const mineralLogSchema = {
-        code: "trading",
-        user: userInfo.id,
-        amount: tradeableMineral,
-      };
-      await models.MineralLog.create(mineralLogSchema);
+      // 토큰 전송
+      const txResult = await ccToken.mineralTradingExcution(account);
 
       try {
         // 유저 미네랄 보유량 갱신
         await updateUserMineralBalance(userInfo.id);
 
         try {
-          // 토큰 전송
-          const txResult = await ccToken.mineralTradingExcution(account);
+          // 미네랄 로그에 교환 기록
+          const mineralLogSchema = {
+            code: "trading",
+            user: userInfo.id,
+            amount: tradeableMineral,
+          };
+          await models.MineralLog.create(mineralLogSchema);
 
           try {
             // 토큰 전송 로그 기록
@@ -66,7 +66,7 @@ const get = async (req: any, res: any) => {
           }
         } catch (err) {
           console.log(err);
-          res.status(400).send({ message: "failed to token transfer" });
+          res.status(400).send({ message: "failed to edit mineral log" });
         }
       } catch (err) {
         console.log(err);
@@ -76,7 +76,7 @@ const get = async (req: any, res: any) => {
       }
     } catch (err) {
       console.log(err);
-      res.status(400).send({ message: "failed to edit mineral log" });
+      res.status(400).send({ message: "failed to token transfer" });
     }
   } catch (err) {
     console.log(err);
