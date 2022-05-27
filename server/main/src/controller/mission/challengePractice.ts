@@ -3,6 +3,7 @@ import { fromDb } from "../../config";
 import { log, mineNft } from "../../contract";
 import models from "../../models";
 import {
+  editMineOwnerRewardLog,
   findUserInfoByAccount,
   gradingMission,
   updateUserMineralBalance,
@@ -86,19 +87,3 @@ const post = async (req: any, res: any) => {
 };
 
 export = { post };
-
-const editMineOwnerRewardLog = async (code: string, missionId: string) => {
-  // mission id로 nft 정보 조회
-  const missionInfo = await models.Mission.findOne({ _id: missionId });
-  // 현 nft의 owner를 추출
-  const nftOwner = await mineNft.checkMineOwner(missionInfo);
-  const userInfo = await findUserInfoByAccount(nftOwner);
-  const rewardLogSchema = {
-    code,
-    nft: missionId,
-    user: userInfo.id,
-    amount: fromDb.CCToken.token,
-  };
-
-  await models.MineOwnerRewardLog.create(rewardLogSchema);
-};
