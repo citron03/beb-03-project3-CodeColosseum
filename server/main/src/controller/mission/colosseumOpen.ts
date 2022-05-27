@@ -210,7 +210,7 @@ const getMissionInfo = async (missionId: string, account: string) => {
     const mission = await models.Mission.findOne({ _id: missionId });
     const user = await models.User.findOne({ _id: mission.creator });
 
-    let challengedAt;
+    let challengedAt: any;
     for (let info of mission.colosseum.challengings) {
       if (info.account === account) {
         if (info.challengeAt === undefined) {
@@ -222,6 +222,7 @@ const getMissionInfo = async (missionId: string, account: string) => {
         }
       }
     }
+
     const missionInfo = {
       title: mission.title,
       creator: user.nickName,
@@ -233,6 +234,21 @@ const getMissionInfo = async (missionId: string, account: string) => {
         challengedAt.getTime() + mission.colosseum.limitSeconds * 1000
       ),
     };
+
+    const challegersInfo = mission.colosseum.challengings.map(
+      (challenger: any) => {
+        if (challenger.account === account) {
+          return { account: challenger.account, challengedAt };
+        } else {
+          return { account: challenger.account };
+        }
+      }
+    );
+
+    await models.Mission.findOneAndUpdate(
+      { _id: missionId },
+      { colosseum: { ...mission.colosseum, challegersInfo } }
+    );
 
     return { result: true, message: "Success", missionInfo };
   } catch (err) {
