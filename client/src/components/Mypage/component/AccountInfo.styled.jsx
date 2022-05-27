@@ -4,7 +4,7 @@ const S = {};
 
 S.AccountInfo = styled.div`
     border: 1px solid var(--font-theme);
-    padding: 20px;
+    padding: 40px;
     margin: 35px;
 `
 
@@ -13,6 +13,10 @@ S.H1 = styled.h1`
 `
 
 S.H2 = styled.h2`
+    
+`
+
+S.H3 = styled.h3`
     
 `
 
