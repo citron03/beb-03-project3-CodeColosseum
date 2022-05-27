@@ -37,7 +37,9 @@ const post = async (req: any, res: any) => {
           // 지불해야하는 사람 - 접근 불가 메시지
           message = "This Mission is Pending";
         }
-        res.status(200).send({ message, data: { isPayment, isOpen } });
+        res
+          .status(200)
+          .send({ message, data: { isPayment, isOpen, state: 0 } });
       } else {
         // 문제도 열려있고 도전하는 사람도 2명 이상임.
         if (challengeInfo.result === 1) {
@@ -52,6 +54,7 @@ const post = async (req: any, res: any) => {
             data: {
               isPayment,
               isOpen,
+              state: 1,
               ...colosseumInfo.missionInfo,
             },
           });
@@ -62,7 +65,7 @@ const post = async (req: any, res: any) => {
           isOpen = true;
           return res.status(200).send({
             message,
-            data: { isPayment, isOpen, txSignReqObj },
+            data: { isPayment, isOpen, state: 1, txSignReqObj },
           });
         }
       }
@@ -73,21 +76,26 @@ const post = async (req: any, res: any) => {
         await paymentProcess(senderRawTransaction, account, missionId);
         res.status(200).send({
           message: "Complete payment, Come during opening time.",
-          data: { isPayment: true, isOpen: false },
+          data: { isPayment: true, isOpen: false, state: 1 },
         });
       } else {
         if (challengeInfo.result === 1) {
           // 지불한 사람 - 아직 시간 안됐다고 알려줌
           res.status(200).send({
             message: "not yet time to open",
-            data: { isPayment: true, isOpen: false },
+            data: { isPayment: true, isOpen: false, state: 1 },
           });
         } else {
           // 지불해야하는 사람 - 사인 객체 전달
           const newTxObj = await ccToken.tokenPaymentResDataColosseum();
           res.status(200).send({
             message: challengeInfo.message,
-            data: { isPayment: false, isOpen: false, txSignReqObj: newTxObj },
+            data: {
+              isPayment: false,
+              isOpen: false,
+              state: 1,
+              txSignReqObj: newTxObj,
+            },
           });
         }
       }
