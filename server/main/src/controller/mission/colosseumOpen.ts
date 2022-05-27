@@ -99,7 +99,7 @@ const post = async (req: any, res: any) => {
 };
 
 const checkTimePassed = (openTime: any) => {
-  if (Date.now() > openTime.getTime()) {
+  if (Date.now() > new Date(openTime).getTime()) {
     return true;
   }
   return false;
