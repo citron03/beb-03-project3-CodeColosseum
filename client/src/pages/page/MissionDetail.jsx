@@ -51,10 +51,8 @@ const MissionDetail = ({isColosseum}) => {
             setIsPaid(true); 
             setIsOpen(true);
         } else if(state?.account) {
-            console.log(state.account);
             axios.post(`/mission/colosseum/${id}`, {account: state.account}) // 지불 했는지 확인
                     .then(el => {
-                        console.log(el.data.data);
                         if(el.data.data.state === 0) {
                             setIsVaildMission(false); // 환불된 문제
                         }
@@ -100,7 +98,6 @@ const MissionDetail = ({isColosseum}) => {
         if(!isColosseum){
             payload.reqType = reqType;
         }
-        console.log(payload);
         axios.post(url, payload)
                 .then(el => setGrading(el.data))
                 .catch(err => {

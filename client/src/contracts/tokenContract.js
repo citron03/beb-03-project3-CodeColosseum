@@ -59,7 +59,6 @@ export const usePayKIP7 = (setIsPaid, id, setMissionData, txObj, setIsOpen) => {
             const rawTx = await makeSenderRawTx(txObj, account);
             if(rawTx){
                // post 요청으로 토큰 지불 확인
-               console.log(rawTx);
                axios.post(`/mission/colosseum/${id}`, {account, senderRawTransaction: rawTx})
                      .then(el => {
                         setIsPaid(true); // 지불 완료

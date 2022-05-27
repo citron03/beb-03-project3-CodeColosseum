@@ -36,7 +36,6 @@ const useCheckLogin = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.signup).account;
   useEffect(() => {
-        console.log("Check Login!");
         const nickName = state.nickName;
         getAccount()
             .then(el => {
@@ -57,7 +56,6 @@ const useRefreshLogin = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.signup).account;
   useEffect(() => {
-        console.log("로그인 체크");
         const nickName = state.nickName;
         getAccount()
             .then(el => {
