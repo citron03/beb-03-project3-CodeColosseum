@@ -122,7 +122,7 @@ const MissionDetail = ({isColosseum}) => {
         <>
         {state?.account ?  
             isPaid ?
-                isOpen ?  
+                false ?  
                     <S.MissionDetail>
                         {missionData?.title ? <Information data={missionData}/> : null}
                             <S.EditorDiv>
