@@ -37,17 +37,16 @@ const useCheckLogin = () => {
   const state = useSelector(state => state.signup).account;
   useEffect(() => {
         console.log("Check Login!");
+        const nickName = state.nickName;
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
                     dispatch(showSignUp());
                 }else {
-                    if(JSON.stringify(state) !== JSON.stringify(el.data.data)){
-                      dispatch(setAccount(el.data.data));
-                      const addressStr = el.data.data.account.slice(0, 4) + 
-                        "..." + el.data.data.account.slice(el.data.data.account.length - 4);
-                      dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
-                    }
+                  if(JSON.stringify(state) !== JSON.stringify(el.data.data)){
+                    dispatch(setAccount(el.data.data));
+                    dispatch(showDisappearingNoti(`${nickName}님\n어서오세요!`));
+                  }
                 }              
             })
             .catch(err => console.log(err));
@@ -56,21 +55,21 @@ const useCheckLogin = () => {
 
 const useRefreshLogin = () => {
   const dispatch = useDispatch();
+  const state = useSelector(state => state.signup).account;
   useEffect(() => {
         console.log("로그인 체크");
+        const nickName = state.nickName;
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
                   dispatch(showSignUp());
                 }else {
                   dispatch(setAccount(el.data.data));
-                  const addressStr = el.data.data.account.slice(0, 4) + 
-                    "..." + el.data.data.account.slice(el.data.data.account.length - 4);
-                  dispatch(showDisappearingNoti(`${addressStr}\n로그인 되었습니다`));
+                  dispatch(showDisappearingNoti(`${nickName}님\n어서오세요!`));
                 }              
             })
             .catch(err => console.log(err));
-  }, [dispatch])  
+  }, [dispatch, state.nickName])  
 }
 
 export { useLogin, useCheckLogin, useRefreshLogin };
