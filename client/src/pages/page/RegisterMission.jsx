@@ -67,10 +67,8 @@ const RegisterMission = () => {
                 limitSeconds: parseInt(completeData.time * 60),
                 openTime: completeData.openTime
             }
-            console.log(payload);
             axios.post(url, payload)
                     .then(el => {
-                        console.log(el.data);
                         dispatch(showNotification("문제가 등록되었습니다."));
                         navigate("/missions");
                     })

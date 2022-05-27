@@ -8,7 +8,7 @@ const TokenPurchase = () => {
     const disptach = useDispatch();
 
     const handlePerchase = () => {
-        disptach(showNotification("아직 구매 기능은 구현되지 않았습니다."));
+        disptach(showNotification("해당 기능은 준비중입니다."));
     }
 
     return (
