@@ -19,8 +19,8 @@ import { writeFile } from 'fs';
             const CoCo = await accountsCollection.findOne({name: "CoCo"})
             const colosseum = await accountsCollection.findOne({name: "colosseum"})
             const feePayer = await accountsCollection.findOne({name: "feePayer"})
-            const CCTcontract = await contractsCollection.findOne({symbol: "CCT"})
-            const CMTcontract = await contractsCollection.findOne({symbol: "CMO"}) // 테스트 컨트렉트인 CMO 사용중. 추후에 symbol: "CMT" 로 수정할것.
+            const CCTcontract = await contractsCollection.findOne({symbol: `${ENV.CCTOKEN_SELECT}`})
+            const CMTcontract = await contractsCollection.findOne({symbol: `${ENV.MINE_OWNER_NFT_SELECT}`}) // 테스트 컨트렉트인 CMO 사용중. 추후에 symbol: "CMT" 로 수정할것.
             // 데이터 만들고 파일 생성하기
             if (CoCo && colosseum && feePayer && CCTcontract && CMTcontract) {
 

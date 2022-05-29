@@ -7,7 +7,7 @@ import {
 import models from "../models";
 import axios from "axios";
 import { mineNft } from "../contract";
-import { fromDb } from "../config";
+import { fromDb, ENV } from "../config";
 
 export default {
   randomIntFromInterval: function (min: number, max: number): number {
@@ -95,7 +95,8 @@ export default {
 
     //console.log(testCases);
     try {
-      const { data } = await axios.post("http://localhost:3003/grading", {
+      if (!ENV.GRADING_SERVER) {throw new Error("GRADING_SERVER is not defined");}
+      const { data } = await axios.post(ENV.GRADING_SERVER, {
         code,
         testCases,
       });
