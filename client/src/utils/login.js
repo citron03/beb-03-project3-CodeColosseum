@@ -10,7 +10,7 @@ const useLogin = () => {
   
   useEffect(() => {
     window.klaytn.on('accountsChanged', () => {
-        console.log("kaikas에서 계정 변경 탐지");
+        // console.log("kaikas에서 계정 변경 탐지");
         const path = window.location.pathname;
         if(path.startsWith("/mission/colosseum")){
           // window.location.href = "/";
@@ -36,7 +36,6 @@ const useCheckLogin = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.signup).account;
   useEffect(() => {
-        console.log("Check Login!");
         const nickName = state.nickName;
         getAccount()
             .then(el => {
@@ -57,7 +56,6 @@ const useRefreshLogin = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.signup).account;
   useEffect(() => {
-        console.log("로그인 체크");
         const nickName = state.nickName;
         getAccount()
             .then(el => {

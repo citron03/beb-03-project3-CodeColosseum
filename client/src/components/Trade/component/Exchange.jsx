@@ -28,7 +28,9 @@ const Exchange = () => {
                 const res = await axios.get(`/user/trading/${account.account}`);
                 setMineral(0);
                 dispatch(showNotification("교역이 완료되었습니다."));
-                console.log(res);
+                if(!res){
+                    console.log(res);
+                }
             } catch {
                 dispatch(showNotification("교역에 실패하였습니다."));
             }
