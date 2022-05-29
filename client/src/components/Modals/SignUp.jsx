@@ -15,7 +15,9 @@ const SignUp = () => {
             const account = await getAccountAddress();
             console.log(account);
             const registerUser = await axios.post("/user", {account});
-            console.log(registerUser);
+            if(!registerUser){
+                console.log(registerUser);
+            }
             // window.location.reload();
         } catch {
             dispatch(showNotification("회원 가입 에러 발생"));
