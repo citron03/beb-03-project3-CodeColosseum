@@ -22,15 +22,15 @@ const CCToken = {
         winner: 0.45,
         creator: 0.45
     },
-    mining: 500,
+    mining: 29,
     tradingLimit: 500,
-    token: 500,
+    token: 7,
     tokenLimit: 500
 };
 
 const CMCToken = {
-    symbol: "CMO",
-    address: "0x991e11d48d718948db929fb8f1f672930cebb517"
+    symbol: "CMT",
+    address: "0x106ae7ab1f56b8258f15a58ff7f68b3fcde0cde7"
 };
 
 const fromDb = { account, CCToken, CMCToken };

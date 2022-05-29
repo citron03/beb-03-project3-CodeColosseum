@@ -41,7 +41,10 @@ async function seedDB() {
                         limitSeconds: 1800,
                     };
                 };
-
+                const year = new Date().getFullYear();
+                const month = new Date().getMonth();
+                const date = new Date().getDate();
+                const hour = new Date().getHours()+1;
                 const mission = {
                     title: coplitDummyMissions[i].title,
                     description: coplitDummyMissions[i].description,
@@ -53,6 +56,7 @@ async function seedDB() {
                     output: coplitDummyMissions[i].output,
                     refCode: coplitDummyMissions[i].refCode,
                     testCases: coplitDummyMissions[i].testCases,
+                    openTime: new Date(year, month, date, hour),
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }
