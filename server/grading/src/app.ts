@@ -1,11 +1,21 @@
+import cors from "cors";
 import express from "express";
 import gradingRouter from "./routes/grading";
-import newGradingRouter from "./routes/newGrading";
+require("dotenv").config();
 
 const app = express();
-const port = 3003;
+const port = process.env.PORT || 4000;
+const mainServerUrl = process.env.MAINSERVERURL || "http://localhost:4000";
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: [mainServerUrl],
+    credentials: true,
+    methods: ["POST"],
+  })
+);
 
 app.use("/grading", gradingRouter);
 
