@@ -8,7 +8,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const store = configureStore({reducer})
-axios.defaults.baseURL = "http://codecolosseummain-env.eba-qkjzymcf.ap-northeast-2.elasticbeanstalk.com";
+axios.defaults.baseURL = "https://cocomain.kro.kr";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
