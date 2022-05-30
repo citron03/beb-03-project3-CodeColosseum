@@ -11,7 +11,6 @@ const Scoring = ({grading, id}) => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        console.log("채점 결과: ", grading.data); 
         if(grading.data){
             if(grading.data.isTest){
                 // 연습문제 테스트
