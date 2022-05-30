@@ -22,9 +22,7 @@ const useLogin = () => {
                     dispatch(showSignUp());
                 } else {
                     dispatch(setAccount(el.data.data));
-                    const addressStr = el.data.data.account.slice(0, 4) + 
-                      "..." + el.data.data.account.slice(el.data.data.account.length - 4);
-                    dispatch(showDisappearingNoti(`${addressStr}\n계정이 변경되었습니다.`));
+                    dispatch(showDisappearingNoti(`${el.data.data.nickName}님으로\n계정이 변경되었습니다.`));
                 }              
             })
             .catch(err => console.log(err));    
@@ -34,9 +32,7 @@ const useLogin = () => {
 
 const useCheckLogin = () => {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.signup).account;
   useEffect(() => {
-        const nickName = state.nickName;
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
@@ -44,13 +40,7 @@ const useCheckLogin = () => {
                 }else {
                   if(JSON.stringify(state) !== JSON.stringify(el.data.data)){
                     dispatch(setAccount(el.data.data));
-                    if(nickName) {
-                      dispatch(showDisappearingNoti(`${nickName}님\n어서오세요!`));
-                    } else {
-                      const addressStr = el.data.data.account.slice(0, 4) + 
-                      "..." + el.data.data.account.slice(el.data.data.account.length - 4);
-                      dispatch(showDisappearingNoti(`${addressStr}님\n어서오세요!`));
-                    }
+                    dispatch(showDisappearingNoti(`${el.data.data.nickName}님\n어서오세요!`));
                   }
                 }              
             })
@@ -60,16 +50,14 @@ const useCheckLogin = () => {
 
 const useRefreshLogin = () => {
   const dispatch = useDispatch();
-  const state = useSelector(state => state.signup).account;
   useEffect(() => {
-        const nickName = state.nickName;
         getAccount()
             .then(el => {
                 if(el.data.message === "user not found!"){ // 회원가입 필요
                   dispatch(showSignUp());
                 }else {
                   dispatch(setAccount(el.data.data));
-                  dispatch(showDisappearingNoti(`${nickName}님\n어서오세요!`));
+                  dispatch(showDisappearingNoti(`${el.data.data.nickName}님\n어서오세요!`));
                 }              
             })
             .catch(err => console.log(err));
