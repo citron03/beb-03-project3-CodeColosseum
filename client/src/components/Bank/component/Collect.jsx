@@ -47,7 +47,7 @@ const Collect = () => {
                     <S.Div>
                         <S.Span>수수료</S.Span>
                         <S.SpanHighlight>-{Number(calFee(nftReward)).toFixed()}</S.SpanHighlight>
-                        <S.Span>수수료율 {Number(calFeerate(nftReward)).toFixed()}%</S.Span>                        
+                        <S.Span>수수료율 {Number(calFeerate(nftReward)).toFixed(2)}%</S.Span>                        
                     </S.Div>
                 </S.ColDiv>
             </S.BorderDiv>
