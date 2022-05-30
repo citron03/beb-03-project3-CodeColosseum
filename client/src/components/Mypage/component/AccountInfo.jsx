@@ -24,7 +24,10 @@ const AccountInfo = ({data}) => {
                         // console.log(el);
                         setNickname(newNickname);
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        dispatch(showNotification("닉네임 변경에 오류가 발생하였습니다.\n중복된 닉네임"));
+                        console.log(err);
+                    });
         } else {
             dispatch(showNotification("닉네임은 4글자 이상이 되어야 합니다."));
         }
