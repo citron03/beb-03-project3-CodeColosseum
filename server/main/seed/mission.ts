@@ -20,7 +20,13 @@ async function seedDB() {
 
         // 삭제
             await missionsCollection.drop()
-                .then(() => console.log("missions dropped!!"))
+                .then(async () => {
+                    console.log("missions dropped!!");
+                    // await missionsCollection.insertOne({
+                    //     init: true,
+                    // });
+                })
+                // .then(() => console.log("Seeded init!!"));
 
         // 더미 리스트 만들기
             // 코플릿 더미 넣기
@@ -67,9 +73,9 @@ async function seedDB() {
 
             // 추가적으로 다른 더미들 넣을것 있으면 여기 추가해서 넣어도 됩니다~ 형식 맞춰서 missionsData 에 푸시만 잘 해주세요~
             // 단, 문제 타이블을 중복되지 않게 해주세요. 챌린지 더미들 만들때 임시적으로 미션 타이틀을 키로 쓰고있습니다.
-            missionsData = await fakeCopiltMission('2',1, missionsData, usersCollection, 1, "0xE3B041eC3718260Df021E2dcf7B589405Cd3bf74");
-            missionsData = await fakeCopiltMission('3',2, missionsData, usersCollection, 1, "0x73AA21914F5F8221B57Ef5904942492459C8a4fe");
-            missionsData = await fakeCopiltMission('4',3, missionsData, usersCollection, 1, "0xaa95289A2c8479d4A028C6F6740E374e59Fd26C8");
+            missionsData = await fakeCopiltMission('2',1, missionsData, usersCollection, 1, "0xe3b041ec3718260df021e2dcf7b589405cd3bf74");
+            missionsData = await fakeCopiltMission('3',2, missionsData, usersCollection, 1, "0x73aa21914f5f8221b57ef5904942492459c8a4fe");
+            missionsData = await fakeCopiltMission('4',3, missionsData, usersCollection, 1, "0xaa95289a2c8479d4a028c6f6740e374e59fd26c8");
             missionsData = await fakeCopiltMission('5',0, missionsData, usersCollection, 4);
             missionsData = await fakeCopiltMission('6',0, missionsData, usersCollection, 4);
 
