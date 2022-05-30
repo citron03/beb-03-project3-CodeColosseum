@@ -1,7 +1,7 @@
-import { ENV } from "../src/config";
+import { ENV, fromDb } from "../src/config";
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from "mongodb";
-import duummyChallenges from "../src/dummy/challenges";
+import duummyChallenges from "../dummy/challenges";
 import { getRandomId } from "../src/utils";
 import axios from "axios";
 import { Challenger } from "../src/utils/types";
@@ -59,14 +59,14 @@ async function seedDB() {
         let endTime: Date | undefined;
         const recordTime = 1500; // 편의상 1500초 라고 가정하기
 
-        if (mission) {
+        if (mission && ENV.GRADING_SERVER) {
           const testCases = mission.testCases;
           const body = {
             code: duummyChallenges[i].answerCode,
             testCases,
           };
           const { data } = await axios.post(
-            "http://localhost:3003/grading",
+            ENV.GRADING_SERVER,
             body
           ); // grading 서버에서 채점결과 가져옴
           // 채점 결과를 바탕으로 isPassed, passedCasesRate, passedCases 정의하기
@@ -109,7 +109,7 @@ async function seedDB() {
             // 성공이 아닌경우
             colosseum.losers = [];
             colosseum.losers.push(colosseumChallenger); // 루저에 추가
-            colosseum.stakedTokens += 10; // 토큰 스테이크
+            colosseum.stakedTokens += parseInt(fromDb.CCToken.colosseum); // 토큰 스테이크
             await missionsCollection.updateOne(
               { _id: mission._id },
               { $set: { colosseum } }

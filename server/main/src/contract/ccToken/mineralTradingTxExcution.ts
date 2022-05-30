@@ -1,6 +1,6 @@
 import { caver, fromDb } from "../../config";
 import models from "../../models";
-import { calMineralbalance, TxExcutionResult, makeReturnByTxResult } from "../../utils";
+import { calMineralbalance, TxExcutionResult, makeReturnByTxResult, calAmount } from "../../utils";
 
 
 /*
@@ -14,13 +14,14 @@ export default async ( userAccount:string ):Promise<TxExcutionResult> => {
         // 유저가 존재하는지 검증 된상태임
         const user = await models.User.findOne({account:userAccount});
         // 잔액 검사
-        const balance = (await calMineralbalance(user._id)).toString();
-        if (parseInt(balance) < fromDb.CCToken.tradingLimit) {throw new Error("임시로 설정해 놓은 교역 리미트 보다 잔액이 적음")}
+        const MineralBalance = (await calMineralbalance(user._id)).toString();
+        if (parseInt(MineralBalance) < fromDb.CCToken.tradingLimit) {throw new Error("임시로 설정해 놓은 교역 리미트 보다 잔액이 적음")}
         // 트렌젝션 실행
+        const amount = calAmount(parseInt(MineralBalance)).toString();
         const contractAddr = fromDb.CCToken.address;
         const from = fromDb.account.CoCo;
         let resultAt;
-        const result = await caver.kas.kip7.transfer(contractAddr, from, userAccount, balance)
+        const result = await caver.kas.kip7.transfer(contractAddr, from, userAccount, amount)
             .then((r:any) => {
                 r.from = from
                 r.feePayer = from
@@ -32,7 +33,7 @@ export default async ( userAccount:string ):Promise<TxExcutionResult> => {
                 return e
             });
         // 결과 리턴
-        return makeReturnByTxResult(result, userAccount, balance, resultAt);
+        return makeReturnByTxResult(result, userAccount, amount, resultAt);
     } 
     catch (error) {
         throw error;

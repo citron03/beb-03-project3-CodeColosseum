@@ -4,6 +4,7 @@ import {
   getWithdrawableAmount,
   makeReturnByTxResult,
   TxExcutionResult,
+  calAmount,
 } from "../../utils";
 
 /*
@@ -18,16 +19,17 @@ export default async (userAccount: string): Promise<TxExcutionResult> => {
     const user = await models.User.findOne({ account: userAccount });
     // 잔액 검사
     // 주용님 balance 구해오는 부분 구현해주세요.
-    const balance = await getWithdrawableAmount(user.id);
-    if (parseInt(balance) < fromDb.CCToken.tokenLimit) {
+    const mineRewardBalance = await getWithdrawableAmount(user.id);
+    if (parseInt(mineRewardBalance) < fromDb.CCToken.tokenLimit) {
       throw new Error("임시로 설정해 놓은 출금 리미트 보다 잔액이 적음");
     }
     // 트렌젝션 실행
+    const amount = calAmount(parseInt(mineRewardBalance)).toString();
     const contractAddr = fromDb.CCToken.address;
     const from = fromDb.account.CoCo;
     let resultAt;
     const result = await caver.kas.kip7
-      .transfer(contractAddr, from, userAccount, balance)
+      .transfer(contractAddr, from, userAccount, amount)
       .then((r: any) => {
         r.from = from;
         r.feePayer = from;
@@ -39,7 +41,7 @@ export default async (userAccount: string): Promise<TxExcutionResult> => {
         return e;
       });
     // 트렌젝션 결과 객체 리턴
-    return makeReturnByTxResult(result, userAccount, balance, resultAt);
+    return makeReturnByTxResult(result, userAccount, amount, resultAt);
   } catch (error) {
     throw error;
   }

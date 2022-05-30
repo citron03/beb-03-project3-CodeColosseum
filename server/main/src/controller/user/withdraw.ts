@@ -1,4 +1,4 @@
-import { mineNft, log } from "../../contract";
+import { ccToken, log } from "../../contract";
 import models from "../../models";
 import {
   editMineOwnerRewardLog,
@@ -18,7 +18,7 @@ const get = async (req: any, res: any) => {
     // 로그를 조회해서 보상 토큰 계산
     try {
       // 토큰 전송
-      const txResult = await mineNft.mineOwnerRewardWithdrawTxExcution(account);
+      const txResult = await ccToken.mineOwnerRewardWithdrawTxExcution(account);
 
       try {
         await models.MineOwnerRewardLog.create({
