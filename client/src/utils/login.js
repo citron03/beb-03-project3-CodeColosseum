@@ -32,6 +32,7 @@ const useLogin = () => {
 
 const useCheckLogin = () => {
   const dispatch = useDispatch();
+  const state = useSelector(state => state.signup).account;
   useEffect(() => {
         getAccount()
             .then(el => {
@@ -61,7 +62,7 @@ const useRefreshLogin = () => {
                 }              
             })
             .catch(err => console.log(err));
-  }, [dispatch, state.nickName])  
+  }, [dispatch])  
 }
 
 export { useLogin, useCheckLogin, useRefreshLogin };
