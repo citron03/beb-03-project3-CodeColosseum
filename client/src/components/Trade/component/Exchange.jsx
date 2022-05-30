@@ -52,7 +52,7 @@ const Exchange = () => {
                         </S.Div>
                         <S.Div>
                             <S.Span>수수료</S.Span>
-                            <S.SpanHighlight>-{Number(calFee(mineral)).toFixed(2)}</S.SpanHighlight>
+                            <S.SpanHighlight>-{Number(calFee(mineral)).toFixed()}</S.SpanHighlight>
                             <S.Span>수수료율 {Number(calFeerate(mineral)).toFixed(2)}%</S.Span>
                         </S.Div>
                         <S.SmallP>보유 미네랄이 많아질수록, 수수료가 떨어집니다.</S.SmallP>
@@ -61,7 +61,7 @@ const Exchange = () => {
                         <FaLongArrowAltRight/>
                     </S.ArrowSpan>
                     <S.Div>
-                        <S.SpanHighlight>{Number(calAmount(mineral)).toFixed(2)}</S.SpanHighlight>
+                        <S.SpanHighlight>{Number(calAmount(mineral)).toFixed()}</S.SpanHighlight>
                         <S.Span>CCT</S.Span>
                     </S.Div>
                 </S.RowDiv>
