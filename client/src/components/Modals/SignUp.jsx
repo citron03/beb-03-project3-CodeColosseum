@@ -13,7 +13,6 @@ const SignUp = () => {
     const AcceptSignUp = async () => {
         try {
             const account = await getAccountAddress();
-            console.log(account);
             const registerUser = await axios.post("/user", {account});
             if(!registerUser){
                 console.log(registerUser);
