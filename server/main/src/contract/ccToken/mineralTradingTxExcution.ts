@@ -17,7 +17,7 @@ export default async ( userAccount:string ):Promise<TxExcutionResult> => {
         const MineralBalance = (await calMineralbalance(user._id)).toString();
         if (parseInt(MineralBalance) < fromDb.CCToken.tradingLimit) {throw new Error("임시로 설정해 놓은 교역 리미트 보다 잔액이 적음")}
         // 트렌젝션 실행
-        const amount = calAmount(parseInt(MineralBalance)).toString();
+        const amount = calAmount(parseInt(MineralBalance)).toFixed().toString();
         const contractAddr = fromDb.CCToken.address;
         const from = fromDb.account.CoCo;
         let resultAt;
