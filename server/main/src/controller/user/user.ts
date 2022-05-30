@@ -1,3 +1,4 @@
+import { ccToken } from "../../contract";
 import models from "../../models";
 import { getWithdrawableAmount } from "../../utils";
 
@@ -8,6 +9,7 @@ const get = async (req: any, res: any) => {
     const user = await models.User.findOne({ account });
     if (user) {
       const nftReward = await getWithdrawableAmount(user.id);
+      const ccTokenBalance = await ccToken.getBalance(account);
       res.status(200).send({
         message: "user found!",
         data: {
@@ -19,6 +21,7 @@ const get = async (req: any, res: any) => {
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
           nftReward,
+          ccToken: ccTokenBalance,
         },
       });
     } else {
