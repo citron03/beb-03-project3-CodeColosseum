@@ -86,4 +86,4 @@ const Challenges = [
     },
 ]
 
-export = Challenges
+export default Challenges

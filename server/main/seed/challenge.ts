@@ -1,7 +1,7 @@
 import { ENV, fromDb } from "../src/config";
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from "mongodb";
-import duummyChallenges from "../src/dummy/challenges";
+import duummyChallenges from "../dummy/challenges";
 import { getRandomId } from "../src/utils";
 import axios from "axios";
 import { Challenger } from "../src/utils/types";

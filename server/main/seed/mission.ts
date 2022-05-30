@@ -1,7 +1,7 @@
 import { ENV } from '../src/config';
 // import { faker } from '@faker-js/faker';
 import { MongoClient, ServerApiVersion } from 'mongodb';
-import coplitDummyMissions from '../src/dummy/coplitMissions';
+import coplitDummyMissions from '../dummy/coplitMissions';
 import { getRandomId } from '../src/utils';
 import { MissionColosseum } from '../src/utils/types';
 
