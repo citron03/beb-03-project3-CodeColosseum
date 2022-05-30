@@ -44,7 +44,9 @@ const MyMission = ({data}) => {
             };
             console.log(missionId, openTime);
             const res = await axios.post(url, payload);
-            console.log(res);
+            if(!res){
+                console.log(res);
+            }
             setOnRetakeBtn(false);
             dispatch(showNotification("재출제 완료"));
         } catch {
