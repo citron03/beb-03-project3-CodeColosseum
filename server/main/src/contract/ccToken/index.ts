@@ -4,6 +4,7 @@ import tokenRewardColosseum from './tokenRewardColosseum';
 import mineralTradingExcution from './mineralTradingTxExcution';
 import refundColosseumTxExcution from './refundColosseumTxExcution';
 import mineOwnerRewardWithdrawTxExcution from './mineOwnerRewardWithdrawTxExcution';
+import getBalance from './getBalance';
 
 export default {
     feeDelegatedTxExcution,
@@ -11,5 +12,6 @@ export default {
     tokenRewardColosseum,
     mineralTradingExcution,
     refundColosseumTxExcution,
-    mineOwnerRewardWithdrawTxExcution
+    mineOwnerRewardWithdrawTxExcution,
+    getBalance
 }
