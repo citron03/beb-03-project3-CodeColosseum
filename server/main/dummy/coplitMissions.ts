@@ -1,4 +1,4 @@
-import type { Output, Inputs, TestCases } from '../utils';
+import type { Output, Inputs, TestCases } from '../src/utils';
 
 // 코플릿 알고리즘 1짐나르기, 3보드게임, 7블랙잭
 
@@ -236,4 +236,4 @@ const missions : dummyMissions = [
     },
 ]
 
-export = missions;
+export default missions;

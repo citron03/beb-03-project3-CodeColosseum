@@ -12,6 +12,9 @@ export const {
   updateUserMineralBalance,
   getWithdrawableAmount,
   editMineOwnerRewardLog,
+  calFeerate,
+  calFee,
+  calAmount,
 } = func;
 
 export type {

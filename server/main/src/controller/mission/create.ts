@@ -1,5 +1,6 @@
 import models from "../../models";
 import axios from "axios";
+import { ENV } from "../../config";
 // 문제 출제
 // 1. 레퍼런스 코드와 테스트 케이스로 확인
 //  1-1. 채점에 성공했고 테스트 케이스가 모두 통과됨. 2로 이동
@@ -30,7 +31,8 @@ const post = async (req: any, res: any) => {
 
   // 1. 레퍼런스 코드와 테스트 케이스로 확인
   try {
-    const { data } = await axios.post("http://localhost:3003/grading", {
+    if (!ENV.GRADING_SERVER) {throw new Error("GRADING_SERVER is not defined");}
+    const { data } = await axios.post(ENV.GRADING_SERVER, {
       code: refCode,
       testCases,
     });

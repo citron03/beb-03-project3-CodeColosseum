@@ -3,11 +3,13 @@ import {
   randomIntFromInterval,
   calMineralbalance,
   findUserInfoByAccount,
+  calFeerate,
+  calFee,
 } from "../utils";
 import models from "../models";
 import axios from "axios";
 import { mineNft } from "../contract";
-import { fromDb } from "../config";
+import { fromDb, ENV } from "../config";
 
 export default {
   randomIntFromInterval: function (min: number, max: number): number {
@@ -95,7 +97,8 @@ export default {
 
     //console.log(testCases);
     try {
-      const { data } = await axios.post("http://localhost:3003/grading", {
+      if (!ENV.GRADING_SERVER) {throw new Error("GRADING_SERVER is not defined");}
+      const { data } = await axios.post(ENV.GRADING_SERVER, {
         code,
         testCases,
       });
@@ -184,5 +187,20 @@ export default {
       amount: fromDb.CCToken.token,
     };
     await models.MineOwnerRewardLog.create(rewardLogSchema);
+  },
+
+  // 수수료율 계산함수
+  calFeerate: (value: number):number => {
+    return Math.pow(0.9985362, value-2000) + 1;
+  },
+
+  // 수수료 계산함수
+  calFee: (value: number):number => {
+    return value * calFeerate(value) / 100;
+  },
+
+  // 수수료 제한 amount 계산함수
+  calAmount: (value: number):number => {
+    return value - calFee(value);
   },
 };
