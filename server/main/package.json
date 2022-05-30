@@ -14,6 +14,7 @@
     "seedUser": "ts-node seed/user.ts",
     "seedMission": "ts-node seed/mission.ts",
     "seedChallenge": "ts-node seed/challenge.ts",
+    "seedLogsDrop": "ts-node seed/logsDrop.ts",
     "test": "ts-node test.ts"
 
   },

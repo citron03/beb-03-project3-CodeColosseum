@@ -34,11 +34,13 @@ async function seedDB() {
                     colosseum = {
                         stakedTokens: 0,
                         limitSeconds: 1200,
+                        challengings: []
                     };
                 } else {
                     colosseum = {
                         stakedTokens: 0,
                         limitSeconds: 1800,
+                        challengings: []
                     };
                 };
                 const year = new Date().getFullYear();
@@ -65,6 +67,12 @@ async function seedDB() {
 
             // 추가적으로 다른 더미들 넣을것 있으면 여기 추가해서 넣어도 됩니다~ 형식 맞춰서 missionsData 에 푸시만 잘 해주세요~
             // 단, 문제 타이블을 중복되지 않게 해주세요. 챌린지 더미들 만들때 임시적으로 미션 타이틀을 키로 쓰고있습니다.
+            missionsData = await fakeCopiltMission('2',1, missionsData, usersCollection, 1, "0xE3B041eC3718260Df021E2dcf7B589405Cd3bf74");
+            missionsData = await fakeCopiltMission('3',2, missionsData, usersCollection, 1, "0x73AA21914F5F8221B57Ef5904942492459C8a4fe");
+            missionsData = await fakeCopiltMission('4',3, missionsData, usersCollection, 1, "0xaa95289A2c8479d4A028C6F6740E374e59Fd26C8");
+            missionsData = await fakeCopiltMission('5',0, missionsData, usersCollection, 4);
+            missionsData = await fakeCopiltMission('6',0, missionsData, usersCollection, 4);
+
 
         // 삽입
             await missionsCollection.insertMany(missionsData)
@@ -79,3 +87,48 @@ async function seedDB() {
 }
 
 seedDB();
+
+async function fakeCopiltMission(n:string,t:number, missionsData:any, usersCollection:any, state?:number, account?:string):Promise<any> {
+    for (let i = 0; i < coplitDummyMissions.length; i++) {
+        let user_id:string;
+        if (account) {user_id = await usersCollection.findOne({account}).then((res:any) => res._id);}
+        else {user_id = await getRandomId(usersCollection);} // 랜덤한 유저 _id 가져오기
+        
+        // colosseum 객체 만들기
+        let colosseum: MissionColosseum
+        if (i/2 === 0) {
+            colosseum = {
+                stakedTokens: 0,
+                limitSeconds: 1200,
+                challengings: []
+            };
+        } else {
+            colosseum = {
+                stakedTokens: 0,
+                limitSeconds: 1800,
+                challengings: []
+            };
+        };
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth();
+        const date = new Date().getDate();
+        const hour = new Date().getHours()+t;
+        const mission = {
+            title: coplitDummyMissions[i].title + n,
+            description: coplitDummyMissions[i].description,
+            paragraph: coplitDummyMissions[i].paragraph,
+            creator: user_id,
+            state: state? state : 1,
+            colosseum,
+            inputs: coplitDummyMissions[i].inputs,
+            output: coplitDummyMissions[i].output,
+            refCode: coplitDummyMissions[i].refCode,
+            testCases: coplitDummyMissions[i].testCases,
+            openTime: new Date(year, month, date, hour),
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }
+        missionsData.push(mission);
+    }
+    return missionsData;
+}
