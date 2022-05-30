@@ -15,7 +15,13 @@ async function seedDB() {
 
             // 삭제
             await usersCollection.drop()
-                .then(() => console.log("users dropped!!"))
+                .then(async () => {
+                    console.log("users dropped!!");
+                    // await usersCollection.insertOne({
+                    //     init: true,
+                    // });
+                })
+                // .then(() => console.log("Seeded init!!"));
 
             // 더미 리스트 만들기
             let usersData = [];
@@ -43,16 +49,22 @@ async function seedDB() {
             // 테스트 계정 추가
 
             const testAccount1 = {
-                account: "0xE3B041eC3718260Df021E2dcf7B589405Cd3bf74",
+                account: "0xe3b041ec3718260df021e2dcf7b589405cd3bf74",
                 nickName: "JooYong",
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
             const testAccount2 = {
-                account: "0x73AA21914F5F8221B57Ef5904942492459C8a4fe",
+                account: "0x73aa21914f5f8221b57ef5904942492459c8a4fe",
                 nickName: "YuChan",
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
             const testAccount3 = {
-                account: "0xaa95289A2c8479d4A028C6F6740E374e59Fd26C8",
+                account: "0xaa95289a2c8479d4a028c6f6740e374e59fd26c8",
                 nickName: "ChangGyu",
+                createdAt: new Date(),
+                updatedAt: new Date()
             }
             usersData.push(testAccount1);
             usersData.push(testAccount2);
