@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { showNotification } from "./../../../redux/action";
 import { useEffect, useState } from "react";
+import { calFeerate, calFee, calAmount } from "../../../utils/fee";
 
 const Collect = () => {
 
@@ -45,14 +46,14 @@ const Collect = () => {
                     </S.Div>
                     <S.Div>
                         <S.Span>수수료</S.Span>
-                        <S.SpanHighlight>-{Number(nftReward * 0.1).toFixed(2)}</S.SpanHighlight>
-                        <S.Span>수수료율 10%</S.Span>                        
+                        <S.SpanHighlight>-{Number(calFee(nftReward)).toFixed(2)}</S.SpanHighlight>
+                        <S.Span>수수료율 {Number(calFeerate(nftReward)).toFixed(2)}%</S.Span>                        
                     </S.Div>
                 </S.ColDiv>
             </S.BorderDiv>
             <S.Div>
                 <S.Span>수금할 수 있는 토큰</S.Span>
-                <S.SpanHighlight>{Number(nftReward * 0.9).toFixed(2)}</S.SpanHighlight>
+                <S.SpanHighlight>{Number(calAmount(nftReward)).toFixed(2)}</S.SpanHighlight>
                 <S.Span>CCT</S.Span>
                 {nftReward < 500 ? null 
                 : <C.Button onClick={() => handleCollect()}>수금하기</C.Button>}
