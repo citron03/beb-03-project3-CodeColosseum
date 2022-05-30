@@ -41,6 +41,7 @@ const AccountInfo = ({data}) => {
                         <S.Input placeholder="변경할 닉네임" onChange={(e) => setNewNickname(e.target.value)} />
                         <C.Button onClick={handleNickname}>변경</C.Button>
                     </S.Div> 
+                    <S.H2>보유 CCT : {data.ccToken}</S.H2>
                     <S.H2>보유 미네랄 : {data.mineral}</S.H2>
                     <S.H2>적립된 광산 수입 : {data.nftReward}</S.H2>
                     <S.H3>가입 날짜 : {parseDate(data.createdAt)}</S.H3>
