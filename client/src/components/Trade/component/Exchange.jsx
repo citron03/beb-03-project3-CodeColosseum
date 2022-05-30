@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { showNotification } from "./../../../redux/action";
 import { FaLongArrowAltRight } from 'react-icons/fa';
 import { useEffect, useState } from "react";
+import { calFeerate, calFee, calAmount } from "../../../utils/fee";
 
 const Exchange = () => {
 
@@ -51,8 +52,8 @@ const Exchange = () => {
                         </S.Div>
                         <S.Div>
                             <S.Span>수수료</S.Span>
-                            <S.SpanHighlight>-{Number(mineral * 0.1).toFixed(2)}</S.SpanHighlight>
-                            <S.Span>수수료율 10%</S.Span>
+                            <S.SpanHighlight>-{Number(calFee(mineral)).toFixed(2)}</S.SpanHighlight>
+                            <S.Span>수수료율 {Number(calFeerate(mineral)).toFixed(2)}%</S.Span>
                         </S.Div>
                         <S.SmallP>보유 미네랄이 많아질수록, 수수료가 떨어집니다.</S.SmallP>
                     </S.ColDiv>
@@ -60,7 +61,7 @@ const Exchange = () => {
                         <FaLongArrowAltRight/>
                     </S.ArrowSpan>
                     <S.Div>
-                        <S.SpanHighlight>{Number(mineral * 0.9).toFixed(2)}</S.SpanHighlight>
+                        <S.SpanHighlight>{Number(calAmount(mineral)).toFixed(2)}</S.SpanHighlight>
                         <S.Span>CCT</S.Span>
                     </S.Div>
                 </S.RowDiv>
