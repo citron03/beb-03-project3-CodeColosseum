@@ -21,7 +21,7 @@ const AccountInfo = ({data}) => {
             // 닉네임 post 요청.
             axios.patch(`/user/${data.account}`, {nickName: newNickname})
                     .then(el => {
-                        console.log(el);
+                        // console.log(el);
                         setNickname(newNickname);
                     })
                     .catch(err => console.log(err));

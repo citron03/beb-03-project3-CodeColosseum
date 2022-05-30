@@ -1,12 +1,20 @@
+const getKorDate = (input) => {
+    const time = new Date(input);
+    const utc = curr.getTime() + (time.getTimezoneOffset() * 60 * 1000);
+    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+    const korDate = new Date(utc + (KR_TIME_DIFF));
+    return korDate;
+}
+
 const parseDate = (input) => {
-    const date = new Date(input);
+    const date = getKorDate(input);
     const str = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 
     ${date.getHours()}시 ${date.getMinutes()}분 ${date.getSeconds()}초`;
     return str;
 }
 
 const parseDateOnlyHour = (input) => {
-    const date = new Date(input);
+    const date = getKorDate(input);
     const str = `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 
     ${date.getHours()}시`;
     return str;
