@@ -3,6 +3,8 @@ import {
   randomIntFromInterval,
   calMineralbalance,
   findUserInfoByAccount,
+  calFeerate,
+  calFee,
 } from "../utils";
 import models from "../models";
 import axios from "axios";
@@ -185,5 +187,20 @@ export default {
       amount: fromDb.CCToken.token,
     };
     await models.MineOwnerRewardLog.create(rewardLogSchema);
+  },
+
+  // 수수료율 계산함수
+  calFeerate: (value: number):number => {
+    return Math.pow(0.9985362, value-2000) + 1;
+  },
+
+  // 수수료 계산함수
+  calFee: (value: number):number => {
+    return value * calFeerate(value) / 100;
+  },
+
+  // 수수료 제한 amount 계산함수
+  calAmount: (value: number):number => {
+    return value - calFee(value);
   },
 };
