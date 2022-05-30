@@ -1,6 +1,6 @@
 const getKorDate = (input) => {
     const time = new Date(input);
-    const utc = curr.getTime() + (time.getTimezoneOffset() * 60 * 1000);
+    const utc = time.getTime() + (time.getTimezoneOffset() * 60 * 1000);
     const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
     const korDate = new Date(utc + (KR_TIME_DIFF));
     return korDate;
