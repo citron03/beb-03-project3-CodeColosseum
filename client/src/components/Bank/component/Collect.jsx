@@ -23,6 +23,7 @@ const Collect = () => {
             try {
                 const res = await axios.get(`/user/withdraw/${account.account}`);
                 dispatch(showNotification("수금이 완료되었습니다."));
+                setNftReward(0);
                 if(!res){
                     console.log(res);
                 }
