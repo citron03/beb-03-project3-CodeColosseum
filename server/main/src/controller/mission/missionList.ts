@@ -23,7 +23,11 @@ const get = async (req: any, res: any) => {
             title: mission.title,
             creator: user.nickName,
             tokenExpectation:
-              category === "1" ? (tokenExpectation - 100) * 0.45 + 100 : 0,
+              category === "1"
+                ? tokenExpectation === 0
+                  ? 0
+                  : (tokenExpectation - 100) * 0.45 + 100
+                : 0,
             challengerList: mission.colosseum.challengings
               ? mission.colosseum.challengings
               : [],
