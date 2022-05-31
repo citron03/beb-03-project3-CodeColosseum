@@ -21,7 +21,8 @@ const Callenge = ({data}) => {
             <S.P>{data.isPassed ? "통과" : "실패"}</S.P>
             <S.P>테스트 통과율 : {data.PassedCasesRate}</S.P>
             <S.P>제출일 : {parseDate(data.createdAt)}</S.P>
-            {data.isPassed ? <C.Button onClick={() => handleEvaluation(data)}>평가하기</C.Button> : null}
+            {/* {data.isPassed ? <C.Button onClick={() => handleEvaluation(data)}>평가하기</C.Button> : null} */}
+            <C.Button onClick={() => handleEvaluation(data)}>평가하기</C.Button>
         </S.Callenge>
     );
 }
