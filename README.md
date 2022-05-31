@@ -9,6 +9,7 @@
 </div>
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcodestates%2Fbeb-03-project3-CodeColosseum&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/14e1d429-2bd0-4b45-8d9f-8d798bf44565/deploy-status)](https://app.netlify.com/sites/codecolosseum/deploys)
 
 ## 🍦 코딩테스트 문제를 해결하고, 보상을 받으세요!
 ## 🍦 또한, 직접 문제를 제출하세요. 당신의 좋은 문제가 인기가 많아지면 많은 보상을 얻을 수 있습니다!
