@@ -24,7 +24,7 @@ export default async (userAccount: string): Promise<TxExcutionResult> => {
       throw new Error("임시로 설정해 놓은 출금 리미트 보다 잔액이 적음");
     }
     // 트렌젝션 실행
-    const amount = calAmount(parseInt(mineRewardBalance)).toString();
+    const amount = calAmount(parseInt(mineRewardBalance)).toFixed().toString();
     const contractAddr = fromDb.CCToken.address;
     const from = fromDb.account.CoCo;
     let resultAt;

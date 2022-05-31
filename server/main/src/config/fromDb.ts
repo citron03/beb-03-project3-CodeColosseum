@@ -29,8 +29,8 @@ const CCToken = {
 };
 
 const CMCToken = {
-    symbol: "CMT",
-    address: "0x106ae7ab1f56b8258f15a58ff7f68b3fcde0cde7"
+    symbol: "CMO",
+    address: "0x991e11d48d718948db929fb8f1f672930cebb517"
 };
 
 const fromDb = { account, CCToken, CMCToken };
