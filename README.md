@@ -1,6 +1,15 @@
 # Code Colosseum ⚔︎
 #### beb-03-project3-team8
 
+<div>
+  <img src="https://img.shields.io/badge/JAVASCRIPT-e17055?style=flat-square&logo=JAVASCRIPT&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TYPESCRIPT-0984e3?style=flat-square&logo=TYPESCRIPT&logoColor=white"/>
+  <img src="https://img.shields.io/badge/NODE.JS-00b894?style=flat-square&logo=NODE.JS&logoColor=white"/>
+  <img src="https://img.shields.io/badge/REACT-1572B6?style=flat-square&logo=REACT&logoColor=white"/>
+</div>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcodestates%2Fbeb-03-project3-CodeColosseum&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 ## 🍦 코딩테스트 문제를 해결하고, 보상을 받으세요!
 ## 🍦 또한, 직접 문제를 제출하세요. 당신의 좋은 문제가 인기가 많아지면 많은 보상을 얻을 수 있습니다!
 
