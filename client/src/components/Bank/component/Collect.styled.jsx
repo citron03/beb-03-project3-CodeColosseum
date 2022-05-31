@@ -45,6 +45,10 @@ S.SpanHighlight = styled.span`
     border: 1px solid var(--dark-yellow);
 `
 
+S.SmallP = styled.p`
+    font-size: 1.1rem;
+`
+
 S.P = styled.p`
     text-align: center;
     padding: 10px;
