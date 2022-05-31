@@ -145,6 +145,37 @@ async function seedDB() {
         challengesData.push(challenge);
       }
 
+      // fake 도전 만들기
+      for (let i=0; i < 100; i++) {
+        
+        const challenger = await getRandomId(usersCollection)
+        const mission = await getRandomId(missionsCollection);
+
+        const challenge = {
+          challenger,
+          mission,
+          kind: 1,
+        }
+        challengesData.push(challenge);
+
+        // 콜로세움 변경
+        const randomMission = await missionsCollection.findOne({
+          _id: mission,
+        });
+        if (!randomMission) {throw new Error("mission not found")}
+        let colosseum = randomMission.colosseum;
+        const colosseumChallenger = {
+          account: challenger,
+          challengedAt: new Date(),
+        };
+        colosseum.challengings.push(colosseumChallenger);
+        colosseum.stakedTokens += parseInt(fromDb.CCToken.colosseum); // 토큰 스테이크
+        await missionsCollection.updateOne(
+          { _id: mission },
+          { $set: { colosseum } }
+        );
+      }
+
       // 삽입
       await challengesCollection
         .insertMany(challengesData)
