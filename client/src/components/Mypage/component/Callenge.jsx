@@ -12,7 +12,8 @@ const Callenge = ({data}) => {
     }
     
     const handleNavigate = (id) => {
-        navigate(`/mission/practice/${id}`);
+        // navigate(`/mission/practice/${id}`);
+        console.log(id);
     }
 
     return (
