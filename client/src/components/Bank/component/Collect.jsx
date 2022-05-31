@@ -55,7 +55,7 @@ const Collect = () => {
             </S.BorderDiv>
             <S.Div>
                 <S.Span>수금할 수 있는 토큰</S.Span>
-                <S.SpanHighlight>{Number(calAmount(nftReward)).toFixed()}</S.SpanHighlight>
+                <S.SpanHighlight>{nftReward >= 500 ? Number(calAmount(nftReward)).toFixed() : "교환 불가능한 수량"}</S.SpanHighlight>
                 <S.Span>CCT</S.Span>
                 {nftReward < 500 ? null 
                 : <C.Button onClick={() => handleCollect()}>수금하기</C.Button>}

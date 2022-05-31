@@ -61,7 +61,7 @@ const Exchange = () => {
                         <FaLongArrowAltRight/>
                     </S.ArrowSpan>
                     <S.Div>
-                        <S.SpanHighlight>{Number(calAmount(mineral)).toFixed()}</S.SpanHighlight>
+                        <S.SpanHighlight>{mineral >= 500 ? Number(calAmount(mineral)).toFixed() : "교환 불가능한 수량"}</S.SpanHighlight>
                         <S.Span>CCT</S.Span>
                     </S.Div>
                 </S.RowDiv>
