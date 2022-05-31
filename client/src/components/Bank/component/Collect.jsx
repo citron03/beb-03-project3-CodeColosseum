@@ -48,8 +48,9 @@ const Collect = () => {
                     <S.Div>
                         <S.Span>수수료</S.Span>
                         <S.SpanHighlight>-{Number(calFee(nftReward)).toFixed()}</S.SpanHighlight>
-                        <S.Span>수수료율 {Number(calFeerate(nftReward)).toFixed(2)}%</S.Span>                        
+                        <S.Span>수수료율 {nftReward >= 500 ? Number(calFeerate(nftReward)).toFixed(2) : 10}%</S.Span>                        
                     </S.Div>
+                    <S.SmallP>쌓인 광산 수입이 많아질수록, 수수료가 떨어집니다.</S.SmallP>
                 </S.ColDiv>
             </S.BorderDiv>
             <S.Div>
