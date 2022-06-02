@@ -45,6 +45,7 @@ const MyMission = ({data}) => {
             console.log(missionId, openTime);
             const res = await axios.post(url, payload);
             if(!res){
+                dispatch(showNotification("데이터가 없습니다."));
                 console.log(res);
             }
             setOnRetakeBtn(false);
