@@ -19,7 +19,7 @@ const SignUp = () => {
                 console.log(registerUser);
             }
             const nickName = account.slice(account.length - 4);
-            dispatch(showNotification(`현재 코드콜로세움은 바오밥 테스트넷 위에서 테스트중인 서비스입니다.\n${nickName}님꼐 테스트 토큰 300개를 전송해드렸습니다.\n건투를 빕니다!`));
+            dispatch(showNotification(`현재 코드콜로세움은 바오밥 테스트넷 위에서 테스트중인 서비스입니다.\n${nickName}님께 테스트 토큰 300개를 전송해드렸습니다.\n건투를 빕니다!`));
             // window.location.reload();
         } catch {
             dispatch(showNotification("회원 가입 에러 발생"));
