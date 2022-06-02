@@ -19,7 +19,7 @@ export default async (missionDoc:Misiion):Promise<string> => {
         .then((res:any) => res.owner)
         .catch(async (err:any) => { // KAS 무료계정을 이용한 바오밥 접근이 느리거나 문제가 있는경우가 있는것으로 보임. 임시방편.
             console.log(err);
-            const creator = await models.User.findOne({account:missionDoc.creator});
+            const creator = await models.User.findOne({_id: missionDoc.creator});
             return creator.account;
         });
 

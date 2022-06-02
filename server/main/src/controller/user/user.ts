@@ -1,6 +1,7 @@
-import { ccToken } from "../../contract";
+import { caver, fromDb } from "../../config";
+import { ccToken, log } from "../../contract";
 import models from "../../models";
-import { getWithdrawableAmount } from "../../utils";
+import { getWithdrawableAmount, makeReturnByTxResult, TokenTransferLogFor } from "../../utils";
 
 const get = async (req: any, res: any) => {
   // 요청을 받아서 디비에 정보 있는지 확인하고 있으면 200 '유저있다' 와 유저데이터 응답주고 없으면 200 '유저업다' 응답.
@@ -43,6 +44,37 @@ const post = async (req: any, res: any) => {
       nickName,
     });
     await newUser.save();
+  /////////////
+    // Baobab Test Token 300개 지급하고 로그 저장하기
+    const from = fromDb.account.CoCo;
+    const amount = '300';
+    let resultAt;
+    // 전송!
+    const result = await caver.kas.kip7.transfer(fromDb.CCToken.address, from, account, amount)
+      .then((r:any) => {
+        r.from = from
+        r.feePayer = from
+        resultAt = new Date();
+        return r
+      })
+      .catch((e:any) => {
+        console.log(e);
+        resultAt = new Date();
+        return e
+      });
+    // tx리턴객체만들기
+    const txResult = makeReturnByTxResult(result, account, amount, resultAt);
+    // 로그 생성!
+    const transferFor:TokenTransferLogFor = {
+      collection: 'User',
+      id: newUser.id,
+    }
+    const txLog = await log.createTokenTransferLog(txResult,9,transferFor)
+      .catch((e:any) => {
+        return e
+      });
+    console.log(txLog);
+  //////////////
     res.status(201).send({ message: "user created!", data: newUser });
   } catch (error) {
     res.status(500).send(error);

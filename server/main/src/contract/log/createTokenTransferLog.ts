@@ -18,6 +18,7 @@ export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTrans
         const { transactionHash, from, feePayer } = txExcutionResult.result;
 
         // for 체크하기
+        // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매 8: 콜로세움환불 9: 테스크토큰 지급
         let checker:boolean
         if (transferCode === 1) { checker = transferFor.collection === "Challenge" && amount === fromDb.CCToken.colosseum && to === fromDb.account.colosseum }
         else if (transferCode === 2 || transferCode === 3) { checker = transferFor.collection === "Mission" && from === fromDb.account.colosseum }
@@ -26,6 +27,7 @@ export default async (txExcutionResult:TxExcutionResult, transferCode:TokenTrans
         else if (transferCode === 6) { checker = false }
         else if (transferCode === 7) { checker = false }
         else if (transferCode === 8) { checker = transferFor.collection === "TokenTransferLog" && from === fromDb.account.colosseum && amount === fromDb.CCToken.colosseum }
+        else if (transferCode === 9) { checker = transferFor.collection === "User" && from === fromDb.account.CoCo }
         else { throw new Error("Error: transferCode is wrong!"); };
         
         if (checker === false) { throw new Error("Error: checker is False!"); };
