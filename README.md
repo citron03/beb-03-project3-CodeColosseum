@@ -17,7 +17,7 @@
 ![colosseum-g612f21199_1920](https://user-images.githubusercontent.com/72535475/171072744-5394fbc4-64e0-4503-a0d7-b204fb8d7cc2.jpg)
 
 ### 🍋 Code Colosseum의 서비스를 이용하기 위해서는 카이카스 지갑이 필요합니다.
-### 🍋 Code Colosseum은  바오밥 테스트 네트워크를 사용하고 있습니다.
+### 🍋 Code Colosseum은 클레이튼의 바오밥 테스트 네트워크를 사용하고 있습니다.
 ### 🍎 현재 코딩 테스트에 사용 가능한 언어는 Javascript입니다.
 
 ## 🍮 기술 스택
