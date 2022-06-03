@@ -3,6 +3,7 @@ import models from "../../models";
 import {
   editMineOwnerRewardLog,
   findUserInfoByAccount,
+  getWithdrawableAmount,
   TokenTransferLogFor,
 } from "../../utils";
 
@@ -18,13 +19,14 @@ const get = async (req: any, res: any) => {
     // 로그를 조회해서 보상 토큰 계산
     try {
       // 토큰 전송
+      const mineRewardBalance = await getWithdrawableAmount(userInfo.id);
       const txResult = await ccToken.mineOwnerRewardWithdrawTxExcution(account);
 
       try {
         await models.MineOwnerRewardLog.create({
           code: "withdraw",
           user: userInfo.id,
-          amount: txResult.amount,
+          amount: mineRewardBalance,
         });
       } catch (err) {
         console.log(err);
