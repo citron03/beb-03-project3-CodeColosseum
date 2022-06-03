@@ -46,14 +46,14 @@ interface MissionMineOwnershipNft {
 
 type ChallengeKind = 0 | 1 | 2; // 0: etc
 
-type Collection = "Mission" | "Challenge" | "MineralLog" | "MineOwnerRewardLog" | "TokenTransferLog";
+type Collection = "Mission" | "Challenge" | "MineralLog" | "MineOwnerRewardLog" | "TokenTransferLog" | "User";
 
 interface TokenTransferLogFor {
     collection: Collection, // 콜렉션 이름
     id: string, // 도큐먼트_id
 }
 
-type TokenTransferLogCode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8; // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매 8: 콜로세움환불
+type TokenTransferLogCode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9; // 0:?? 1: 콜로세움도전 2: 위너보상 3: 크리에이터보상 4: nft보상수금 5: 교역소 6?: 상품구매? 7: 토큰구매 8: 콜로세움환불
 
 interface TxExcutionResult {
   success: boolean;
