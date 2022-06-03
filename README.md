@@ -1,6 +1,6 @@
 # Code Colosseum ⚔︎
 #### beb-03-project3-team8
-
+원본 레포지토리 : https://github.com/codestates/beb-03-project3-CodeColosseum
 <div>
   <img src="https://img.shields.io/badge/JAVASCRIPT-e17055?style=flat-square&logo=JAVASCRIPT&logoColor=white"/>
   <img src="https://img.shields.io/badge/TYPESCRIPT-0984e3?style=flat-square&logo=TYPESCRIPT&logoColor=white"/>
