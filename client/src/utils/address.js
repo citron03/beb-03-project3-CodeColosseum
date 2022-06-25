@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const getAccount = async () => {
-    if (window.klaytn !== 'undefined') {
+    if (window.klaytn !== undefined) {
         if (window.klaytn.isKaikas) {
             const accounts = await window
                 .klaytn
@@ -16,7 +16,7 @@ const getAccount = async () => {
 
 const getAccountAddress = async () => {
     // window.klaytn.selectedAddress
-    if (window.klaytn !== 'undefined') {
+    if (window.klaytn !== undefined) {
         if (window.klaytn.isKaikas) {
             const accounts = await window
                 .klaytn
