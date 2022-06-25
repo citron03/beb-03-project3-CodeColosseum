@@ -9,7 +9,7 @@ const useLogin = () => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    if (window.klaytn !== 'undefined') {    
+    if (window.klaytn !== undefined) {    
       window.klaytn.on('accountsChanged', () => {
           // console.log("kaikas에서 계정 변경 탐지");
           const path = window.location.pathname;
