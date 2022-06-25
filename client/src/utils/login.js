@@ -28,10 +28,10 @@ const useLogin = () => {
               })
               .catch(err => console.log(err));    
         });
-    });
-  } else {
-      alert("No Kaikas! 카이카스 지갑을 설치해주세요.");
-  }            
+    } else {
+        alert("No Kaikas! 카이카스 지갑을 설치해주세요.");
+    }     
+  });       
 }
 
 const useCheckLogin = () => {
